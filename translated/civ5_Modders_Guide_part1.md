@@ -3,39 +3,39 @@
 
 ## 核心概念
 
-### 什么是 MOD 开发？
+### 模组开发是什么？
 
-通过修改硬件或软件来做些有别于设计者所设想的事情，是 MOD 开发的一种更为贴切<!-- slang -->说法。 Firaxis 公司开发的文明 5 （包括早先的版本）早已考虑到 mod 开发。一个 mod 可以很简单，修改<!-- tweaking -->某些单位和建筑的花费，修改 AI 让它变得不一样或者是向游戏中添加一个新文明。要么是个很复杂、完全不同的 mod，用文明引擎创造一个新的游戏。
+通过修改硬件或软件来做些有别于设计者所设想的事情，是模组开发的一种更为贴切<!-- slang -->说法。 Firaxis 公司开发的文明 5 （包括早先的版本）早已考虑到模组开发。一个模组可以很简单，修改<!-- tweaking -->某些单位和建筑的花费，修改 AI 让它变得不一样或者是向游戏中添加一个新文明。要么是个很复杂、完全不同的 mod，用文明引擎创造一个新的游戏。
 
-这篇文档是用来帮助 mod 开发者的，通过探讨可行性、了解技术问题、让开发者尽快实现他们的想法以及发布自己的 mod，从而帮助他们更好开发文明 5 的 mod 。尽管这篇文章涉及广泛的 mod 概念，但它无法包含的文明 5 所能做的每一件事。特别地，源代码模型以及第三方的艺术改动不包含在该教程内。
+这篇文档是用来帮助模组开发者的，通过探讨可行性、了解技术问题、让开发者尽快实现他们的想法以及发布自己的 mod，从而帮助他们更好开发文明 5 的模组。尽管这篇文章涉及广泛的模组概念，但它无法包含的文明 5 所能做的每一件事。特别地，源代码模型以及第三方的艺术改动不包含在该教程内。
 
 ### 文明 5 有哪些改动？
 
-很多游戏都可以添加 mod，文明 4 在设计的时候就基于模组特性制订了一套新的标准。游戏数据库（XML）文件可以用文本编辑器进行修改，脚本语言（python）包含在内让玩家可以构建自己的事件和函数，并且核心 DLL 文件的源代码可以用 c++ 编译器进行修改。文明 4 不仅仅是款游戏，更是开发 mod 的基础。
+很多游戏都可以添加模组，文明 4 在设计的时候就基于模组特性制订了一套新的标准。游戏数据库（XML）文件可以用文本编辑器进行修改，脚本语言（python）包含在内让玩家可以构建自己的事件和函数，并且核心 DLL 文件的源代码可以用 c++ 编译器进行修改。文明 4 不仅仅是款游戏，更是开发模组的基础。
 
 这款引擎开源而且强大，这里列出了几点限制。
 
-1. 对于用户来说，发现、下载和安装 mod 很难。
+1. 对于用户来说，发现、下载和安装模组很难。
 
-2. 没有必要的开发者的整合工作，mod 是没法同时运行的。
+2. 没有必要的开发者的整合工作，模组是没法同时运行的。
 
 3. 尽管 python 很强大，它还是会严重影响游戏的性能。
 
-文明 5 改进了 文明 4 提供的模组特性，解决了上述三个问题。文明 5 提供一个游戏内的 mod 菜单（Mod 浏览器），允许用户发现、下载和安装他们想要尝试的 mod。现在制作一个 mod ，让玩家可以与其它 mod 一起运行，非常简单，这允许玩家选择他们想要在游戏中运行的 mod。并且用 Lua 替换了 python，Lua 能够与 C++ 核心更好的整合，并且对性能的影响更小。
+文明 5 改进了 文明 4 提供的模组特性，解决了上述三个问题。文明 5 提供一个游戏内的模组菜单（模组浏览器），允许用户发现、下载和安装他们想要尝试的模组。现在制作一个模组，让玩家可以与其它模组一起运行，非常简单，这允许玩家选择他们想要在游戏中运行的模组。并且用 Lua 替换了 python，Lua 能够与 C++ 核心更好的整合，并且对性能的影响更小。
 
 ### 模块设计
 
-文明 4 mod 开发者可以通过自由更换文件达到修改的目的。如果新的 Civ4Civilizations.xml 文件被添加到 mod 里面，那么就不会应用基础的 Civ4Civilizaiotns.xml 文件。文明 5 不会发生这种情况。不是替换文件，所有的 mod 自动继承基础对象，并且开发者必须删掉那些对象如果他们不再被这个 mod 所使用（这个教程待会儿会讲到这些内容）。制作 Civil War 版本的 mod 时，开发者可以创建一个联盟和城邦文明，但还是需要删除基本文明的相关内容，这样就无法使用基本文明的相关内容了（否则在 Civil War 版本的 mod 里就会看到像法国和俄罗斯这样的文明了）。
+文明 4 的模组开发者可以通过自由更换文件达到修改的目的。如果新的 Civ4Civilizations.xml 文件被添加到模组里面，那么就不会应用基础的 Civ4Civilizaiotns.xml 文件。文明 5 不会发生这种情况。不是替换文件，所有的模组自动继承基础对象，并且开发者必须删掉那些对象如果他们不再被这个模组所使用（这个教程待会儿会讲到这些内容）。制作 Civil War 版本的模组时，开发者可以创建一个联盟和城邦文明，但还是需要删除基本文明的相关内容，这样就无法使用基本文明的相关内容了（否则在 Civil War 版本的模组里就会看到像法国和俄罗斯这样的文明了）。
 
-这样做的好处在于它让 mod 模块化了。游戏认为所有的资源都能被使用，除非一个特殊的 mod 告诉它不要使用所有资源。这样某个 mod 可能添加加拿大文明，另一个 mod 可能移除德国文明并用新文明替换，而另一个 mod 可能添加亚特兰提斯文明。不需要经过开发者的特殊整合，这些 mod 就能够同时运作。mod 足够多的话，每个玩家喜爱的 mod 组合可以大不相同。
+这样做的好处在于它让模组模块化了。游戏认为所有的资源都能被使用，除非一个特殊的模组告诉它不要使用所有资源。这样某个模组可能添加加拿大文明，另一个模组可能移除德国文明并用新文明替换，而另一个模组可能添加亚特兰提斯文明。不需要经过开发者的特殊整合，这些模组就能够同时运作。如果模组足够多的话，每个玩家喜爱的模组组合可以大不相同。
 
 ### XML
 
-XML is a format for qualifying data. It isn't a programming language, it's a language for storing information. In Civilizaiotn V XML is used to store the attributes of the different game assets. The cost of a unit, the name of a leader, the starting units for a civilization are all defined in XML.
+XML 是针对特定数据的一种格式。它不是一门编程语言，而是用来存储信息的语言。在文明 5 里用 XML 来存储游戏中不同的资源属性。一个单位的花费，国家领导人的名字，一个文明的初始单位都在 XML 中定义。
 
-The advantage of XML is that it is modifiable with a text editor and users don't have to learn a programming language to use it. Consider the following XML definition of a settler:
+XML 的好处在于用文本编辑器就能修改，用户不必学一门编程语言就可以用 XML 了。看看下面的有关游戏中移民的 XML 定义：
 
-```
+```xml
 <Row>
     <Class>UNITCLASS_SETTLER</Class>
     <Type>UNIT_SETTLER</Type>
@@ -59,33 +59,33 @@ The advantage of XML is that it is modifiable with a text editor and users don't
 </Row>
 ```
 
-In this definition the attributes of a Settler are defined. These are divided in elements where each element has a start-tag (in `< >` such as `<Moves>`) and an end-tag (in `</ >` such as `</Moves>`). The data is between the start-tag and the end-tag is the data (the 2 that represents that the Settler has a 2 movement). Changing the movement of a settler to 3 tiles per turn is as easy as changing that 2 to a 3.
+这个定义中设定了移民的属性。属性存储在元素里，每一个元素都有一个起始标签（`< >` ，比如 `<Moves>`），和一个结束标签（`</ >`，比如 `</Moves>`）。在起始标签和结束标签之间就是数据（2 表示这个移民有 2 格移动力）。要把移民的移动力改成每回合 3 个格子很简单，就把 2 改成 3 就行了。
 
-Note that `<Row>` and `</Row>` are also tags. So the entire settler definition is one element with child elements inside of it.
+注意 `<Row>` 和 `</Row>` 也是标签。所以整个移民的定义就是一个包含子元素的元素。
 
-Don't be confused if all of the elements don't make sense yet. If it is your first time looking at XML you will probably be surprised at how much of it you can guess at. Firaxis has done an excellent job of making Tags easily readable. `<Domain>DOMAIN_LAND</DOMAIN>` means that the settler is a land unit. `<Capture>UNITCLASS_WORKER</Capture>` means that when a settler is captured it turns into a worker, etc.
+不要纠结上述元素是什么意思。如果是第一次看到 XML 格式的数据，你也许会很惊讶自己能猜想出很多内容。Firaxis 完成了让标签具有良好的可读性这一工作。`<Domain>DOMAIN_LAND</DOMAIN>` 意味着移民是一个陆地单位。`<Capture>UNITCLASS_WORKER</Capture>`意味着当移民被俘获时，他就会变成工人。
 
-Elements can contain other elements. In the above example the Row element (that has the start tag of `<Row>` and the end tag of `</Row>`) contains all the elements for a Settler. Here is a more complex example:
+元素里面可以包含其它元素。上面的例子中，Row 元素（开始标签是 `<Row>`，结束标签是 `</Row>`的元素）包含了移民的所有元素。这里有个更复杂的例子：
 
 ![page5.](civ5_imgs/page5.jpg)
 
-In the above the GameData element is the entirety of the blue region. The Specialists element is the entirety of the red region. Note that there are two Row elements within the Specialists element for two different specialists, much as the Row element contains many different elements for the attributes of those specialists. The first Row element is the green region and it is the full definition for the Artist specialist, and the purple region is a single attribute of the Artist specialist.
+上面的 GameData 元素是整个蓝色区域。Specialists 元素是红色区域。注意 Specialists 元素里面有两个 Row 元素，代表两种不同的伟人。这个伟人有什么特点，Row 元素中就包含哪些元素。第一个 Row 元素是绿色区域，这是对大艺术家的完整定义，粉红区域是这个大艺术家独有的属性。
 
-#### Schema
+#### 模式
 
-Schema is the definition for XML elements. In Civ terms this means that Schema determines if the `<Moves>` tag holds a text string, a boolean or an integer (Moves is an integer). It also defines the default settings for an attribute, unlike in Civ4 where modders had to define every attribute, in Civ5 default values are defined in schema so that if they aren't set the default value is used.
+模式是 XML 元素的定义。在文明中这意味着模式决定 `<Moves>` 标签是否包含一个文本，一个布尔值或是一个整数（Moves 是整数）。它同时为这个属性设定了缺省值，不像文明 4 那样，开发者要定义每一个属性，文明 5 的模式里定义了默认值，那么当没有设置它们时，就会使用默认值。
 
-You may have noticed that there are a lot of unit attributes that weren't on the setter definition in the proceeding section. For example it doesn't say if the settler is allowed to pillage or not. There is a attribute called Pillage that is defined in schema as follows:
+你可能注意到了有很多单位属性没有在移民的定义那一部分中出现。比如它没有说明移民是否能够劫掠。在模式中有个叫做劫掠的属性：
 
-```
+```xml
 <Column name="Pillage" type="boolean" default="false"/>
 ```
 
-This schema definition shows that the Pillage element is a boolean. It can be either `<Pillage>true</Pillage>` or `<Pillage>false</Pillage>`, but nothing else. We also notice that the default value for Pillage is false. So we don't need to add it to a units definition if it is false, since that's the default. Which is why a settler doesn't need to have it set.
+这个模式定义表明劫掠元素是布尔型的。它可以是 `<Pillage>true</Pillage>` 或者 `<Pillage>false</Pillage>`，但不能是其它的。我们也可以看到劫掠的默认属性是 false。所以如果它是 false 的话，我们就没必要在单位的定义中添加这个属性。这就是为什么移民不必设置这个属性。
 
-If you want to know what attributes are available for an object you should look at the schema definition for that object type. Sometimes we find attributes that aren't being used, things that can be used in Mods even if they aren't used in the base game. Consider the following from CIV5HurryInfos.xml:
+如果你想知道对象有什么属性，你应该查看这个对象类型的模式定义。有时我们会发现模组里面有些属性没有被使用，有些东西能够使用，即使在基础游戏里面不使用这些东西。看看从 CIV5HurryInfos.xml 中节选的：
 
-```
+```xml
 <GameData>
     <!-- Table definition -->
     <Table name="HurryInfos">
@@ -117,119 +117,119 @@ If you want to know what attributes are available for an object you should look 
 </GameData>
 ```
 
-In the above we have the schema definition between `<Table name="HurryInfos">` and `</Table>` (highlighted in red). There are eight attributes defined in schema, ID, Type, Description, PolicyPrereq, GoldPerProduction, ProductionPerPopulation, GoldPerBeaker and GoldPerCulture.
+在 `<Table name="HurryInfos">` 和 `</Table>` 之间我们定义了一种模式。这个模式定义了 8 种属性，分别是 ID、Type、Description、PolicyPrereq、GoldPerProduction、ProductionPerPopulation、 GoldPerBeaker 以及 GoldPerCulture。
 
-The actual assets are defined as Rows between `<HurryInfos>` and `</HurryInfos>` (highlighted in blue). There are two, HURRY_POPULATION (sacrificing population to rush production) and HURRY_GOLD (paying gold to hurry production). But the attributes for PolicyPrereq, GoldPerBeaker and GoldPerCulture are never used. These are attributes modders can use in their mods even though they aren't used in the base game.
+实际上在 `<HurryInfos>` 和 `</HurryInfos>` 标签中间定义为 Row 的是资源。有两种资源， HURRY_POPULATION （牺牲人口加快产能）和 HURRY_GOLD（花费金钱加快产能）。但是 PolicyPrereq、GoldPerBeaker 和 GoldPerCulture 等属性都没有用过。开发者可以在他们的模组里面使用这些属性，尽管在基础游戏里面没有使用它们。
 
-Also notice that in the above example, schema is defined at the beginning of the file with the asset type it controls. This is different than how it was handled in Civ4, where schema was a separate file.
+需要注意的是，上述例子中是在文件的开头定义模式，同时定义了模式所控制的资源类型。这与文明 4 中的处理方式不同，文明 4 中模式是一个单独的文件。
 
-#### Understanding References
+#### 理解引用
 
-In Civilization nearly every asset relates to every other. The unit definition may reference technology's required to build that unit, a civilization definition may reference units that are unique to that civilization, a leader definition may reference a trait. This makes deleting an object more complex since all references to that object need to be deleted as well.
+文明里几乎每种资源都与其它的东西有关联。某种单位可能需要相应的科技才能制造，一个文明可能会有这个文明所独有的特色单位，国家领导有相关的特性。这导致删除一个东西会更加复杂，因为需要删除所有与之相关的东西。
 
-For example, if we want to make a mod that removes the Oil resource from the game. We can't simply delete the Oil resource from the CIV5Resources.xml file. If we did that we would get an error when the game loaded when the improvements loaded (because they refer to Oil as a resource that makes certain improvements valid), when the units loaded (because some units refer to Oil as a requirement to being built) and when the traits loaded (because a trait boosts Oil production).
+举个例子，如果我们想制作一个模组，删除游戏中的石油资源。我们不能简单的在 CIV5Resources.xml 文件中删除石油资源。要是这么做的话，我们在加载这一改进（因为有些单位需要石油才能制造）以及加载这个特性（有些特性需要石油的开采作为引导）的时候就会发生一个错误。
 
-The same is true for adding new objects to the game. If you add a new civilization and you refer to a leader that you haven't added yet, or a unique unit that you haven't added then you will get an error loading your mod.
+添加新东西到游戏里面也是一样的。如果你添加了一个新文明，但你用了你还没添加到游戏里的领导者，或者用了你还没添加到游戏里的特色单位，在加载模组时，你就会得到一个错误。
 
-If you want to add one piece at a time and make sure it works you may want to use already existing references until you make the ones specific to new object you are adding. If you are adding a new civilization you may want to use LEADER_WASHINGTON as the leader and UNIT_AMERICAN_B17 as the unique unit so you can load and test your civilization before going back and adding a new leader and unique unit.
+要是你想添加一些东西并且想要它正常运作，你可能想要使用已经存在的引用，除非你让这一部分新添加的东西变得特殊。如果你是添加一个文明，你可能要用 LEADER_WASHINGTON 作为国家领导，UNIT_AMERICAN_B17 作为特色单位，这样你能够在添加新的国家领导和特色单位前加载和测试你制作的文明。
 
-#### XML File Structure
+#### XML 文件结构
 
-The XML file structure is contained in `<install directory>\assets\Gameplay\XML\` directory. Unlike Civilization IV, this exact file structure isn't critical since we aren't replacing files. But it is important to know where the files exist so modders can look up the current definitions. In general schema is defined at the beginning if the file for that type of asset, so it's also a good place to look for available attributes.
+ `<install directory>\assets\Gameplay\XML\` 目录里包含 XML 的文件结构。与文明 4 不同，这个确切的文件结构并不危险，因为我们不用替换文件。但是知道文件的位置也很重要，这样开发者就能找到当前的设定。一般来说概要定义在文件的开头，所以这也是个查找可用属性的好位置。
 
 ![](civ5_imgs/page7.jpg)
 
-**GlobalDefines.xml** - Contains the default definitions for a wide range of game settings such as the starting year, initial city population and max buildings per city (defaults to unlimited). Hundreds of game rules changes can be made simply by modifying the values in this file.
+**GlobalDefines.xml** - 包含游戏很多设置的默认设定，比如起始年份、城市初始人口以及每个城市的最大建筑数量（默认是无限制）。修改这个文件中的某些值就能轻松改变游戏里的上百条规则。
 
-**AI** - This directory contains a wide range of AI configuration files. Things that were only possible by modding the source code in Civilization IV can be easily changed in XML. There are files for city strategies, economic strategies, grand strategies (what sort of victory the AI will pursue), military strategies, tactical moves, diplomacy and general AI defines (for things like how quickly the AI expands, how much it values gold, etc).
+**AI** - 这个目录包含许多 AI 配置文件。简单改变 XML 文件就能修改 AI 属性，而在文明 4 里只有修改源代码才可能做到类似的事情。这里的文件是针对城市策略，经济策略，宏观策略（AI 追求何种胜利），军事策略，战术移动，外交和 AI 的一般设定（比如 AI 扩张的速度，它认为黄金有多少价值等等）。
 
-**BasicInfos** - This directory covers the definition of all the more mundane game assets. Unit Combat types are defined here, Invisibility types, domains, etc. In general these are simple declarations (just naming a type without any attributes) and they aren't commonly changed by modders. But if you set an invisibility type (for example) on a unit the game needs to have a place where that invisibility type is defined, which it is here.
+**BasicInfos** - 这个目录包括所有世界性的游戏资源设定。这里也设定了单位的战斗类型，不可见类型，攻击范围等等。一般来说，这些声明很简单（仅仅是一个没有任何属性的类型），并且他们不能被简单修改。但是如果你设置一个单位的不可见类型（举个列子），游戏需要有这个不可见类型设定的位置，也就是在这里。
 
-**Buildings** - Much as you would expect the building definitions are held here. There are two files, one for the Building Classes and another for the actual Buildings.
+**Buildings** - 你所能想到的建筑设定保存在这里。这里有两个文件，一个是建筑类别，另一个是具体建筑。
 
-Building Classes are base definitions for buildings, for example a Barracks. But there can be multiple Buildings for a single Building Class. So the Barracks Building Class has two Buildings referenced to it, the Barracks and the Krepost. Allowing multiple buildings to be referenced to one Building Class is the games way to replace buildings for a civilization. So one civilization builds a Krepost instead of a Barracks as a unique building. But since both Barracks and Krepost are associated with the Barracks Building Class the game can simply refer to it as a Building Class Barracks and know that it will get whatever form of the barracks is available for that player.
+建筑类别是建筑的基本设定，比如兵营。但一个建筑类别里面可以有多个建筑。所以兵营建筑类有两个相关的建筑，兵营和俄罗斯军营。允许一个建筑类中拥有多种建筑是文明中替换建筑的方式。那么一个文明可以建造俄罗斯军营而不是兵营作为特色建筑。但是因为兵营和俄罗斯军营都与兵营类建筑相关，游戏仅能把它视为兵营类别建筑，并且为相应的玩家修建相应形式的军营。
 
-As an example all civilizations start with a free BUILDINGCLASS_PALACE. If you created a new civilization and gave it a unique palace your new building wouldn't be a BUILDING_PALACE, but would be associated with BUILDINGCLASS_PALACE so that when the free palace was given out your new civilization would get its custom palace instead of the standard one.
+比如所有的文明在开始时都免费拥有一个 BUILDINGCLASS_PALACE。如果你建造一个新文明并且给予它一个特殊的宫殿，你的新建筑就不是 BUILDING_PALACE，但它却和 BUILDINGCLASS_PALACE 息息相关，那么当你的文明提供免费的宫殿时就能拥有自定义的宫殿而不是普通的宫殿了。
 
-**Civilizations** - Civilizations, Minor Civilizations, Regions and Traits are defined here. Civilizations will probably be one of the first things people want to mod and add to and this document will cover a specific example of that later on.
+**Civilizations** - 文明，城邦，地区和特征都在这里设定。文明或许是大家第一个想要修改、添加的东西，并且稍后这个教程将会讲解关于这些东西的特殊例子。
 
-**Diplomacy**- This is where all the text strings for things like the first greeting, declaration of war, refusal of deals, etc are all linked.
+**Diplomacy**- 这里设定了外交方面的所有文本，比如首次碰面的问候，宣战，拒绝交易等等。
 
-**GameInfo** - This is where Firaxis stuck everything that doesn't fit anywhere else. The following files and assets are defined here:
+**GameInfo** - 这是 Firaxis 限制所有与其它部分不兼容的东西的地方。这里有以下文件和资源：
 
-- **CIV5ArtStyleTypes.xml** - The list of the available ArtStyles for cities. This is reference for the civilization definitions. There is very little to add here since it is just a tag for the name.
+- **CIV5ArtStyleTypes.xml** - 城市中可拥有的著作类别列表。这与文明的设定相关。这里没有多少可添加的，因为它仅是名字的标签。
 
-- **CIV5Climates.xml** - These are the definitions for the various climate types (arid, cold, temperate, tropical, etc) with variables use by the random map generator to create the world. Though this won't be as flexible as creating a unique mapscript, this is an easy way to allow players to select maps with more or less jungle, forests, mountains, deserts, etc.
+- **CIV5Climates.xml** - 这里有多种多样的气候类型的设定（干旱，寒冷，温和，热带等等），随机地图生成器生成世界时有许多用处。它尽管并没有灵活到创造一个独特的地图，但可以让玩家十分方便地选择有更多或更少丛林、森林、山脉、荒漠等的地图。
 
-- **CIV5CultureLevels.xml** - This file is obsolete and unused in Civilization V.
+- **CIV5CultureLevels.xml** - 这个文件在 Civ5 中已经被废弃并且不再使用了。
 
-- **CIV5Cursors.xml** - This is a link to the cursor animations that are used by the game. Creating a new cursor set is as easy as adding new .ani files and updating this file with the new link.
+- **CIV5Cursors.xml** - 这是游戏中使用的鼠标光标的链接。创建一个新的光标集非常简单，只用添加 .ani 文件并且用新连接更新这个文件就行了。
 
-- **CIV5EmphasizeInfos.xml** - This file is obsolete and unused in Civilization V.
+- **CIV5EmphasizeInfos.xml** - 这个文件在 Civ5 中已经被废弃并且不再使用了。
 
-- **CIV5Eras.xml** - In general these are the settings for late game starts (determining how many units you start with, starting gold, if goodie huts should be spawned, etc). But it does contain some attributes for games that reach these eras such as a modifier to improvement build times, free population in new cities and the definition for the city art (so your cities look differently in different eras). The EventChancePerTurn and SoundtrackSpace attributes in this file are obsolete.
+- **CIV5Eras.xml** - 这里是游戏起始时的设定（设定了你开始时有多少单位，初始金钱，市民是否应该快速增长等等）。但它也确实包含游戏中的某些属性，比如一个修改器加快修造时间，新城市的免费人口，城市装饰的设定（这样你的城市在不同的时代就有不同的外观）。该文件中的 EventChancePerTurn 和 SoundtrackSpace 属性已被废弃。
 
-- **CIV5Flavors.xml** - This is a list of tags used in other files for flavor types.
+- **CIV5Flavors.xml** - 这是包含特色种类的其它文件中使用的标签的列表。
 
-- **CIV5ForceControlInfos.xml** - This file is obsolete and unused in Civ5.
+- **CIV5ForceControlInfos.xml** - 这个文件在 Civ5 中已经被废弃并且不再使用了。
 
-- **CIV5GameOptions.xml** - These are the tags for the Game Options (quick combat, raging barbarians, etc).
+- **CIV5GameOptions.xml** - 这里是游戏选项的标签（快速战斗，狂暴的野蛮人等）。
 
-- **CIV5GameSpeeds.xml** - This is where the game speeds are defined. They include modifications to the build speed, population growth and improvement growth.
+- **CIV5GameSpeeds.xml** - 这是游戏速度设定的地方。包括建造速度，人口增长和经济增长的修改。
 
-- **CIV5GoodyHuts.xml** - Contains all the possible goody hut results. The actual chance that each result is returned is based on the difficulty level which is configured in CIV5HandicapInfos.xml.
+- **CIV5GoodyHuts.xml** - 包含所有可能的取胜结果。实际上取胜的机会是基于 CIV5HandicapInfos.xml 文件中设置的困难程度。
 
-- **CIV5HandicapInfos.xml** - This is where the difficulty levels are set. It's a great place to see what changes at the different difficulty levels. In this file we can see that "EarliestBarbarianReleaseTurn" at settler difficulty is 10000. Most modders won't change the difficulty adjustments, but some modders increase the AI's advantage to balance for new mechanics that favor human players. Others may decrease the AI's advantage if they improve the AI enough that it doesn't need the boost.
+- **CIV5HandicapInfos.xml** - 这里设定了困难程度。这是一个绝佳的地方，可以看到不同难度程度的不同。这个文件中我们能看到 "EarliestBarbarianReleaseTurn" 在移民的难度中是 10000。大多数开发者不会修改难度调整，但有些开发者会增加 AI 的优势来平衡新机制让人类玩家喜欢。如果能较好的改进 AI，那么他们会降低 AI 的优势，因为 AI 就不需要帮助了。 
 
-- **CIV5HurryInfos.xml** - This is where production rush methods are defined. If you want to modify the amount production given for population sacrifice or the amount of gold per production to gold rush, this is the file to do it in.
+- **CIV5HurryInfos.xml** - 这是设定加快产出方法的地方。如果你要修改给定的产出量，用于减速人口增长或者金钱增长以获得大量金钱，这个文件就是用来做这个的。
 
-- **CIV5IconFontMapping.xml** - This is the file where the icon assets (such as ICON_BULLET) is mapped to a picture in the icon atlas.
+- **CIV5IconFontMapping.xml** - 这个文件是将图标资源（比如 ICON_BULLET）的集映射到实际的图片。
 
-- **CIV5IconTextureAtlases.xml** - This is where icon atlas's (such as TECH_ATLAS_1) are mapped to specific files (such as TechnologyAtlas.dds). It is useful to see what dds files are mapped to if modders want to change the icons, or if a modder wants to add a new icon atlas.
+- **CIV5IconTextureAtlases.xml** - 这是图片集（比如 TECH_ATLAS_1）映射到特殊的文件（比如 TechnologyAtlas.dds）中的地方。如果开发者要修改图标或者想要添加一个新的图片集，查看 dds 文件映射的位置时，这个文件就很有用。
 
-- **CIV5MultiplayerOptions.xml** - This is where the multiplayer game options are defined. There are no attributes on these options other than their default state, and text strings. All of the real definition is handled in the source code. Because of that adding a new Multiplayer Option to this file will cause a new option to appear in the selection lists, but it won't do anything.
+- **CIV5MultiplayerOptions.xml** - 这是设定多人玩家游戏选项的地方。这里只有多人游戏的默认选项和文本字符串。所有的设定实际都在源代码中进行处理。因此向该文件中添加一个新的多人游戏选项将会导致在选择列表中出现一个新选项，但它却没有任何作用。
 
-- **CIV5PlayerOptions.xml**- This is where all the non-multiplayer game options are defined. Just like the multiplayer game options there aren't any meaningful attributes here. The real effect of having these options enabled or disabled happens in the source code.
+- **CIV5PlayerOptions.xml**- 这是非多人游戏选项设定的地方。和多人游戏选项一样，这里也没有什么有用的属性。启用或禁用这些选项的实际作用在源代码中实现。
 
-- **CIV5Policies.xml** - This is where all the policies are defined. Policies are all linked to a policy branch here. All aspects of a policy are defined here, though you may have to look through the several tables in this file to get all the information.
+- **CIV5Policies.xml** - 这是所有政策定义的地方。政策都与政策树相关联。这里设定了所有层次的政策，但是你可能要查看这个文件中的若干表项来获取所有信息。
 
-- **CIV5PolicyBranchTypes.xml** - This is where the policy branches are applied. The only real configuration stored on them is if one branch blocks another. Outside of that, they are available for modders to add or remove policy branches that policies set in CIV5Policies.xml can be configured to use.
+- **CIV5PolicyBranchTypes.xml** - 这是应用政策树的地方。一个分支是否是另一个分支的前提是这里实际存储的配置。在这之外，他们可以被开发者用来添加或移除政策分支，使得在 CIV5Policies.xml 文件中设定的政策可以被应用。
 
-- **CIV5Processes.xml** - The build wealth and build research options can be modified in this file if a modder wants to change the ratios.
+- **CIV5Processes.xml** - 开发者可以修改这个文件中的生成财富和科研的选项，如果他们想要修改生成的比例。
 
-- **CIV5Projects.xml** - Projects are defined here. Notice that there is a table defined in schema that isn't being used, Project_ResourceQuantityRequirements, which may allow modders to create some interesting projects.
+- **CIV5Projects.xml** - 项目在这里设定。注意这里有个模式表还没被使用，Project_ResourceQuantityRequirements，这也许能让开发者创造出某系有意思的项目。
 
-- **CIV5SeaLevels.xml** - This file determines the increased probability of ocean tiles based on the players choice of sea levels.
+- **CIV5SeaLevels.xml** - 这个文件决定了海洋地块的增长率，增长率基于玩家选择的海平面高度。
 
-- **CIV5SmallAwards.xml** - This file is unused in Civ5. It appears to be capable of displaying notifications when thresholds around victory points, number of cities and population are reached.
+- **CIV5SmallAwards.xml** - 这个文件在 Civ5 中已经不再使用了。当胜利点数，城市数量和人口达到阈值时，它也能够显示通知。
 
-- **CIV5Specialists.xml** - This is where the specialists are defined. You can use this file to modify the amount of yields produced by various specialists, add or remove specialists from the game, or change the amount they contribute to various great people.
+- **CIV5Specialists.xml** - 这是定义专家的地方。你可以用这个文件修改各种专家提供的产量，添加或删除游戏中的专家，或者修改他们对相应伟人的贡献点数。
 
-- **CIV5Trades.xml** - This file controls the AI weight valuations for trades (what the AI values research, culture and gold at).
+- **CIV5Trades.xml** - 这个文件控制 AI 重视贸易的程度（AI 对待科研、文化和金钱的态度）。
 
-- **CIV5TurnTimers.xml** - These define the turn timers when auto-end turns are set in the multi-player game options.
+- **CIV5TurnTimers.xml** - 这里在多人游戏选项中设置了自动结束回合时定义了回合定时器。
 
-- **CIV5Victories.xml** - This is where the victory conditions are defined. In general the victory conditions in Civ5 don't expose much to modding. The domination victory, for example, just has the Conquest element set to true(<Conquest>true</Conquest>). What the Conquest element does is set in the source code, not exposed to XML. But looking closely at schema for this file shows that there is a table defined in schema that isn't being used, VictoryPointAwards. Firaxis has a victory point system integrated and unused in Civ5. A modder can add new Victories that don't have WinsGame set to true and then assign points to them in the VictoryPointsAwards table.
+- **CIV5Victories.xml** - 这是设定胜利方式的位置。一般来讲，Civ5 的胜利方式并不需要过多修改。比如征服胜利只用将 Conquest 元素设为 true （`<Conquest>true</Conquest>`）。Conquest 标签的作用是在源代码中设置，而非 XML 文件。但是仔细查看这个文件，可以看到有个模式表没有使用，VictoryPointAwards。Firaxis 在 Civ5 中整合了一个胜利点数系统，但没有使用。开发者可以添加新的胜利方式，不用将 WinsGame 设为真，然后分配点数到 VictoryPointsAwards 表的新方式中。
 
-- **CIV5Votes.xml** - This file is obsolete and unused in Civ5.
+- **CIV5Votes.xml** - 这个文件在 Civ5 中已经被废弃并且不再使用了。
 
-- **CIV5VoteSources.xml** - This file is obsolete and unused in Civ5.
+- **CIV5VoteSources.xml** - 这个文件在 Civ5 中已经被废弃并且不再使用了。
 
-- **CIV5Worlds.xml** - This is where the world sizes are defined. The grid width and height (how tall and wide the map is) are configured here as are the default players and some tunables. Adding a new map size to this file doesn't work well because most of the map scripts refer to the map sizes by name to set variables. If the new map size isn't one of the names the script accounts for then it won't work correctly.
+- **CIV5Worlds.xml** - 这里设定了世界的尺寸。格子的宽度和高度（也就是地图的长度和宽度），默认玩家和其它参数在这里设置。向这个文件添加一个新的地图尺寸没有太大作用，因为与地图尺寸相关的很多地图脚本是按照名字来设置变量的。如果新的地图尺寸的名字不是脚本所拥有的，那么脚本就不会正常运行。
 
-**Interface** - The definitions for interface modes, colors and player colors are here. Player colors become important if you want to look and see what player color to assign to a new civ you create. A player color is the primary color, the secondary color and the text color for players using that player color. Player color red, for example, has a primary color of red, a secondary color of white and a text color of red. In the colors file is where the colors are defined (as in exactly what "COLOR_RED" is). Civ5 uses this to assign more than just traditional colors, but has color defines for things like COLOR_TECH_TEXT.
+**Interface** - 接口的模式，颜色和玩家颜色在这里设定。如果你想要查看你创建的文明分配的颜色，玩家颜色就变得很重要。玩家颜色是主要的颜色，次要颜色和文字颜色都是与玩家颜色相匹配的颜色。比如，玩家颜色中的红色，主要颜色就是红色，次要颜色是白色，文字颜色就是红色。在颜色文件中定义了颜色（比如定义了 “COLOR_RED” 是什么）。Civ5 使用这个来分配更多的颜色，但也有像 COLOR_TECH_TEXT 这样的定义事物的颜色。
 
-**Leaders** - This folder is setup differently than the others. Rather than having a common file with all the schema and assets Firaxis has the schema in one file and each leader in their own file. This doesn't affect modability, but it does make it easier to look at all the values specific to a leader, and a bit more difficult to compare values between leaders.
+**Leaders** - 这个文件夹与其它的有所不同。不是将所有模式和资源放在一个普通文件里，Firaxis 将模式放在一个文件中，将每个首领放在单独的文件里。这不影响模组性，但这让查看首领特性的值变得更加简单，也让比较首领特性的值变得更难。
 
-**Misc** - This is where notifications and routes (roads and railroads) are defined. Modders may be interested in changing the yields or movement rate modifier from roads or railroads.
+**Misc** - 这是设定商业和道路（公路和铁路）的地方。开发者可能对修改产量或者公路及铁路上的移动力感兴趣。
 
-**NewText** - This is where all the text values used in the game are assigned to actual strings. Where TXT_KEY_CIV_ARABIA_DESC is set to decode to "Arabian Empire" for English players. There is a separate directory for German (de_DE), English (EN_US), Spanish (es_ES), French (fr_FR), Italian (it_IT) and Japanese (JA_JP). English modders who want to find out what a specific text value decodes to will want to look in the files in the /XML/NewText/EN_US/ directory.
+**NewText** - 这是指定游戏中所使用的文本对应的具体文字的地方。对于英语玩家， TXT_KEY_CIV_ARABIA_DESC 在这里被解释为 "Arabian Empire"。对于德语（de_DE)，英语（EN_US），西班牙语（es_ES），法语（fr_FR），意大利语（it_IT）和日语（JA_JP）都有单独的字典。英语开发者想要找到一个特定文本指的是什么，会去查看 /XML/NewText/EN_US/ 目录下的文件。
 
-**Technologies** - This is where the technologies are defined. Technologies have GridX and GridY elements. These determine where the tech is displayed on the tech tree. When adding a technology you may need to update the GridX and GridY attributes of other technologies to make room for it in the tech tree.
+**Technologies** - 这里定义了科技。科技有 GridX 和 GridY 元素。这些决定了科技在科技树中显示的位置。添加科技时你需要更新其它科技的 GridX 和 GridY 属性，好让新科技在科技树中有一席之地。
 
-**Terrain** - This is where features (including unique features), improvements, resources, terrains and yields are defined.
+**Terrain** - 这里设定了特色（包括独有的特色），改造，资源，地形以及产能。
 
-**Units** - Units and anything related to units are defined here, including promotions, builds, missions, formations, etc.
+**Units** - 单位和其它与单位相关的东西在这里设定，包括晋升，建造，传教，构造等等。
 
 
 ### SQL 
@@ -240,7 +240,7 @@ XML is just an intermediate domain specific language that is translated into SQL
 
 Effectively the XML files are translated into SQL queries and run against the database. Direct SQL files can also be run. SQL files have their pros and cons. The downside to SQL is that the modder must be familiar with the language whereas the upside is that they can write very complex transforms that cannot be expressed in XML.
 
-#### Viewing the database
+#### 查看数据库
 
 The easiest way to view the game database is to install Firefox with the SQLite Manager addon [https://addons.mozilla.org/en-US/firefox/addon/5817/](https://addons.mozilla.org/en-US/firefox/addon/5817/).
 
@@ -250,44 +250,50 @@ Once it is installed, you can open SQLite Manager by opening Firefox and going t
 
 The files in the cache folder are subject to getting deleted and replaced while the game is running so if you wish to make data changes, do so in the XML and not directly in this file.
 
-#### SQL Examples
+#### SQL 用例
 
 The following examples can be applied by including an sql file with your mod. It is often a faster way to modify a lot of settings rather than manually changing each one.
 
 -- Make all buildings and units except the Settler and Scout unbuildable
-```
+
+```sql
 UPDATE Buildings SET 'PrereqTech' = 'TECH_FUTURE_TECH' WHERE Type <> 'BUILDING_PALACE';
 UPDATE Units SET 'PrereqTech' = 'TECH_FUTURE_TECH' WHERE Class <> 'UNITCLASS_SETTLER' and Class <> 'UNITCLASS_SCOUT';
 ```
 
 -- Another way to block the creation of certain unit's
-```
+
+```sql
 UPDATE UnitClasses SET MaxPlayerInstances = 0 WHERE Type IN ("UNITCLASS_SETTLER","UNITCLASS_ARTIST","UNITCLASS_SCIENTIST","UNITCLASS_MERCHANT","UNITCLASS_ENGINEER");
 ```
 
 -- Display All Civilizations
-```
+
+```lua
 for civ in DB.Query("select * from Civilizations") do
     print(civ.Type);
 end
 ```
 
 -- Display All Units that cost more than 200
-```
+
+```lua
 for unit in DB.Query("select * from Units where cost > 200") do
     print(unit.Type);
 end
 ```
 
 -- Display the RGB Values of the PrimaryColor for All Player Colors
-```
+
+```lua
 for color in DB.Query("select Colors.Red, Colors.Green, Colors.Blue from PlayerColors inner join Colors on PlayerColors.PrimaryColor = Color.Type") do
     print(string.Format("R: %f, G: %f, B: %f", color.Red, Color.Green, Color.Blue);
 end
 ```
 
 -- Display all American leaders
-```
+
+```lua
 local myCiv = "CIVLIZATION_AMERICA";
 for leader in DB.Query("select * from Leaders inner join Civilization_Leaders on Leaders.Type = Civilization_Leaders.LeaderheadType where Civilization_Leaders.CivilizationType = ?", myCiv) do
     print(leader.Type);
@@ -296,22 +302,22 @@ end
 
 ### Lua
 
-#### The Relationship between XML and LUA
+#### XML 和 LUA 的关系
 
 UI's in Civ5 are an XML/Lua pair. The XML specifies the controls and hierarchy while the Lua specify the logic. XML builds the UI, it determines what buttons appear where, what the tables look like, etc, while Lua is the programming language that controls what happens when you press a button, or how the table is populated.
 
-#### References
+#### 参考
 
 There are a lot of good Lua programming guides. Many of which can be picked up at your local bookstore or ordered from Amazon. A good online reference is the following:
 Lua 5.1 Reference Manual by Roberto Ierusalimschy, Luiz Henrique de Figueiredo, Waldemar Celes: [http://www.lua.org/manual/5.1/manual.html](http://www.lua.org/manual/5.1/manual.html)
 
-#### Scripting Events
+#### 脚本事件
 
 Lua scripts cannot directly call functions in other Lua scripts. Instead there is a LuaEvents interface that allows Lua Scripts to add functions that become globally available.
 
 If you need a function to be callable by another Lua script you will need to create a LuaEvents function to do it such as:
 
-```
+```lua
 LuaEvents.ToggleHideUnitIcon.Add(
 function()
     if (bHideUnitIcon) then
@@ -324,7 +330,7 @@ end);
 
 The above function has been registered with the LuaEvents engine and can be called by any Lua script by:
 
-```
+```lua
 LuaEvents.ToggleHideUnitIcon();
 ```
 

@@ -65,7 +65,7 @@ Don't be confused if all of the elements don't make sense yet. If it is your fir
 
 Elements can contain other elements. In the above example the Row element (that has the start tag of `<Row>` and the end tag of `</Row>`) contains all the elements for a Settler. Here is a more complex example:
 
-![page5.](civ5_imgs/page5.bmp)
+![page5.](civ5_imgs/page5.jpg)
 
 In the above the GameData element is the entirety of the blue region. The Specialists element is the entirety of the red region. Note that there are two Row elements within the Specialists element for two different specialists, much as the Row element contains many different elements for the attributes of those specialists. The first Row element is the green region and it is the full definition for the Artist specialist, and the purple region is a single attribute of the Artist specialist.
 
@@ -135,7 +135,7 @@ If you want to add one piece at a time and make sure it works you may want to us
 
 The XML file structure is contained in `<install directory>\assets\Gameplay\XML\` directory. Unlike Civilization IV, this exact file structure isn't critical since we aren't replacing files. But it is important to know where the files exist so modders can look up the current definitions. In general schema is defined at the beginning if the file for that type of asset, so it's also a good place to look for available attributes.
 
-![](civ5_imgs/page7.bmp)
+![](civ5_imgs/page7.jpg)
 
 **GlobalDefines.xml** - Contains the default definitions for a wide range of game settings such as the starting year, initial city population and max buildings per city (defaults to unlimited). Hundreds of game rules changes can be made simply by modifying the values in this file.
 
@@ -234,7 +234,7 @@ As an example all civilizations start with a free BUILDINGCLASS_PALACE. If you c
 
 XML is just an intermediate domain specific language that is translated into SQL and then executed on the database. Typically, after you've run the game once and the XML files have not changed, you will simply load from the .db files directly. This improves performance. Firaxis kept the XML format for familiarity, it isn't directly used by the game.
 
-![](civ5_imgs/page11.bmp)
+![](civ5_imgs/page11.jpg)
 
 Effectively the XML files are translated into SQL queries and run against the database. Direct SQL files can also be run. SQL files have their pros and cons. The downside to SQL is that the modder must be familiar with the language whereas the upside is that they can write very complex transforms that cannot be expressed in XML.
 
@@ -244,7 +244,7 @@ The easiest way to view the game database is to install Firefox with the SQLite 
 
 Once it is installed, you can open SQLite Manager by opening Firefox and going to Tools->SQLite Manager. At the top menu in the application, go to Database->Connect Database. Navigate to <My Documents>/My Games/Sid Meier's Civilization V/cache/. Now, making sure that the file type drop down is set to "All Files", select CIV5CoreDatabase.db. Select OK and you can now view the database contents.
 
-![](civ5_imgs/page12.bmp)
+![](civ5_imgs/page12.jpg)
 
 The files in the cache folder are subject to getting deleted and replaced while the game is running so if you wish to make data changes, do so in the XML and not directly in this file.
 
