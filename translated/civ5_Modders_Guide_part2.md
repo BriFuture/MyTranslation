@@ -1,10 +1,10 @@
-## Creating a Mod
+## 制作模组
 
 ### ModBuddy
 
 ModBuddy is the primary modding tool Firaxis provides to make modding easier than it has been in prior versions. ModBuddy is a full featured XML and Lua editor with plugins built to handle building Civ5 mod project, publish mods and templates to make modding easier.
 
-#### Creating a Mod
+#### 制作模组
 
 Follow these steps to get started on your own mod. (Screen shots may differ slightly from the release version since I'm using beta versions of all the tools to create this document).
 
@@ -24,7 +24,7 @@ Once that is done select "Next".
 
 That is all you need to create a new mod. The mod doesn't do anything yet, we will get to that later sections.
 
-#### Organizing Your Project
+#### 组织项目
 
 There is no required directory structure for your mod project in ModBuddy. Modders can places the files where it is convenient for them and their project. Many people may start by creating files at the root of the project but as the project grows having all the files in one location can be frustrating and waste the modders time.
 
@@ -38,7 +38,7 @@ There isn't any reason to create directories if there aren't any files within th
 
 Note: This is one way to organize your project. It is equally valid to organize your project by your assets instead of asset types. You could, for example, have a directory for each Civilization you are adding to the game. That directory would contain all the civilization XML, leader XML, unique unit XML, art, audio and Lua files required for that civilization.
 
-#### Mod Properties
+#### 模组属性
 
 Right click on Mod icon in the Solution Explorer and select properties to view the mod properties. This is where the mod instructions are setup, and modders should become familiar with the options here (especially the Actions tab) to configure and enable the features their mod needs.
 
@@ -71,13 +71,13 @@ The most common "Set" you will need is "OnModActivated" (meaning to happen when 
 - Map- A world builder map (this doesn't have to be defined for this map to be usable, only for it to be published and for any UI's to know about it).
 - MapScript- A Lua map script (this doesn't have to be defined for this map to be usable, only for it to be published and for any UI's to know about it).
 
-#### Creating an Object
+#### 创建对象
 
 Creating new assets with ModBuddy is very simple. This document will go through some detailed "how to" procedures later. But the overall process is that an xml file is created in ModBuddy. Within that XML file there must be a GameData element. Within that GameData element (meaning between the start tag of `<GameData>` and end tag of `</GameData>`) there must be an element that sets the asset type. Within the Element that sets the assets type there must be a Row element, and within the Row element is where all the object specific attributes exist as elements.
 
 The following is a sample of adding a new goody hut entry. The line numbers are simply for reference, they wouldn't exist in the real XML.
 
-```
+```xml
 1. <GameData>
 2.      <GoodyHuts>
 3.          <Row>
@@ -106,7 +106,7 @@ The following is a sample of adding a new goody hut entry. The line numbers are 
 
 The above example show an assets that only has one table. But most of the assets in Civilization V have multiple tables. Consider the following for the engineer specialist:
 
-```
+```xml
 <GameData>
     <Specialists>
         <Row>
@@ -134,7 +134,7 @@ The above example show an assets that only has one table. But most of the assets
 
 Here we have two tables, Specialists and SpecialistYields. Although slightly more complex for formatting (and different than how this was handled in Civilization IV) these tables are defined within the schema the top of the file. The only real disadvantage to this method is sometimes it's difficult to see all the attributes that pertain to a specific asset. The resources file, for example, has 7 tables, making it a bit of a pain to find all the attributes that are set for a specific attribute. So make sure when you copy the information for an asset, you get all the information in the file for it. Even if it is in more than one table.
 
-#### Updating an Object
+#### 更新对象
 
 Sometimes you don't want to add a new asset, you just want to change an asset in the base game. This is as simple as adding an <Update> element between the asset tags (where the <Row> element typically goes).
 
@@ -147,7 +147,8 @@ An Update element has two child elements, a <Set> element and a <Where> element.
 Note that there is no difference (from an XML perspective) between `<Set Combat="20"></Set>` and `<Set Combat="20"/>`. Including the / as the last character in the tag is another way to mark that element closed. We don't commonly do it because we need to include data between the start and end tag. but in cases like these where there is no data between the tags it's slightly more clean to end the element in the start tag.
 
 Let's put it together for a change. In Civ5 Engineer specialists and Citizens both increase production by 1. But in our mod we want Engineers to boost production by 2. This is the SpecialistYields table in Civ5 (the part that sets the Engineer's yield is highlighted in blue):
-```
+
+```xml
 <GameData>
     <SpecialistYields>
         <Row>
@@ -176,7 +177,7 @@ Let's put it together for a change. In Civ5 Engineer specialists and Citizens bo
 
 In order to change the Yield to 2 we need the following update (the line numbers are just for reference, they should not exist in real code):
 
-```
+```xml
 1. <GameData>
 2.     <SpecialistYields>
 3.         <Update>
@@ -203,11 +204,11 @@ In order to change the Yield to 2 we need the following update (the line numbers
 
 8. This is the end of the `<GameData>` element.
 
-#### Multiple Condition Updates
+##### Multiple Condition Updates
 
 Sometimes we will want our update to check on more than one element before applying the update. Assume that we want to change the Food yield from Whales from 1 to 2. Consider the following sample from the Resource_YieldChanges table:
 
-```
+```xml
 <Resource_YieldChanges>
     <Row>
         <ResourceType>RESOURCE_BANANA</ResourceType>
@@ -229,7 +230,7 @@ Sometimes we will want our update to check on more than one element before apply
 
 We may try the following to accomplish this:
 
-```
+```xml
 <GameData>
     <Resource_YieldChanges>
         <Update>
@@ -242,7 +243,7 @@ We may try the following to accomplish this:
 
 But since the above matches both on the Food and the Gold Rows (the green and the blue in the sample), both of those yields would be increased to 2.
 
-```
+```xml
 <GameData>
     <Resource_YieldChanges>
         <Update>
@@ -257,7 +258,7 @@ But in this case we would set the Food yields to 2 for all resources, including 
 
 We need the ability to set a multi-conditional argument which we can do by adding multiple attributes to the Where element as in the following:
 
-```
+```xml
 <GameData>
     <Resource_YieldChanges>
         <Update>
@@ -270,13 +271,13 @@ We need the ability to set a multi-conditional argument which we can do by addin
 
 Notice that in the above there is no logical qualifier between the two attributes. Attributes are "Anded" together, elements must match all of them before the Set is applied. If you want to use "Or" logic (the Set is applied if either condition is valid) then you should create separate update element that checks for each criteria.
 
-#### Deleting an Object
+#### 删除对象
 
 Deleting an asset requires us to use the Delete element with an attribute to match on instead of the Row element.
 
 For example the following code would remove the America civilization from the game:
 
-```
+```xml
 <GameData>
     <Civilizations>
         <Delete type="CIVILIZATION_AMERICA"/>
@@ -292,7 +293,7 @@ These references are the most difficult part of deleting assets since it's often
 
 Another option is to disable assets without deleting them. The ability to do this varies depending in the Asset type. If you were removing a civilization it may be best just to make it non-playable:
 
-```
+```xml
 <GameData>
     <Civilizations>
         <Update>
@@ -305,17 +306,17 @@ Another option is to disable assets without deleting them. The ability to do thi
 
 A delete with no conditions matches on everything, so it deleted on everything. The following removes all civilizations from the game.
 
-```
+```xml
 <GameData>
     <Civilizations>
         <Delete />
     </Civilizations>
-<GameData>
+</GameData>
 ```
 
 Deleting all the assets is also a big step. Remember that order in the file matters. So if you were to add a civilization after deleting all of them with the above code, then you would want the add to happen after the total delete. If you add your civilization before the delete then your new civ will be deleted too. This will also delete any assets from mods loaded before your mod that added civilizations.
 
-#### How to: Add Text
+#### 如何添加文本
 
 Text is an asset type similar to civilizations, leaders and units. The asset type for English is `<Language_en_US>`, just as the asset type for civilizations is `<Civilizations>`. The `<Row>` element is used to add new text, but with text we have to include an attribute with the `<Row>` element to assign the Tag.
 
@@ -333,7 +334,7 @@ To add the above follow these steps:
 
 4. Fill the file with the text definitions as in the screenshot above. Let's take a look at one of the values:
 
-```
+```xml
 <GameData>
     <Language_en_US>
         <Row Tag="TXT_KEY_CIV_CELT_DESC">
@@ -345,13 +346,13 @@ To add the above follow these steps:
 
 In the above section there is a new Language_en_US (English text) asset being added. The text decode will be used whenever TXT_KEY_CIV_CELT_DESC is used in the XML it will be displayed (to players with the English language selected) as "Celtic Empire".
 
-#### Changing Text Strings
+#### 修改文本
 
 We may also want to change existing text strings in the base game. You overwrite the existing definition the same as changing any attribute. To begin you may want to look at the former text string definition. You can find base game text strings somewhere beneath "<install directory>\assets\Gameplay\XML\NewText\".
 
 Looking through those files we can find the following text string definitions in CIV5ModdingText.xml:
 
-```
+```xml
 <Row Tag="TXT_KEY_MODDING_LIKE_IT">
     <Text>Like it</Text>
 </Row>
@@ -362,7 +363,7 @@ Looking through those files we can find the following text string definitions in
 
 If you want to have some fun (or suspect your mod is so offensive that you will get more report clicks than Likes) you can reverse these text strings by including the following in your mod:
 
-```
+```xml
 <GameData>
     <Language_en_US>
         <Update>
@@ -379,11 +380,11 @@ If you want to have some fun (or suspect your mod is so offensive that you will 
 
 Just like when changing other attributes we can use Update to change text definitions. The attribute we need to match on to do this is "Tag".
 
-#### How to: Add a Civilization
+#### 如何添加文明
 
 In this section we will go through the entire process of adding a new civilization to the game. First let's look at the schema definition for a civilization from the Civ5Civilizations.xml file:
 
-```
+```xml
 <Table name="Civilizations">
     <Column name="ID" type="integer" primarykey="true" autoincrement="true"/>
     <Column name="Type" type="text" notnull="true" unique="true"/>
@@ -512,7 +513,8 @@ Let's look at each of these values in detail:
 - **DawnOfManAudio** - The audio file that is played on the Dawn of Man screen, typically this is a reading of the Dawn of Man quote.
 
 - **Civilization_BuildingClassOverrides** - This is how unique buildings are implemented for a civilization. This can be used to block a civilization from being able to build a building such as this change which keeps minor civilizations from being able to build the Sydney Opera House:
-```
+
+```xml
 <Row>
     <CivilizationType>CIVILIZATION_MINOR</CivilizationType>
     <BuildingClassType>BUILDINGCLASS_SYDNEY_OPERA_HOUSE</BuildingClassType>
@@ -522,7 +524,7 @@ Let's look at each of these values in detail:
 
 Or this change which switched the Castle to the Mughal fort for India:
 
-```
+```xml
 <Row>
     <CivilizationType>CIVILIZATION_INDIA</CivilizationType>
     <BuildingClassType>BUILDINGCLASS_CASTLE</BuildingClassType>
@@ -550,7 +552,8 @@ Now that we understand the attributes that are required for a civilization we ar
 I prefer to have each civilization have their own file to make it easier for me to find data and make changes. But it's just as viable to create a single Civilizations file as Firaxis did, or to put all your xml objects in a single file.
 
 2. Fill in the Civ_Celt.xml file with the following information:
-```
+
+```xml
 <GameData>
     <Civilizations>
         <Row>
@@ -636,7 +639,7 @@ Being lazy, I also used TXT_KEY_CIV5_CELT_TEXT_1 as the Dawn of Man quote.
 
 4. Add the following to the text file:
 
-```
+```xml
 <GameData>
     <Language_en_US>
         <Row Tag="TXT_KEY_CITY_NAME_BIBRACTE">
@@ -673,7 +676,7 @@ Being lazy, I also used TXT_KEY_CIV5_CELT_TEXT_1 as the Dawn of Man quote.
 
 After that we have a new civilization in the game. We could use some art assets to make it look better, a new leader to go with it, and a unique unit and building. All of those will be covered in later sections.
 
-#### How to: Add an Icon
+#### 如何添加图标
 
 Now we need an icon for our civilization.
 
@@ -681,23 +684,26 @@ Firaxis has helped us out by providing icon templates in the <SDK install direct
 
 Firaxis also provided a readme for icon sizes that are required for all the asset types.
 
-- Promotions         256, 64, 45, 32
-- Buildings          256, 128, 64, 45
-- Citizens           256, 128, 64, 45, 32
-- Civilizations      256, 128, 80, 64, 45, 32
-- Difficulties       128, 64, 32
-- GameSpeeds         128, 64, 32
-- Leaders            256, 128, 64
-- Natural            Wonders 256, 128, 80, 64, 45
-- Policies           256, 64
-- Resources          256, 80, 64, 45
-- Technologies       256, 214, 128, 80, 64, 45
-- Terrain            256, 64
-- Unit               Actions 64, 45
-- Units              256, 128, 80, 64, 45
-- Unit               Flags 32
-- World              Sizes 128, 64, 32
-- World              Types 128, 64, 32
+|  |  |
+| :--------------- |  :-------------------  |
+|  Promotions       |  256,64, 45, 32           | 
+|  Buildings        |  256,128, 64, 45          | 
+|  Citizens         |  256,128, 64, 45, 32      | 
+|  Civilizations    |  256,128, 80, 64, 45, 32  |
+|  Difficulties     |  128,64, 32               |
+|  GameSpeeds       |  128,64, 32               | 
+|  Leaders          |  256,128, 64              |   
+|  Natural Wonders  |  256,128, 80, 64, 45      |     
+|  Policies         |  256,64                   |
+|  Resources        |  256,80, 64, 45           |    
+|  Technologies     |  256,214, 128, 80, 64, 45 |    
+|  Terrain          |  256,64                   |
+|  Unit Actions     |  64, 45                   |
+|  Units            |  256,128, 80, 64, 45      |    
+|  Unit Flags       |  32                       |
+|  World Sizes      |  128,64, 32               |
+|  World Types      |  128,64, 32               | 
+| | |
 
 The above means that civilizations, for example, need a 256x256, 128x128, 80x80, 64x64, 45x45 and 32x32 icon. So we need to create six icons for different sizes for our civilization. Loading the IconAtlas256.psd I can use Photoshop to create an icon in the first slot.
 
@@ -723,7 +729,7 @@ Once that is done we can add the files to our mod by creating an Art folder (tho
 
 Once all of our art files our added to the project we need to be able to reference them. to do that add a new asset type we need to add, IconTextureAtlases. Add the GameInfo folder underneath the XML folder and add an XML file called CIV5IconTextureAtlases.xml that contains the following:
 
-```
+```xml
 <GameData>
     <IconTextureAtlases>
         <Row>
@@ -776,7 +782,7 @@ The above defines the dds files we added. The important part for each is that th
 
 Lastly we need to modify our civilization definition to use our new icon. back in our Celt.xml file we need to make the changes marked in blue:
 
-```
+```xml
 <GameData>
     <Civilizations>
         <Row>
@@ -806,13 +812,13 @@ The above tells the civilization to use the new atlas we defined and use Icon 0 
 
 ![](civ5_imgs/page36.jpg)
 
-#### How to: Add A Leader
+#### 如何添加首领
 
 Adding a leader is similar to adding a civilization. To create Boudica I copied all the attributes from Alexander, who I want her to act similar to. Then I switched to Elizabeth's art definitions for ArtDefineTag (the leader screen art) and PortraitIndex (the icon she uses). Last I switched her to the Hiawatha's trait of Ignore Terrain in Forest. In later sections we look at how to create new art and trait for Boudica.
 
 This is Boudica's leader definition. I created a new file called XML/Leaders/CIV5Leader_Bouidica.xml and set this file to update the database on the actions tab of the mod properties.
 
-```
+```xml
 <GameData>
     <Leaders>
         <Row>
@@ -1040,7 +1046,7 @@ This is Boudica's leader definition. I created a new file called XML/Leaders/CIV
 
 We need two more things before Boudica becomes a complete leader. First we need to modify our Celt civilization entry to make Boudica the leader. To do that we need to modify the Celt.xml entry we added from the LEADER_ELIZABETH leader to LEADER_BOUDICA.
 
-```
+```xml
 <Civilization_Leaders>
     <Row>
         <CivilizationType>CIVILIZATION_CELT</CivilizationType>
@@ -1051,7 +1057,7 @@ We need two more things before Boudica becomes a complete leader. First we need 
 
 Secondly we need to add the text strings to our already existing GameText.xml that is used by our new leader:
 
-```
+```xml
     <Row Tag="TXT_KEY_CIVILOPEDIA_LEADERS_BOUDICA_HEADING_1">
         <Text>History</Text>
     </Row>
@@ -1078,7 +1084,7 @@ Finally, I would like to update the Dawn of Man (loading screen image) image for
 
 A Dawn of Man picture is 1024x768 and has to be a DDS file. Outside of that any picture will do. I used photoshop to save a picture of Boudica in that size and format as BoudicaDOM.dds, included that picture with my mod and made the following change to the Celt's civilization definition (change in blue):
 
-```
+```xml
 <Civilizations>
     <Row>
         <Type>CIVILIZATION_CELT</Type>
@@ -1104,13 +1110,13 @@ A Dawn of Man picture is 1024x768 and has to be a DDS file. Outside of that any 
 ```
 And that's all we need to have a new, working leader. In the next section we will cover how to add a new trait to Boudica and there will be a screenshot of the Dawn of Man screen where we can see the new screen.
 
-#### How to: Add A Trait
+#### 如何添加特性
 
 So far we have been borrowing Hiawatha's trait for our Boudica. It works fairly well, but our civilization would be more interesting if it had a unique trait. This section will go through the simple steps to add a trait to the game.
 
 First we need to add a new file to our mod, CIV5Traits.xml in the /XML/Civilizations directory. We will be adding a trait called Battle Fury that will give all Melee, Mounted and Gun units 2 attacks per round instead of the normal 1. This is the definition we will need to do that:
 
-```
+```xml
 <GameData>
     <Traits>
         <Row>
@@ -1145,7 +1151,7 @@ But we need to modify our mod properties to add this to the list of files that w
 
 You should be familiar with adding text strings by this point. Add the following to the GameText.xml file:
 
-```
+```xml
 <Row Tag="TXT_KEY_TRAIT_BATTLE_FURY">
     <Text>Melee, Mounted and Gun units can make 2 attacks per round.</Text>
 </Row>
@@ -1156,7 +1162,7 @@ You should be familiar with adding text strings by this point. Add the following
 
 To assign this to Boudica make the following change to our Boudica leader definition:
 
-```
+```xml
 <Leader_Traits>
     <Row>
         <LeaderType>LEADER_BOUDICA</LeaderType>
@@ -1169,7 +1175,7 @@ Creating a new trait is as easy as that. Be sure to look through the schema defi
 
 ![](civ5_imgs/page43.jpg)
 
-#### How to: Add A Unit
+#### 如何添加单位
 
 Units are fun, and adding them is easy. As you may have noticed in the above screenshot there are two Unique Units assigned to the Celt's in this section we will cover how to add one of them.
 
@@ -1181,7 +1187,7 @@ The Gaelic Warrior is the same cost and strength of a normal warrior but he igno
 
 We need to make four changes to add a new unique unit to the game. First we need to add a new file CIV5Units.xml to our mod. I added it in the XML/Units/ folder. That file needs to contain the following unit definition.
 
-```
+```xml
 <GameData>
     <Units>
         <Row>
@@ -1268,7 +1274,7 @@ The second step to adding the unit is that we have to modify the mod properties 
 
 The third step is to add the text entries the unit requires. I didn't get fancy and add a custom pedia entry. Just the text string and a help string so the player knows what the unit does, so we only have two entries that need to be added to the text file.
 
-```
+```xml
 <Row Tag="TXT_KEY_UNIT_GAELIC_WARRIOR">
     <Text>Gaelic Warrior</Text>
 </Row>
@@ -1279,7 +1285,7 @@ The third step is to add the text entries the unit requires. I didn't get fancy 
 
 The final step is we need to assign this unit as unique unit for the Celt civilization.
 
-```
+```xml
 <Civilization_UnitClassOverrides>
     <Row>
         <CivilizationType>CIVILIZATION_CELT</CivilizationType>
@@ -1291,13 +1297,13 @@ The final step is we need to assign this unit as unique unit for the Celt civili
 
 That is all it takes to add a new unit to the game. In the next section we will look at how we assign new art to a unit.
 
-#### How to: Change the Unit Art Defines
+#### 如何改变艺术家的定义
 
 This document won't cover creating art assets for Civ5. Firaxis has an SDK tool called Nexus for that, but I am the wrong guy to cover it.
 
 But we will go through the art definitions. There are two parts. The first, UnitArtInfo, is for the formation as a whole. The unit definition points to this layer, it specifies how many units (and what sort of units) make up the formation. The entire file is too long to include here, but this is one sample from it.
 
-```
+```xml
 <UnitArtInfos>
     <UnitArtInfo>
         <Type>ART_DEF_UNIT_BARBARIAN_EURO</Type>
@@ -1323,7 +1329,7 @@ Notice that this is the first XML definition we have covered that doesn't start 
 
 The above definition for ART_DEF_UNIT_BARBARIAN_EURO contains ten units in its formation. Two EURO_ALPHA unit models, four EURO_BRAVO models and four EURO_CHARLIE models. Firaxis has different models makeup the formations so it doesn't look like a clone army. To see more about those models we need to check out the UnitMemberArtInfo definitions:
 
-```
+```xml
 <UnitMemberArtInfos>
     <UnitMemberArtInfo>
         <Type>ART_DEF_UNIT_MEMBER_BARBARIAN_EURO_ALPHA</Type>
@@ -1396,7 +1402,7 @@ One of the differences with the UnitArtInfo and UnitMemberArtInfo, since they ar
 
 To do that we first have to change the UnitArtInfo for each unit to switch them to one member. Again I won't include the entire file here, but just our barbarian warrior example.
 
-```
+```xml
 <UnitArtInfos>
     <UnitArtInfo>
         <Type>ART_DEF_UNIT_BARBARIAN_EURO</Type>
@@ -1412,7 +1418,7 @@ To do that we first have to change the UnitArtInfo for each unit to switch them 
 
 And secondly we need to change the definition for our ART_DEF_UNIT_MEMBER_BARBARIAN_EURO_BRAVO to increase its size.
 
-```
+```xml
 <UnitMemberArtInfos>
     <UnitMemberArtInfo>
         <Type>ART_DEF_UNIT_MEMBER_BARBARIAN_EURO_BRAVO</Type>
@@ -1445,7 +1451,7 @@ One of the big advantages of switching from the larger formations to a single la
 
 In the prior section, when we created our Gaelic Warrior we used the art definition of ART_DEF_UNIT_GAELIC_WARRIOR, now we need to add that definition to the UnitArtInfo.
 
-```
+```xml
 <UnitArtInfos>
     <UnitArtInfo>
         <Type>ART_DEF_UNIT_GAELIC_WARRIOR</Type>
@@ -1461,7 +1467,7 @@ In the prior section, when we created our Gaelic Warrior we used the art definit
 
 We don't need to change the UnitMemberArtInfo since that definition hasn't changed. Instead this tells the game to use the ART_DEF_UNIT_MEMBER_BARBARIAN_EURO_ALPHA model as a single unit formation when the ART_DEF_UNIT_GAELIC_WARRIOR definition is set.
 
-#### How to: Add A Building
+#### 如何添加建筑
 
 Buildings are easy to add to the game. In this example we will add a palisade as an early defensive building. The palisade won't require any techs, so it's available from the first turn, and can't be built in any era except the Ancient Era (during later eras player should be using walls, castles and other powerful defensive buildings).
 
@@ -1469,7 +1475,7 @@ Buildings are easy to add to the game. In this example we will add a palisade as
 
 To do this we only need to update three tables. The first is Buildings table from CIV5Buildings.xml. The following adds the Palisade building to the game:
 
-```
+```xml
 <GameData>
     <Buildings>
         <Row>
@@ -1500,7 +1506,7 @@ Civ5 uses Buildingclasses for the replacement buildings used as unique buildings
 
 The next entry is the BuildingClasses table in the CIV5BuildingClasses.xml file:
 
-```
+```xml
 <GameData>
     <BuildingClasses>
         <Row>
@@ -1514,7 +1520,7 @@ The next entry is the BuildingClasses table in the CIV5BuildingClasses.xml file:
 
 And finally we need the text strings to support the building we added. There are three new tags we referenced in the above building definition.
 
-```
+```xml
 <GameData>
     <Language_en_US>
         <Row Tag="TXT_KEY_BUILDING_PALISADE">
@@ -1532,13 +1538,13 @@ And finally we need the text strings to support the building we added. There are
 
 That's it, a complete mod that adds a new building to the game, that is modular (can be used with other mods without compatibility issues) and can be created an published within 5-10 minutes.
 
-#### How to: Modify a Building
+#### 如何修改建筑
 
 Let's assume we want to change the way that some buildings work in the game. Currently a Granary adds food to the city it is in and Hospital's allow a city to carry over 50% of its food after a population increase.
 
 The following is the base definition for a Granary:
 
-```
+```xml
 <Buildings>
     <Row>
         <Type>BUILDING_GRANARY</Type>
@@ -1570,7 +1576,7 @@ The following is the base definition for a Granary:
 
 And the following is the base definition for a Hospital:
 
-```
+```xml
 <Buildings>
     <Row>
         <Type>BUILDING_HOSPITAL</Type>
@@ -1597,7 +1603,7 @@ The nice thing about the <update> tag is that you only have to specify exactly w
 
 If we want the Granary to keep 30% of the food after a population growth, and we want to remove that ability from the Hospital and replace it with the ability to grant the Medic promotion to any units trained there we need to add the following XML to our new CIV5Buildings.xml file:
 
-```
+```xml
 <GameData>
     <Buildings>
         <Update>
@@ -1626,7 +1632,7 @@ Not only is this very simple to read, and see exactly what you have changed (in 
 
 We also need a few text strings to support this. We will need to add the new TXT_KEY_BUILDING_GRANARY_HELP text string, and we need to update the already existing TXT_KEY_BUILDING_HOSPITAL_HELP text string.
 
-```
+```xml
 <GameData>
     <Language_en_US>
         <Row Tag="TXT_KEY_BUILDING_GRANARY_HELP">
@@ -1646,7 +1652,7 @@ Notice that the Granary string is a new string, as we added for other assets. Bu
 
 The process covered in this section is as valid for leaders, units and other assets as it is for buildings. The `<Update>` element is an easy way for modders to change existing base game assets in a modular way.
 
-#### How to: Remove a Resource
+#### 如何移除资源
 
 Removing a resource is a good example of removing any referenced asset from Civ5. Resources are referenced by units, buildings, improvements, and other sources. So simply deleting the asset will cause errors or the game to crash.
 
@@ -1703,7 +1709,7 @@ A search of Civ5Buildings.xml shows two references to RESOURCE_HORSE. It is in t
 
 The following xml for our Mod's Civ5Buildings.xml will remove both of the references.
 
-```
+```xml
 <GameData>
     <Building_LocalResourceAnds>
         <Delete ResourceType="RESOURCE_HORSE"/>
@@ -1718,7 +1724,7 @@ And we need to do the same thing for the Traits, Units, Improvements and Resourc
 
 Civ5Traits.xml:
 
-```
+```xml
 <GameData>
     <Trait_ResourceQuantityModifiers>
         <Delete ResourceType="RESOURCE_HORSE"/>
@@ -1728,7 +1734,7 @@ Civ5Traits.xml:
 
 Civ5Units.xml:
 
-```
+```xml
 <GameData>
     <Unit_ResourceQuantityRequirements>
         <Delete ResourceType="RESOURCE_HORSE"/>
@@ -1738,7 +1744,7 @@ Civ5Units.xml:
 
 Civ5Improvements.xml:
 
-```
+```xml
 <GameData>
     <Improvement_ResourceTypes>
         <Delete ResourceType="RESOURCE_HORSE"/>
@@ -1751,7 +1757,7 @@ Civ5Improvements.xml:
 
 Civ5Resources.xml:
 
-```
+```xml
 <GameData>
     <Resources>
         <Delete type="RESOURCE_HORSE"/>
@@ -1773,7 +1779,7 @@ Civ5Resources.xml:
 
 Once the above changes are made we will have a mod that removes horses, and all the references to horses from the game. Keep in mind that this mod will not be compatible with other mods that reference horses. If for example a mod adds a new mounted unit that has a resource require of horses. Which is why mods that delete base assets should be marked exclusive.
 
-#### How to: Disable Unit Icons with Lua
+#### 如何用 Lua 禁用单位图标
 
 In Civilization V Units have a Unit Icon floating above them. We are going to add the ability to disable that unit icon.
 
@@ -1789,7 +1795,7 @@ Now copy the contents of the normal UnitFlagManager.lua and UnitFlagManager.xml 
 
 There is more than one way to disable the Unit Icon, and different programmers will prefer different methods. But here is one way we can disable it. The UpdateVisibility() function in UnitFlagManager.lua is:
 
-```
+```lua
 UpdateVisibility = function( self )
     if InStrategicView() then
         local bVisible = self.m_IsCurrentlyVisible and self.m_IsGarrisoned and g_GarrisonedUnitFlagsInStrategicView and not self.m_IsInvisible;
@@ -1804,7 +1810,7 @@ Looking at this code we can see that if the game is in the Strategic view then t
 
 The easiest way to disable the Unit Icon is with the following change:
 
-```
+```lua
 UpdateVisibility = function( self )
     if InStrategicView() then
         local bVisible = self.m_IsCurrentlyVisible and self.m_IsGarrisoned and g_GarrisonedUnitFlagsInStrategicView and not self.m_IsInvisible;
@@ -1824,7 +1830,7 @@ I could publish my mod now and it would be a mod with disabled Unit Icons. But i
 
 First we will need to extend our code change so that we use a variable instead of simply setting the Anchor Hide to true.
 
-```
+```lua
 UpdateVisibility = function( self )
     if InStrategicView() then
         local bVisible = self.m_IsCurrentlyVisible and self.m_IsGarrisoned and g_GarrisonedUnitFlagsInStrategicView and not self.m_IsInvisible;
@@ -1842,7 +1848,7 @@ In this version rather than simply setting the Unit Icon to always be hidden whe
 
 We will need to set bHideUnitIcon's default value by adding the following at the top of UnitFlagManager.lua:
 
-```
+```lua
 -- Added by Kael 07/17/2010 to disable the Unit Icon
 local bHideUnitIcon = true;
 -- End Add
@@ -1853,7 +1859,7 @@ Note that I selected true as the default value for bHideUnitIcon so that Unit Ic
 5. We will need a text string for our menu option. Create a new XML folder. Beneath it create a NewText folder. And in that folder create a new file called GameText.xml. The file structure is just for our organization, it mirrors the file structure of CIV5's xml files. The file name doesn't matter either (the GameData tag in the file is what matters). This would work if it was called stuff.xml at the root of the project.
 6. Replace any default text in the projects GameText.xml with the following:
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
     <Language_en_US>
@@ -1870,7 +1876,7 @@ The above is a simple text string replacement. Whenever the game is set to Engli
 
 8. Modify the projects MiniMapPanel.xml to add the new checkbox.
 
-```
+```xml
 <Grid ID="OptionsPanel" Anchor="R,B" Size="300,300" Color="White.256" Style="Grid9DetailSix140" Padding="30,46" Hidden="true" ConsumeMouse="1" >
     <Stack Anchor="C,C" Padding="0" Offset="0,5" StackGrowth="Bottom" ID="MainStack" >
         <Stack Anchor="C,T" Offset="0,0" Padding="0" StackGrowth="Bottom" ID="StrategicStack" >
@@ -1904,7 +1910,7 @@ Note in the above that the change is still commented, but that commenting syntax
 
 Lua scripts can't directly call functions in other scripts. If we want one Lua script to call a function in another we have to use LuaEvents. At the start of UnitFlagManager.lua we need to create a new LuaEvent as follows:
 
-```
+```lua
 -- Added by Kael 07/16/2010
 local bHideUnitIcon = true;
 
@@ -1923,7 +1929,7 @@ The LuaEvents.ToggleHideUnitIcon() function can now be called by external Lua sc
 
 10. We need the menu option we created to call LuaEvents.ToggleHideUnitIcon(). To do that we add the following to our projects MiniMapPanel.lua file:
 
-```
+```lua
 -- Added by Kael 07/16/2010
 function OnHideUnitIconChecked( bIsChecked )
     LuaEvents.ToggleHideUnitIcon();
@@ -1939,7 +1945,7 @@ That is it, a complete mod that adds the ability for players to enable and disab
 
 In the beginning it may take a few hours to do something like the above (it took me quite a few). But hopefully this document reduces that time considerably. And now that I understand what I had to do here my next change will be much faster.
 
-#### How to: Use InGameUIAddin to create modular UI changes
+#### 如何用 InGameUIAddin 制作模块化的 UI 变化
 
 There is a way to create modular Lua changes through InGameUIAddin. As of this writing this functionality is limited, it can add new UI components, but it can't remove or modify existing UI components. To remove or modify existing UI components you will need to replace the Lua and XML files as we did in the "How to: Disable Unit Icons with Lua" section.
 
@@ -1949,7 +1955,7 @@ In this example we will add a clock to the interface. We start by adding a Clock
 
 First we will fill in the Clock.xml file:
 
-```
+```xml
 <Context ColorSet="Beige_Black" Font="TwCenMT20" FontStyle="Shadow" >
     <Label Anchor="C,T" Offset="0,10" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" FontStyle="Shadow" ID="ClockLabel"/>
 </Context>
@@ -1959,7 +1965,7 @@ The above defines a new label with the ID of "ClockLabel". We can see the font (
 
 But at this point this is an empty label. We need Clock.lua to populate it with the time. For Clock.lua we can use the following:
 
-```
+```lua
 ContextPtr:SetUpdate(function()
     local t = os.date("%I:%M");
     Controls.ClockLabel:SetString(t);
@@ -1976,7 +1982,7 @@ In the following screenshot we can see the clock we added (the red highlight is 
 
 ![](civ5_imgs/page63-2.jpg)
 
-#### How to: Add a new screen with Lua
+#### 如何用 Lua 添加一个新镜头
 
 There is no way to know what mods you have loaded while playing. In this section we will add a new screen on the Additional Information menu that lists all the loaded Mods.
 
@@ -2002,7 +2008,7 @@ And we will add two new files to control the new screen:
 
 The first change is a minor change to InGame.xml to load our new Lua file definition:
 
-```
+```xml
 <LuaContext FileName="Assets/UI/InGame/Popups/SetCityName" ID="SetCityName" Hidden="True" />
 <LuaContext FileName="Assets/UI/InGame/Popups/ProductionPopup" ID="ProductionPopup" Hidden="True" />
 <!-- Added by Kael 09/17/2010 -->
@@ -2015,7 +2021,7 @@ All the above does is load our new ModList.lua file when the mod loads. More abo
 
 2. Next lets adjust the DiploCorner.lua and DiploCorner.xml to add the new menu option. The following is the addition in the DiploCoerner.lua file:
 
-```
+```lua
 local g_MultiPullInfo = {};
 g_MultiPullInfo[0] = { text="TXT_KEY_ADVISOR_SCREEN_TECH_TREE_DISPLAY", call=function() Events.SerialEventGameMessagePopup( { Type = ButtonPopupTypes.BUTTONPOPUP_TECH_TREE } ); end };
 g_MultiPullInfo[1] = { text="TXT_KEY_DIPLOMACY_OVERVIEW", call=function() Events.SerialEventGameMessagePopup( { Type = ButtonPopupTypes.BUTTONPOPUP_DIPLOMATIC_OVERVIEW } ); end };
@@ -2036,7 +2042,7 @@ The above adds another option to the multipull menu. If that option is selected 
 
 The above works fine for adding a new menu option to the Additional Options menu. But we will want to adjust the size of the dropdown dialog to make room for the new menu option. XML controls the size and format of the UI, so we need to change the DiploCorner.xml to adjust the size.
 
-```
+```xml
 <!-- ==========================================================================================================-->
 <!-- Notification Log DropDownButtons -->
 <!-- ==========================================================================================================-->
@@ -2065,7 +2071,7 @@ Since we are piggybacking on the BUTTONPOPUP_NOTIFICATION_LOG function we need t
 
 Remember that Lua functions cannot directly call Lua functions in other files. Instead Lua registers functions with a central event service, and monitors that event service to see when it needs to act. In this case this is the normal OnPopup function from NotificationLogPopup.lua:
 
-```
+```lua
 function OnPopup( popupInfo )
     if( popupInfo.Type ~= ButtonPopupTypes.BUTTONPOPUP_NOTIFICATION_LOG ) then
         return;
@@ -2104,7 +2110,7 @@ In the above the OnPopup function is defined and it is registered to the SerialE
 
 But we will be triggering BUTTONGPOPUP_NOTIFICATION_LOG for another function, and we won't want this popup to trigger when we do it. So the following change is required to NotificationLogPopup.lua:
 
-```
+```lua
 function OnPopup( popupInfo )
     if( popupInfo.Type ~= ButtonPopupTypes.BUTTONPOPUP_NOTIFICATION_LOG ) then
         return;
@@ -2149,7 +2155,7 @@ In the above we added an additional check. Just like the check that exits the fu
 
 4. Finally we get to creating the code for our new screen. First we need the XML definition for the screen. The following was the definition I used for ModList.xml:
 
-```
+```xml
 <Context Font="TwCenMT14" FontStyle="Base" Color="Beige" Color1="Black" >
     <Instance Offset="0,0" Name="NotificationButton" Size="890,60" >
         <Button Size="890,60" Offset="0,0" StateOffsetIncrement="0" ID="Button">
@@ -2207,7 +2213,7 @@ The above can be intimidating to look at creating out of thin air. I'm sure ther
 
 The above defines the screen, but it doesn't have any logic. That's where we need Lua. The ModList.lua file contains the following:
 
-```
+```lua
 include( "InstanceManager" );
 g_InstanceManager = InstanceManager:new( "ListingButtonInstance", "Button", Controls.ListingStack );
 
@@ -2285,7 +2291,7 @@ The map editor in WorldBuilder is fairly straight forward. The Map Editor Tools 
 
 Once your map is complete, select Save from the file menu to save it. It can always be reloaded to make further changes. WorldBuilder maps are saved in the "`..\<My Games>\Sid Meier's Civilization V\Maps\`" directory.
 
-#### Saving a Map from Civilization V
+#### 保存文明 5 的地图
 
 If you like the map you are playing on, or believe it may make a good base for your scenario you can save it directly from the game.
 
@@ -2297,7 +2303,7 @@ That will open the Save Map window where a name can be entered. Click save to sa
 
 ![](civ5_imgs/page72-2.jpg)
 
-#### Adding the Map to your Mod
+#### 向模组中添加地图
 
 Copy the map file into your mod in ModBuddy to add it to your mod. The name and location of the map doesn't matter. I recommend creating a "Map" directory off the root of your project to place map's in, but it isn't required.
 
@@ -2309,7 +2315,7 @@ If you created custom players in the team editor then you will have a "Load Scen
 
 ![](civ5_imgs/page73-2.jpg)
 
-### Publishing your Mod
+### 发布模组
 
 Before you can test your mod you need ModBuddy to "Build" it for you. Building is the process of taking everything you have included with your mod and putting it in a format the game can recognize. You will need to Build your mod each time you want all your latest changes to take effect. You should build frequently and test each change as you add it (rather than changing a lot of files at once then having the hard task of figuring out which change is keeping the game from loading).
 
@@ -2345,7 +2351,7 @@ That's it, your mod should be uploaded and available for players to download.
 
 To update a mod change the version number on your mod's property screen then reupload using the above process.
 
-#### Exclusivity
+#### 兼容性
 
 There are three levels of exclusivity for Civilization V mods.
 
@@ -2359,7 +2365,7 @@ Partially Exclusive is the appropriate setting for total conversion mods. If you
 
 Totally Exclusive is the ultimate in mod control. Your mod can't be used in combination with any other mods unless you specifically allow that mod. The only difference between this and being partially exclusive is that it keeps other mod authors from being able to allow their mods to be able to work with yours. This setting should be very rare, only for mod authors who have had problems with other mod authors marking their mods compatible and causing compatibility issues.
 
-### Troubleshooting
+### 排除故障
 
 If you are a dumb guy like me, you spend 10% of your time creating, and 90% of the time trying to figure out why it doesn't work. Of all the files Firaxis provides to help us mod, I spend the most time looking at the debug logs.
 

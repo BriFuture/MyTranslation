@@ -32,7 +32,7 @@ by Derek "Kael" Paxton version 1.00
         * 修改文本
         * 如何添加文明
         * 如何添加图标
-        * 如何添加领导
+        * 如何添加首领
         * 如何添加特性
         * 如何添加单位
         * 如何改变艺术家的定义
@@ -41,7 +41,7 @@ by Derek "Kael" Paxton version 1.00
         * 如何移除资源
         * 如何用 Lua 禁用单位图标
         * 如何用 InGameUIAddin 制作模块化的 UI 变化
-        * 如何用 Lua 添加一个新屏幕
+        * 如何用 Lua 添加一个新镜头
     - WorldBuilder
         * 保存文明 5 的地图
         * 向模组中添加地图

@@ -1,4 +1,4 @@
-## Design Philosophy
+## 设计之理
 
 This section includes some insight into common design pitfalls and how to avoid them. Though the rest of the document focused on the technical issues around modding, this section is devoted to game design.
 
@@ -11,15 +11,15 @@ I would like to thank the following people for responding to the interview quest
 - **Sevo** - Designer of Sevomod 3, Sevo’s Civilopedia and Sevo’s Faces of God.
 - **Rhye** - Designer of Rhye’s Catapult, Rhye’s of Civilization and Rhye's and Fall of Civilization.
 
-### Build the Game You Want to Play
+### 做出你想玩的游戏
 
 This is the first rule: you are the only person who has to like what you have created. Don’t make the mod you think other people will want, don’t change a design based on outside feedback unless you agree with it. It is better to have an unpopular mod you enjoy than a popular one you don’t. That goes for all the advice in this section, if you don’t like it, don’t use it. This is the advantage of modding, Firaxis has to worry about making sales and mass appeal, but we don’t.
 
 The truth is, if you stick to what you like in time you will find others that are looking for the same thing, so it will work out anyway.
 
-### Avoiding the Design Pitfalls
+### 避免设计缺陷
 
-#### The Danger of More
+#### 多的危险
 
 “Perfection is not achieved when there is nothing left to add, but when there is nothing left to take away.” -- Antoine de St. Exupery
 
@@ -58,7 +58,7 @@ Statistically, I decline 80% or more of the proposals I receive from users, for 
 
 And a final aspect, one always has to ask himself: will the AI know how to use this change?
 
-#### The Danger of Flavor
+#### 特点的危险
 
 Why do games based on movies and movies based on books always seem to be bad? There are exceptions, but we are usually disappointed with the results of these conversions. The reason is that the design of the new game or movie is based so strongly on the flavor of its source that its own functional design suffers.
 
@@ -104,7 +104,7 @@ I always tend to add only things that have both function and flavour. I mean tha
 
 If we speak about maps, then the function is more important than the flavour. See how many giga maps are being / have been developed: they're pointless, because nobody has a computer strong enough to play them.
 
-#### The Danger of Patterns
+#### 模式的危险
 
 Starcraft was a big eye-opener for me, an RTS that offered 3 different forces that were balanced but completely unlike each other. It’s so much easier to balance a game by making the options mirror each other but it’s more enjoyable for the player to have a variety of options that are dissimilar.
 
@@ -143,7 +143,7 @@ I think that this is a concern. That makes the difference between a mod for pers
 I'll share it if I have a unique idea instead, something that hasn't been done before by anybody.
 
 
-#### The Danger of Complexity
+#### 复杂性的危险
 
 Overly complex designs are the easiest mistake for a designer to make. A designer should differentiate between systems that are fun to design, and those that are fun to play, they are rarely the same.
 
@@ -184,15 +184,15 @@ Two examples of what NOT to do:
 - compile a list of features and advertise it with no idea about how to do it, and
 - work without a deadline, keeping postponing your work for months and months. it's true, you work for free, but if you don't finish your work you'll have really wasted your time.
 
-### The Process of Mod Building
+### 制作模组的过程
 
-#### Writing your Design Document
+#### 书写设计文档
 
 It’s not fun, everyone wants to get right into making changes and seeing those changes in the game. But your first step is to get a design document written. It can be a forum post you update, a Word document or just notes on paper. Without it your mod design won’t have focus and it will be difficult to make the best use of your time without a clear idea of what needs to be done. It will also be difficult for team members to help you if they don’t have access to the full design list.
 
 I have a hard time being creative in front of a computer so I grab a notepad and pen when I want to do serious design work. Sitting in a comfortable chair I jot down ideas and think about things I want to improve. Different people have different methods, the important part is to find one that works for you.
 
-#### Economics = Choice under Scarcity
+#### 经济性 = 缺乏资源时的选择
 
 A game is an entertainment activity that gives us options, and rewards us for selecting them skillfully. The quality of those options, the amount of appropriate risk and reward we get from each, the variety of options (without being overwhelming) and the successful merger of function with a matching flavor determines if the game is a good one.
 
@@ -204,7 +204,7 @@ I’m particularly fond of Civ4’s civic design. Personally I like having civic
 
 Another truism of scarcity is that we must have good and bad elements for it to work, the Desert dilemma. From a players perspective deserts seem useless, they have a few functions but are generally the least useful of the terrains. So you may wonder why they can’t be removed and replaced with something that does more. Their design function is that they aren’t useful, and therefore by comparison other terrains are. The difference between the two makes the players strategic options more interesting.
 
-#### When in Doubt, Trust Firaxis
+#### 困惑时，请相信 Firaxis
 
 The old saying is if there is a fence in the woods you should know who built it and why it was built before you tear it down. That was never more true than when making mods. I will admit, I love changing things more than I love reading about the way things work so the trap I sometimes get caught in is designing something without a good appreciation for the way its associated systems work.
 
@@ -212,7 +212,7 @@ My advice is before you make a significant change you review the way a similar s
 
 The same goes for balancing. Firaxis has done more work, and has had more man hours invested in “Vanilla Civ” then we can hope to with any one mod. Don’t let all of the testing and feedback go to waste. Look at the iCombat increases between upgraded units that Civ applied when you consider your own. Base your new specialists effects on those that already exist.
 
-#### Prioritizing and Saying No
+#### 制定优先级，学会拒绝
 
 The sad fact is that we all have limited time. As much as we may love to mod there are only so many hours in the day and most of us have jobs and families that also demand our time (to my wife: "I mean that we want to spend time with").
 
@@ -226,7 +226,7 @@ You have read countless marketing releases talking about one game or another. Wh
 
 And some changes shouldn’t be made at all. This is more difficult when you are working with a team that is as excited and working as hard on the mod as you are. But the mod owner has to be the one to say what is going to go in and what isn’t. Remember it's easier to say no and then change your mind and add it later than it is to do all the work to make something only to remove it later on.
 
-#### Building a Team
+#### 组件队伍
 
 There is no magic trick to building a team. Assume from the beginning that you will need to do all of the work yourself, then start working. If people join you along the way to help out, so much the better, but don’t expect it.
 
@@ -236,7 +236,7 @@ It is my opinion that the mod owner for a complex mod should be a programmer. He
 
 One more point about teams. This is an open, fun, collaborative process. Don’t expect deadlines and arbitrary goals to be met unless you are willing to pay your team. It’s the mod owners responsibility to get the work that needs to be done listed and the team members can work on different aspects as they desire. Anything more than that isn’t fun for anyone. Invariably you will be working on some component and want a piece from a team member to finish it, or team members will come and go as their real lives dictate, but that is the nature of collaborative modding.
 
-#### When to Release
+#### 何时发布
 
 A mod is never perfect, there is always some new feature, art or object you would love to get added before you release. The danger of that is that you may never get it out.
 
