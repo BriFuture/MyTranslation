@@ -234,40 +234,40 @@ XML 的好处在于用文本编辑器就能修改，用户不必学一门编程�
 
 ### SQL 
 
-XML is just an intermediate domain specific language that is translated into SQL and then executed on the database. Typically, after you've run the game once and the XML files have not changed, you will simply load from the .db files directly. This improves performance. Firaxis kept the XML format for familiarity, it isn't directly used by the game.
+XML 仅仅是一种特殊的中介语言，它被解释为 SQL 语句，然后在数据库中执行。通常当你运行一次游戏之后，XML 文件没有改变的话，游戏将会直接从 .db 文件加载。这改进了性能。Firaxis 出于熟悉程度的考虑保留了 XML 格式，但它不被游戏直接使用。
 
 ![](civ5_imgs/page11.jpg)
 
-Effectively the XML files are translated into SQL queries and run against the database. Direct SQL files can also be run. SQL files have their pros and cons. The downside to SQL is that the modder must be familiar with the language whereas the upside is that they can write very complex transforms that cannot be expressed in XML.
+实际上 XML 文件是被转化为 SQL 查询语句在数据库中执行。SQL 文件也可以直接运行。SQL 文件有相应的优点和缺点。SQL 的缺陷是开发者必须熟悉这门语言，但它的优点是它可以写成非常复杂的形式，而这种形式无法用 XML 表达。
 
 #### 查看数据库
 
-The easiest way to view the game database is to install Firefox with the SQLite Manager addon [https://addons.mozilla.org/en-US/firefox/addon/5817/](https://addons.mozilla.org/en-US/firefox/addon/5817/).
+最简单的查看游戏数据库的方式是安装带有 SQLite Manager 附加组件的 Firefox 浏览器 [https://addons.mozilla.org/en-US/firefox/addon/5817/](https://addons.mozilla.org/en-US/firefox/addon/5817/)。
 
-Once it is installed, you can open SQLite Manager by opening Firefox and going to Tools->SQLite Manager. At the top menu in the application, go to Database->Connect Database. Navigate to <My Documents>/My Games/Sid Meier's Civilization V/cache/. Now, making sure that the file type drop down is set to "All Files", select CIV5CoreDatabase.db. Select OK and you can now view the database contents.
+装好后，打开 Firefox ，进入 Tools 菜单打开 SQLite Manager。（译注：在新版的 Firefox 里需要打开菜单，选择定制将 SQLite Manager 拖放到工具栏中使用）。在应用的最上方的菜单里，找到 Database -> Connect Database。定位到 `<My Documents>/My Games/Sid Meier's Civilization V/cache/` 路径。然后，确保选择的文件类型是 “All Files”，选择 CIV5CoreDatabase.db 文件。确定之后你就能查看数据库的内容了。
 
 ![](civ5_imgs/page12.jpg)
 
-The files in the cache folder are subject to getting deleted and replaced while the game is running so if you wish to make data changes, do so in the XML and not directly in this file.
+cache 文件夹中的文件是游戏运行时会被删除或替换的主体，所以要是你想修改数据的话，在 XML 文件中修改就行了，不要直接修改这些文件。
 
 #### SQL 用例
 
-The following examples can be applied by including an sql file with your mod. It is often a faster way to modify a lot of settings rather than manually changing each one.
+以下一些例子可以通过你的模组中包含的 sql 文件得到应用。这通常是修改一些设置的更方便的方式，就不用手动修改每个设置了。
 
--- Make all buildings and units except the Settler and Scout unbuildable
+-- 让出了移民和侦察兵以外的所有建筑和单位都不能建造
 
 ```sql
 UPDATE Buildings SET 'PrereqTech' = 'TECH_FUTURE_TECH' WHERE Type <> 'BUILDING_PALACE';
 UPDATE Units SET 'PrereqTech' = 'TECH_FUTURE_TECH' WHERE Class <> 'UNITCLASS_SETTLER' and Class <> 'UNITCLASS_SCOUT';
 ```
 
--- Another way to block the creation of certain unit's
+-- 屏蔽具体单位建造的另一种方式
 
 ```sql
 UPDATE UnitClasses SET MaxPlayerInstances = 0 WHERE Type IN ("UNITCLASS_SETTLER","UNITCLASS_ARTIST","UNITCLASS_SCIENTIST","UNITCLASS_MERCHANT","UNITCLASS_ENGINEER");
 ```
 
--- Display All Civilizations
+-- 显示所有文明
 
 ```lua
 for civ in DB.Query("select * from Civilizations") do
@@ -275,7 +275,7 @@ for civ in DB.Query("select * from Civilizations") do
 end
 ```
 
--- Display All Units that cost more than 200
+-- 显示所有花费超过 200 的单位
 
 ```lua
 for unit in DB.Query("select * from Units where cost > 200") do
@@ -283,7 +283,7 @@ for unit in DB.Query("select * from Units where cost > 200") do
 end
 ```
 
--- Display the RGB Values of the PrimaryColor for All Player Colors
+-- 显示所有玩家主要颜色的 RGB 值
 
 ```lua
 for color in DB.Query("select Colors.Red, Colors.Green, Colors.Blue from PlayerColors inner join Colors on PlayerColors.PrimaryColor = Color.Type") do
@@ -291,7 +291,7 @@ for color in DB.Query("select Colors.Red, Colors.Green, Colors.Blue from PlayerC
 end
 ```
 
--- Display all American leaders
+-- 显示所有美国首领
 
 ```lua
 local myCiv = "CIVLIZATION_AMERICA";
@@ -304,18 +304,19 @@ end
 
 #### XML 和 LUA 的关系
 
-UI's in Civ5 are an XML/Lua pair. The XML specifies the controls and hierarchy while the Lua specify the logic. XML builds the UI, it determines what buttons appear where, what the tables look like, etc, while Lua is the programming language that controls what happens when you press a button, or how the table is populated.
+在 Civ5 中 UI 就是 XML/Lua 对。XML 指定控制和层次，而 Lua 指定逻辑。XML 构建出 UI，它决定按钮出现的位置、表格的外观等等，而 Lua 是一门编程语言，控制你按下按钮后的事件或者如果填写表格的。
 
 #### 参考
 
-There are a lot of good Lua programming guides. Many of which can be picked up at your local bookstore or ordered from Amazon. A good online reference is the following:
+有很多 Lua 编程教程。大都能在当地的书店或者从 Amazon 下单。以下是一份在线参考手册（译注：云风已经翻译出了中文版的 [Lua 参考手册](http://www.codingnow.com/2000/download/lua_manual.html)）： 
+
 Lua 5.1 Reference Manual by Roberto Ierusalimschy, Luiz Henrique de Figueiredo, Waldemar Celes: [http://www.lua.org/manual/5.1/manual.html](http://www.lua.org/manual/5.1/manual.html)
 
 #### 脚本事件
 
-Lua scripts cannot directly call functions in other Lua scripts. Instead there is a LuaEvents interface that allows Lua Scripts to add functions that become globally available.
+Lua 脚本不能直接调用其它 Lua 脚本中的函数。好在有 LuaEvents 接口，它允许 Lua 脚本添加一个全局可用的函数。
 
-If you need a function to be callable by another Lua script you will need to create a LuaEvents function to do it such as:
+如果你想要让函数能被其它的 Lua 脚本调用，你需要创建一个 LuaEvents 函数来实现，比如这样：
 
 ```lua
 LuaEvents.ToggleHideUnitIcon.Add(
@@ -328,10 +329,11 @@ function()
 end);
 ```
 
-The above function has been registered with the LuaEvents engine and can be called by any Lua script by:
+上面的函数已经用 LuaEvents 引擎进行了注册，能够被其它的 Lua 脚本调用：
 
 ```lua
 LuaEvents.ToggleHideUnitIcon();
 ```
 
 Which would run the ToggleHideUnitIcon in the first script and change the bHideUnitIcon value for that script.
+这会运行第一个脚本中的 ToggleHideUnitIcon 函数，修改相应脚本中的 bHideUnitIcon 值。
