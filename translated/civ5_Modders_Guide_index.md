@@ -46,7 +46,7 @@ by Derek "Kael" Paxton version 1.00
         * 保存文明 5 的地图
         * 向模组中添加地图
     - 发布模组
-        * 排外性
+        * 兼容性
     - 排除故障
         * Database.log
         * Lua.log
@@ -60,8 +60,8 @@ by Derek "Kael" Paxton version 1.00
     - 制作模组的过程
         * 书写设计文档
         * 经济性 = 缺乏资源时的选择
-        * 有疑问时，请相信 Firaxis
-        * 制定优先级，学会说不
+        * 困惑时，请相信 Firaxis
+        * 制定优先级，学会拒绝
         * 组件队伍
         * 何时发布
 

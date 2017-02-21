@@ -2,13 +2,13 @@
 
 ### ModBuddy
 
-ModBuddy is the primary modding tool Firaxis provides to make modding easier than it has been in prior versions. ModBuddy is a full featured XML and Lua editor with plugins built to handle building Civ5 mod project, publish mods and templates to make modding easier.
+ModBuddy 是 Firaxis 提供的制作模组的主要工具，与前一个版本相比，ModBuddy 使制作模组更加简单。ModBuddy 是一个十分有特色的 XML 和 Lua 编辑器，有内建的插件用来处理构建 Civ5 模组项目，也有已发布的模组和模版，让制作模组更简单。
 
 #### 制作模组
 
-Follow these steps to get started on your own mod. (Screen shots may differ slightly from the release version since I'm using beta versions of all the tools to create this document).
+按照下面的步骤，开始制作你自己的模组。（截图可能因软件版本而有少许出入，因为我写这个文档用的工具都是测试版本）
 
-1. Load ModBuddy (the Sid Meier's Civilization V SDK).
+1. 打开 ModBuddy （the Sid Meier's Civilization V SDK）.
 
 ![](civ5_imgs/page15.jpg)
 
