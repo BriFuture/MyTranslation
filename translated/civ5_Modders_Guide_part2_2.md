@@ -1,6 +1,6 @@
 #### 如何添加文明
 
-In this section we will go through the entire process of adding a new civilization to the game. First let's look at the schema definition for a civilization from the Civ5Civilizations.xml file:
+这一节将包含添加新文明的整个过程。首先看一看 “Civ5Civilizations.xml” 文件中定义文明的模式：
 
 ```xml
 <Table name="Civilizations">
@@ -82,55 +82,55 @@ In this section we will go through the entire process of adding a new civilizati
 </Table>
 ```
 
-Let's look at each of these values in detail:
+先仔细看看这些值：
 
-- **ID** - This is the database starter row. It is set as 0 on the first entry but shouldn't be modified.
+- **ID** - 这是数据库的起始行。第一条记录是 0，不能被修改。
 
-- **Type** - This is the key we will use to reference this civilization. We typically use CIVILIZATION_<name> (so CIVILIZATION_CANADA for Canada). We keep the object type as the first part of the name so that it doesn't get confused with another object type with the same name, and is easy to read and identify. Types have to be unique (you can't have two CIVILIZATION_CANADA's). If two objects with the same Type are loaded the one that is loaded second will replace the first one.
+- **Type** - 这是用来引用文明的关键。通常用 `CIVILIZATION_<name>`（因此 CIVILIZATION_CANADA 就是加拿大）。我们将名字的前一部分作为对象类型，那么它就不会和拥有相同名字的其它对象类型混淆，而且易于阅读和辨别。类型是唯一的（不能用两个 CIVILIZATION_CANADA）。如果加载 Type 相同的两个对象，后一个加载的会替换掉前一个。
 
-- **Description** - This is the text string description of the civ, for America it is "American Empire".
+- **Description** - 这是文明的文本描述，对于美国则是 “American Empire”。
 
-- **Civilopedia** - This isn't used in Civ5.
+- **Civilopedia** - 《文明 5》中不再使用。
 
-- **CivilopediaTag** - The starting text string for the pedia entry.
+- **CivilopediaTag** - 百科条目的初始文本。
 
-- **Strategy** - This isn't used in Civ5 (though Firaxis was having some fun with their default setting).
+- **Strategy** - 《文明 5》中不再使用（尽管 Firaxis 仍认为他们的默认设置很有意思）。
 
-- **Playable** - If true then humans can select this as an available civilization. If false then it won't be available. Note that the default is true, so civilizations will be playable unless the modmaker specifically disables them.
+- **Playable** - 如果设为真，那么人类玩家可以选择这个文明进行游戏。如果设为假，那么这个文明就不可用。注意默认为真，因此文明将是可用的，除非模组开发者指定禁用。
 
-- **AIPlayable** - If this is true then the AI can pick this civilization when randomly picking a civ when the game begins. If it is set to false then the AI will never pick this civilization. As with Playable this default to true unless the modder changes it. Setting both the Playable and AIPlayable attribute to false for a civilization is a good way to remove a civilization from the game without actually deleting the assets (so you won't break other mods that refer to it).
+- **AIPlayable** - 如果设为真，那么游戏开始时 AI 随机挑选文明时可以选择这个文明。如果它被设为假，那么 AI 就不能选择这个文明。就像 “Playable” 一样，默认设为真，除非模组开发者修改它。将某个文明的 “Playable” 和 “AIPlayable” 属性都设为假，这是移除文明的好方法，但实际并没有删除资源（因此你不会影响其它引用这个文明的模组）。
 
-- **ShortDescription** - The short text string for this civilization. For America it is "America".
+- **ShortDescription** - 文明的简称。对于美国来说是 “America”。
 
 - **Adjective**- The text string for the qualifier to things that belong to this civilization. For Ameican it is "American", as in an American Spearman.
 
 - **DefaultPlayerColor** - The default color of this civilizations borders, etc. This entry has to be specified in the CIV5PlayerColors.xml file. It is only the default because if the same civilization is in a game twice a random color will be assigned to the second instance (so players can tell them apart).
 
-- **ArtDefineTag** - This isn't used in Civ5.
+- **ArtDefineTag** - 《文明 5》中不再使用。
 
-- **ArtStyleType** - Defines the art style for the buildings that are used in this Civilization's cities.
+- **ArtStyleType** - 定义该文明的城市中的建筑的艺术类型。
 
-- **ArtStyleSuffix** - Used to pick different flavors of improvements and wonder art.
+- **ArtStyleSuffix** - 用来分辨不同的著作和奇观艺术。
 
-- **ArtStylePrefix** - Used to pick different flavors of improvements and wonder art.
+- **ArtStylePrefix** - 用来分辨不同的著作和奇观艺术。
 
-- **DervativeCiv** - This isn't used in Civ5.
+- **DervativeCiv** - 《文明 5》中不再使用。
 
-- **PortraitIndex** - The number of the icon in the icon atlas that is used for this Civilization.
+- **PortraitIndex** - 该文明所用的图集中的图标数量。
 
-- **IconAtlas** - The icon atlas that holds the icon for this civilization.
+- **IconAtlas** - 保存该文明的图标的图集。
 
-- **AlphaIconAtlas** - The icon atlas that has the alpha layer for this icon.
+- **AlphaIconAtlas** - 图标中包含透明度层的图集。
 
-- **MapImage** - The picture (as a dds file) that is displayed when this civ is selected from the civilization selection menu. Typically this is a map of the Civilization.
+- **MapImage** - 从文明选择菜单中进行选择时，显示的图片（就是 dds 文件）。通常是文明的映射。
 
-- **DawnOfManQuote**- The text that is displayed on the Dawn of Man (ie: loading) screen.
+- **DawnOfManQuote**- 显示在 Dawn of Man （比如加载）页面的文本。
 
-- **DawnOfManImage** - The picture (as a dds file) that is show on the dawn on man screen.
+- **DawnOfManImage** - 显示在 Dawn of Man 页面的图片。
 
-- **DawnOfManAudio** - The audio file that is played on the Dawn of Man screen, typically this is a reading of the Dawn of Man quote.
+- **DawnOfManAudio** - Dawn of Man 页面播放的音频文件, 通常这是 Dawn of Man 页面中进行的朗读。
 
-- **Civilization_BuildingClassOverrides** - This is how unique buildings are implemented for a civilization. This can be used to block a civilization from being able to build a building such as this change which keeps minor civilizations from being able to build the Sydney Opera House:
+- **Civilization_BuildingClassOverrides** - 这是用来实现一个文明的特色建筑的。它可以用来阻止文明建造建筑，比如这个改动可以避免城邦建造悉尼歌剧院：
 
 ```xml
 <Row>
@@ -140,7 +140,7 @@ Let's look at each of these values in detail:
 </Row>
 ```
 
-Or this change which switched the Castle to the Mughal fort for India:
+或者这个改动，将印度的城堡换成莫卧儿王朝堡：
 
 ```xml
 <Row>
@@ -150,26 +150,26 @@ Or this change which switched the Castle to the Mughal fort for India:
 </Row>
 ```
 
-- **Civilization_CityNames**- This is a list of the available city names for a civilization.
-- **Civilization_DisableTechs**- Any techs set here for a specific civilization won't be available for that civilization to research.
-- **Civilization_FreeBuildingClasses**- This is the free buildings available to a civilization when they found their first city. By default all civilizations get a free palace.
-- **Civilization_FreeTechs**- These are the free techs a civilization starts with.
-- **Civilization_FreeUnits**- These are the units the civilization starts with. By default all civilizations are set to start with a free settler.
-- **Civilization_Leaders**-This is where leaders are associated to their civilizations. In Civ5 each civilization can only have 1 leader.
-- **Civilization_UnitClassOverrides**- Much like the building class overrides this is where unique units are set with the unit they replace for this civilization.
-- **Civilization_Start_Along_Ocean**- If a civilization has this set the game will attempt to start them along a coastal tile. This defaults to false in schema, so it doesn't need to be set unless the modder is setting it to true.
-- **Civilization_Start_Along_River**- If a civilization has this set the game will attempt to start them along a coastal tile. This defaults to false in schema, so it doesn't need to be set unless the modder is setting it to true.
-- **Civilization_Start_Region_Priority**- If a civilization has this set the game will attempt to start them in the specified region. For example Arabia has Desert set for this.
-- **Civilization_Start_Region_Avoid**- If a civilization has this set the game will attempt to avoid these regions when deciding the civilizations starting location. For example Egypt is set to avoid starts in Jungles.
+- **Civilization_CityNames**- 这是一个文明中可用的城市名称列表。
+- **Civilization_DisableTechs**- 这里针对某个文明设置的所有科技都不能被该文明研究。
+- **Civilization_FreeBuildingClasses**- 这里是一个文明建造他们的第一个城市时可获得的免费建筑。默认的所有文明会获得一个免费的宫殿。
+- **Civilization_FreeTechs**- 这里是开局时文明的免费科技。
+- **Civilization_FreeUnits**- 这是文明开局的单位。默认所有文明都有一个免费的移民。
+- **Civilization_Leaders**- 这是首领关联他们文明的地方。《文明 5》中一个文明仅能有一个首领。
+- **Civilization_UnitClassOverrides**- 就像建筑类别的覆盖一样。这是把一个文明的普通单位换成特色单位的地方。
+- **Civilization_Start_Along_Ocean**- 如果一个文明有该设置，游戏就尝试将初始移民放在沿海地带上。默认是假，所以不用设置它，除非开发者把它设为真。
+- **Civilization_Start_Along_River**- 如果一个文明有该设置，游戏就尝试将初始移民放在沿河地带上。默认是假，所以不用设置它，除非开发者把它设为真。
+- **Civilization_Start_Region_Priority**- 如果一个文明有该设置，游戏会尝试将初始移民放在特殊区域。比如 Arabia 的该设置为荒漠。
+- **Civilization_Start_Region_Avoid**- 如果一个文明有该设置，游戏在决定文明开局位置的时候会尝试避开这些区域。比如 Egypt 就有此设置，避免在丛林开局。
 
-Unfortunately there is no complete reference for what all the attributes for all the objects types in civilization. But as you can see from the above schema most are fairly easy to figure out. You can also look for examples in the XML definitions to give hints. If you were, for example. wondering what Civilization_FreeUnits is it's helpful to see that every civilization has one for the settler.
+不幸的是在《文明 5》中没有对于所有对象中所有属性的完整引用。但是正如你从上面所看到的，大多数模式很容易计算出。也能参考 XML 定义的例子来得到提示。举个例子，如果你想要知道 Civilization_FreeUnits 是什么，明白每个城邦都有一个免费的移民是很有帮助的。
 
-Now that we understand the attributes that are required for a civilization we are ready to add a new civilization to the game.
+既然我们了解了一个文明所需的属性，我们就可以开始向游戏添加一个新文明了。
 
-1. Create the file structure. The filename and file structure doesn't matter. But I prefer to mirror Firaxis's XML folders for consistency. Create an XML folder from the root of the project, and a Civilizations folder beneath it. Within the Civilizations folder create a new file called Civ_Celt.xml.<br /><br />
-I prefer to have each civilization have their own file to make it easier for me to find data and make changes. But it's just as viable to create a single Civilizations file as Firaxis did, or to put all your xml objects in a single file.
+1. 创建文件树。文件名和文件结构没有什么关系。但我更喜欢与 Firaxis 的 XML 文件结构保持一致。在项目的根目录下创建一个 XML 文件夹，然后在这个文件夹里面创建包含文明的 “Civilizations” 文件夹。在 “Civilizations” 文件夹中创建一个叫做 “Civ_Celt.xml” 的文件。<br/><br/>
+我更喜欢每个文明有其独立的文件，这对我来说，查找数据和进行修改都很简单。像 Firaxis 一样，为文明单独创建文件是可行的，或者将 xml 的内容都放到一个文件里。
 
-2. Fill in the Civ_Celt.xml file with the following information:
+2. 将以下内容填入 “Civ_Celt.xml” 文件中：
 
 ```xml
 <GameData>
@@ -243,19 +243,19 @@ I prefer to have each civilization have their own file to make it easier for me 
 </GameData>
 ```
 
-The above is the definition for our new Celtic civilization. Because we haven't created a new leader yet I'm using Elizabeth as a leader. We haven't created a unique buildings (Civilization_BuildingClassOverrides) or unique units (Civilization_UnitClassOverrides) so they aren't set. I did set the Celt's to prefer start positions in forested regions. I selected PLAYERCOLOR_DARK_GREEN as the default player color for the civilization, you can find the full list of available player colors in CIV5PlayerColors.xml (which is also where you would add new ones).
+以上是我们定义的新 “Celtic” 文明。因为我们还没有创建新首领，因此这里我用 Elizabeth 作为首领。我们还没有创建特色建筑（Civilization_BuildingClassOverrides）和特色单位（Civilization_UnitClassOverrides），因此还没有设置他们。我设置 Celt 文明偏好出生地点为雨林地带。我选择 PLAYERCOLOR_DARK_GREEN 作为默认的玩家颜色，你能在 “CIV5PlayerColors.xml” 文件中可以找到可用的玩家颜色的整个列表（这就是你添加新颜色的地方）。
 
-I only used 3 city names in the above example just to simplify this document. For a real civilization we would want more than three city names.
+上例中我只填写了 3 个城市名，是为了简化这个文档。要是真创造一个文明时，我们不会只设置三个城市名。
 
-3. Define the text strings. We used a lot of text strings in the civ definition. We will have to define those in XML as well. Create a New Text directory under XML and add a new file under it. I have called mine GameText.xml.
+3. 定义文本。定义文明的时候会用到很多文本。我们也要在 XML 中定义这些文本。在 XML 文件夹下创建一个 “New Text” 目录，在这个目录下添加一个新文件。我把这个文件叫做 “GameText.xml”。
 
 ![](civ5_imgs/page31.jpg)
 
-The pedia entries use a special format. The prefix for the pedia entries is whatever we put in the CivilopediaTag attribute (TXT_KEY_CIV5_CELT). But the pedia is built form matching pairs of _HEADING_# and _TEXT_# entries. If we add a text entry for TXT_KEY_CIV5_CELT_HEADING_1, then that will be the heading for the for section of the pedia, TXT_KEY_CIV5_CELT_TEXT_1 will be the pedia entry under that heading. This way modders can add as many pedia entries as they want for a civilization (the same system is used for leaders).
+维基条目用的是特殊的格式。维基条目的前缀是我们放在 CivilopediaTag 标签中的属性（TXT_KEY_CIV5_CELT）。但是维基是匹配 _HEADING_# 和 _TEXT_# 条目的成型格式。如果添加一个叫做 TXT_KEY_CIV5_CELT_HEADING_1 的文本条目，那这就是维基部分的标题，TXT_KEY_CIV5_CELT_TEXT_1 将是标题下面的维基条目。这样开发者就能想添加多少维基条目就能添加多少条目（对于首领来说也是一样的）。
 
-Being lazy, I also used TXT_KEY_CIV5_CELT_TEXT_1 as the Dawn of Man quote.
+偷个懒，我把 TXT_KEY_CIV5_CELT_TEXT_1 当作 Dawn of Man 引用。
 
-4. Add the following to the text file:
+4. 把下面内容添加到文件中：
 
 ```xml
 <GameData>
@@ -288,19 +288,19 @@ Being lazy, I also used TXT_KEY_CIV5_CELT_TEXT_1 as the Dawn of Man quote.
 </GameData>           
 ```
 
-5. Lastly we have to make sure our modified files update the database. On the Actions tab on the mod properties we have to add the following entries to get the game to convert our xml files to sql and write them to the game database when the mod is loaded. This is one of the few places where the file path is important, if we change our directory or file names we will have to update the entry here on the Actions tab.
+5. 最后要确保修改的文件更新了数据库。在 Actions 标签页的模组属性中，我们要添加以下内容来让游戏将 XML 文件转化为 sql 语句并且在模组加载时写入到游戏数据库中。这是几个重要的文件路径之一，如果修改目录或者文件名，我们得更新 Actions 标签页面的相关条目。
 
 ![](civ5_imgs/page32.jpg)
 
-After that we have a new civilization in the game. We could use some art assets to make it look better, a new leader to go with it, and a unique unit and building. All of those will be covered in later sections.
+在添加新文明后，我们可以用一些艺术资源让它看起来很完善，还要有一个新首领，一个特色单位和特色建筑。所有这些都会在后几个章节中涉及到。
 
 #### 如何添加图标
 
-Now we need an icon for our civilization.
+现在我们需要文明的图标。
 
-Firaxis has helped us out by providing icon templates in the <SDK install directory>\Art\ directory as .psd files. There are seven templates files, one for 32x32 icons, one for 45x45, 64x64, 80x80, 128x128, 214x214 and 256x256.
+Firaxis 已经帮我们提供了 .psd 格式的图标模版，在 `<SDK install directory>\Art\` 目录下面存放着。有七个模版文件，分别含有 32x32，45x45，64x64，80x80，128x128，214x214 和 256x256 等像素的图标。
 
-Firaxis also provided a readme for icon sizes that are required for all the asset types.
+Firaxis 也提供了一个 readme 文件，包含所有资源类型所需的图标尺寸。
 
 |  |  |
 | :--------------- |  :-------------------  |
@@ -323,29 +323,29 @@ Firaxis also provided a readme for icon sizes that are required for all the asse
 |  World Types      |  128,64, 32               | 
 | | |
 
-The above means that civilizations, for example, need a 256x256, 128x128, 80x80, 64x64, 45x45 and 32x32 icon. So we need to create six icons for different sizes for our civilization. Loading the IconAtlas256.psd I can use Photoshop to create an icon in the first slot.
+上面这些内容意味着文明需要 256x256，128x128，80x80，64x64，45x45 和 32x32 的图标。所以我们要为新文明创造 6 个不同尺寸的图标。加载 IconAtlas256.psd 文件，我可以用 Photoshop 在第一个区域来创造一个图标。
 
 ![](civ5_imgs/page33.jpg)
 
-I prefer Photoshop, but many modders like to use Gimp, which has the considerable advantage of being free. The art tool doesn't matter, as long as it can read the .psd template and save the file as a .dds file.
+我喜欢 Photoshop，但很多开发者喜欢用 Gimp，它最明显的好处就是免费。工具无关紧要，只要能够读出 .psd 模版的内容，并且能够保存成 .dds 文件就行。
 
-I prefer to create the largest icon size first, since we will shrink this file to save the smaller versions. It's also important that our icon be clear and distinctive, not only at the 256x256 size, but at the 32x32 size. So avoid designs that are to complex (the celtic knot design I used is probably too complex to look that good at 32x32, but it will do).
+我喜欢先制作最大尺寸的图标，因为我们会压缩文件得到小的版本。图标清晰也很重要，不仅仅是 256x256 尺寸清楚，32x32 尺寸也要清楚。所以要避免过于复杂的设计（我使用的 celtic 节点的设计可能过于复杂，在 32x32 尺寸下看起来并不好，但也能用）。
 
-There is also an alpha layer in the psd file that defaults to the same round circles you see in the rest of the icon spaces above. The alpha layer controls what is displayed, what is white in the alpha layer is shown as part of the icon, what is black isn't. It is how the game knows what the edges of the icon are.
+在 psd 文件里还有个透明度层，就是你在图片区域的空余位置看到的圆圈上面。透明度层控制了显示区域，透明度层中白色的部分就会显示这部分的图片，而黑色的部分就不显示。这让游戏知道图片的边界在哪。
 
-All the base game civilization icons are simple circles, but I got a little fancy with mine and had it extend outside of the circle, so I had to adjust the alpha layer to match.
+基本游戏文明的图片就是一个个普通的圆，但我把自己的图片弄出了圆外，因此我得调整透明度层来达到要求。
 
-Once you have the icon created in the template, save it as a dds file. You may need to download special plugins for your art tool of choice to be able to save dds files. I selected to call my file CivSymbolsColorLegends256.dds.
+当你完成了模版里的图标，将它保存成 dds 文件。你可能需要给你使用的工具下载特殊插件，使之能够保存 dds 文件。我把我的文明命名为 CivSymbolsColorLegends256.dds。
 
 ![](civ5_imgs/page34.jpg)
 
-The 256x256 template is 2048x2048 pixels (eight 256 width icons across, eight 256 height icons from top to bottom). If we resize our image from 2048x2048 to 1024x1024 this will reduce our icons to 128x128, then we can save CivSymbolsColorLegends128.dds, resize to 640x640 (80 x 8) and save CivSymbolsColorLegends80.dds. And on to create a 64x64, 45x45 and 32x32 icon size dds file.
+这个 256x256 的模版有 2048x2048 个像素（横向有 8 个 256 像素的图标，纵向有 8 个高为 256 像素的图标）。要是把图片从 2048x2048 缩放到 1024x1024，就会将图标尺寸缩小到 128x128，这样就能保存成 CivSymbolsColorLegends128.dds 文件，缩小到 640x640 （80 x 8）保存成 CivSymbolsColorLegends80.dds 文件。然后依次保存 64x64，45x45 和 32x32 尺寸的 dds 文件。
 
-Once that is done we can add the files to our mod by creating an Art folder (though this isn't nessesary, I create it to help organize the project) and dragging and dropping our files into it.
+这个工作完成后就能向在模组中创建的 Art 文件夹里添加文件了（尽管文件夹不是必须的，但我创建它来帮助管理项目），将文件拖到文件夹中即可。
 
 ![](civ5_imgs/page34-2.jpg)
 
-Once all of our art files our added to the project we need to be able to reference them. to do that add a new asset type we need to add, IconTextureAtlases. Add the GameInfo folder underneath the XML folder and add an XML file called CIV5IconTextureAtlases.xml that contains the following:
+当所有艺术文件被添加到项目中后，就需要能够引用它们。要引用它们，需要添加一种新的资源类型，IconTextureAtlases。向 XML 文件夹下的 GameInfo 文件夹添加一个叫做 “CIV5IconTextureAtlases.xml” 的文件，它要包含这些内容：
 
 ```xml
 <GameData>
@@ -396,9 +396,9 @@ Once all of our art files our added to the project we need to be able to referen
 </GameData>
 ```
 
-The above defines the dds files we added. The important part for each is that the Icon size specifies what size icons it holds, and the IconsPerRow and IconsPerColumm tells it how the icons are laid out. Also note that all the Atlases have the same name, what distinguishes them is what size icon the game needs. So that if we tell the game to get the 12th icon in the CIV_COLOR_ATLAS_LEGENDS it will already know that it needs it for a 128x128 size display, so it will look in CivSymbolsColorLegends128.dds and since it knows that the icons are in a 8x8 grid it knows the 12th icon is 3rd icon in the 2nd row (counting starts at 0).
+上面的内容定义了我们添加的 dds 文件。重要的部分是图标尺寸指定了它所能使用多大的图标，IconsPerRow 和 IconsPerColumn 表明有多少个图标。请注意所有图集都有一样的名字，区分他们的是游戏需要多大的图标。因此如果我们告诉游戏，需要 CIV_COLOR_ATLAS_LEGENDS 中的第 12 个图标，它就知道需要用 128x128 尺寸的图标进行显示。因此他就会去 CivSymbolsColorLegends128.dds 文件中查找，并且由于它知道图标是在一个 8x8 的格子中，它就知道第 12 个图标是第 2 行的第三个图片（行列都从 0 开始计数）。
 
-Lastly we need to modify our civilization definition to use our new icon. back in our Celt.xml file we need to make the changes marked in blue:
+最后需要修改文明的定义来使用新图标。回到 Celt.xml 文件中，我们需要做这样的改动（蓝色标记的部分）：
 
 ```xml
 <GameData>
@@ -415,8 +415,10 @@ Lastly we need to modify our civilization definition to use our new icon. back i
             <ArtStyleType>ARTSTYLE_EUROPEAN</ArtStyleType>
             <ArtStyleSuffix>_EURO</ArtStyleSuffix>
             <ArtStylePrefix>EUROPEAN </ArtStylePrefix>
-            <blue><PortraitIndex>0</PortraitIndex></blue>
-            <blue><IconAtlas>CIV_COLOR_ATLAS_LEGENDS</IconAtlas></blue>
+            <!-- blue area -->
+            <PortraitIndex>0</PortraitIndex>
+            <IconAtlas>CIV_COLOR_ATLAS_LEGENDS</IconAtlas>
+            <!-- blue area -->
             <AlphaIconAtlas>CIV_ALPHA_ATLAS</AlphaIconAtlas>
             <MapImage>MapEngland512.dds</MapImage>
             <DawnOfManQuote>TXT_KEY_CIV5_DAWN_CELT_TEXT</DawnOfManQuote>
@@ -426,6 +428,6 @@ Lastly we need to modify our civilization definition to use our new icon. back i
 ...etc
 ```
 
-The above tells the civilization to use the new atlas we defined and use Icon 0 (the first icon in that atlas) the civ icon. Loading up the mod we can take a look at our new icon.
+上面的代码告诉文明使用我们做的新图集，并且将 Icon 0 作为文明的图标（图集中的第一个图标）。加载这个模组我们就能看到新图标了。
 
 ![](civ5_imgs/page36.jpg)

@@ -119,7 +119,7 @@ XML 的好处在于用文本编辑器就能修改，用户不必学一门编程�
 
 在 `<Table name="HurryInfos">` 和 `</Table>` 之间我们定义了一种模式。这个模式定义了 8 种属性，分别是 ID、Type、Description、PolicyPrereq、GoldPerProduction、ProductionPerPopulation、 GoldPerBeaker 以及 GoldPerCulture。
 
-实际上在 `<HurryInfos>` 和 `</HurryInfos>` 标签中间定义为 Row 的是资源。有两种资源， HURRY_POPULATION （牺牲人口加快产能）和 HURRY_GOLD（花费金钱加快产能）。但是 PolicyPrereq、GoldPerBeaker 和 GoldPerCulture 等属性都没有用过。开发者可以在他们的模组里面使用这些属性，尽管在基础游戏里面没有使用它们。
+实际上在 `<HurryInfos>` 和 `</HurryInfos>` 标签中间定义为 Row 的是资源。有两种资源， HURRY_POPULATION （使用人口加快产能）和 HURRY_GOLD（花费金钱加快产能）。但是 PolicyPrereq、GoldPerBeaker 和 GoldPerCulture 等属性都没有用过。开发者可以在他们的模组里面使用这些属性，尽管在基础游戏里面没有使用它们。
 
 需要注意的是，上述例子中是在文件的开头定义模式，同时定义了模式所控制的资源类型。这与《文明 4》中的处理方式不同，《文明 4》中模式是一个单独的文件。
 
@@ -221,7 +221,7 @@ XML 的好处在于用文本编辑器就能修改，用户不必学一门编程�
 
 **Leaders** - 这个文件夹与其它的有所不同。不是将所有模式和资源放在一个普通文件里，Firaxis 将模式放在一个文件中，将每个首领放在单独的文件里。这不影响模组性，但这让查看首领特性的值变得更加简单，也让比较首领特性的值变得更难。
 
-**Misc** - 这是设定商业和道路（公路和铁路）的地方。开发者可能对修改产量或者公路及铁路上的移动力感兴趣。
+**Misc** - 这是设定通知和道路（公路和铁路）的地方。开发者可能对修改产量或者公路及铁路上的移动力感兴趣。
 
 **NewText** - 这是指定游戏中所使用的文本对应的具体文字的地方。对于英语玩家， TXT_KEY_CIV_ARABIA_DESC 在这里被解释为 "Arabian Empire"。对于德语（de_DE)，英语（EN_US），西班牙语（es_ES），法语（fr_FR），意大利语（it_IT）和日语（JA_JP）都有单独的字典。英语开发者想要找到一个特定文本指的是什么，会去查看 /XML/NewText/EN_US/ 目录下的文件。
 
@@ -254,7 +254,7 @@ cache 文件夹中的文件是游戏运行时会被删除或替换的主体，�
 
 以下一些例子可以通过你的模组中包含的 sql 文件得到应用。这通常是修改一些设置的更方便的方式，就不用手动修改每个设置了。
 
--- 让出了移民和侦察兵以外的所有建筑和单位都不能建造
+-- 让除了移民和侦察兵以外的所有建筑和单位都不能建造
 
 ```sql
 UPDATE Buildings SET 'PrereqTech' = 'TECH_FUTURE_TECH' WHERE Type <> 'BUILDING_PALACE';
