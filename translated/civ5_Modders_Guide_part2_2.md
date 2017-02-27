@@ -86,7 +86,7 @@
 
 - **ID** - 这是数据库的起始行。第一条记录是 0，不能被修改。
 
-- **Type** - 这是用来引用文明的关键。通常用 `CIVILIZATION_<name>`（因此 CIVILIZATION_CANADA 就是加拿大）。我们将名字的前一部分作为对象类型，那么它就不会和拥有相同名字的其它对象类型混淆，而且易于阅读和辨别。类型是唯一的（不能用两个 CIVILIZATION_CANADA）。如果加载 Type 相同的两个对象，后一个加载的会替换掉前一个。
+- **Type** - 这是用来引用文明的关键。通常用 `CIVILIZATION_<name>`（因此 CIVILIZATION_CANADA 就是加拿大）。我们将名字的前一部分作为对象类型，那么它就不会和拥有相同名字的其它对象类型混淆，而且易于阅读和辨别。类型是唯一的（不能有两个 CIVILIZATION_CANADA）。如果加载 Type 相同的两个对象，后一个加载的会替换掉前一个。
 
 - **Description** - 这是文明的文本描述，对于美国则是 “American Empire”。
 
@@ -102,9 +102,9 @@
 
 - **ShortDescription** - 文明的简称。对于美国来说是 “America”。
 
-- **Adjective**- The text string for the qualifier to things that belong to this civilization. For Ameican it is "American", as in an American Spearman.
+- **Adjective**- 描述属于该文明的东西的文本。对于美国而言是 “American”，比如美国矛兵。
 
-- **DefaultPlayerColor** - The default color of this civilizations borders, etc. This entry has to be specified in the CIV5PlayerColors.xml file. It is only the default because if the same civilization is in a game twice a random color will be assigned to the second instance (so players can tell them apart).
+- **DefaultPlayerColor** - 文明边界的默认颜色。这个条目必须是 “CIV5PlayerColors.xml” 文件中的。它仅仅是默认的，因为加入一个游戏里有两个相同的文明，那么一个随机的颜色会被分配给第二个文明实例（这样就能被玩家区分开）。
 
 - **ArtDefineTag** - 《文明 5》中不再使用。
 
@@ -162,7 +162,7 @@
 - **Civilization_Start_Region_Priority**- 如果一个文明有该设置，游戏会尝试将初始移民放在特殊区域。比如 Arabia 的该设置为荒漠。
 - **Civilization_Start_Region_Avoid**- 如果一个文明有该设置，游戏在决定文明开局位置的时候会尝试避开这些区域。比如 Egypt 就有此设置，避免在丛林开局。
 
-不幸的是在《文明 5》中没有对于所有对象中所有属性的完整引用。但是正如你从上面所看到的，大多数模式很容易计算出。也能参考 XML 定义的例子来得到提示。举个例子，如果你想要知道 Civilization_FreeUnits 是什么，明白每个城邦都有一个免费的移民是很有帮助的。
+不幸的是在《文明 5》中没有对于所有对象的所有属性的完整引用。但是正如你从上面所看到的，大多数模式很容易看出。也能参考 XML 定义的例子来得到提示。举个例子，知道每个城邦都有一个免费的移民对于你想要弄清楚 Civilization_FreeUnits 是什么，是很有帮助的。
 
 既然我们了解了一个文明所需的属性，我们就可以开始向游戏添加一个新文明了。
 
@@ -251,9 +251,9 @@
 
 ![](civ5_imgs/page31.jpg)
 
-维基条目用的是特殊的格式。维基条目的前缀是我们放在 CivilopediaTag 标签中的属性（TXT_KEY_CIV5_CELT）。但是维基是匹配 _HEADING_# 和 _TEXT_# 条目的成型格式。如果添加一个叫做 TXT_KEY_CIV5_CELT_HEADING_1 的文本条目，那这就是维基部分的标题，TXT_KEY_CIV5_CELT_TEXT_1 将是标题下面的维基条目。这样开发者就能想添加多少维基条目就能添加多少条目（对于首领来说也是一样的）。
+百科条目用的是特殊的格式。维基条目的前缀是我们放在 CivilopediaTag 标签中的属性（TXT_KEY_CIV5_CELT）。但是百科是匹配 _HEADING_# 和 _TEXT_# 条目的成型格式。如果添加一个叫做 TXT_KEY_CIV5_CELT_HEADING_1 的文本条目，那这就是百科部分的标题，TXT_KEY_CIV5_CELT_TEXT_1 将是标题下面的一个条目。这样开发者就能想添加多少百科条目就能添加多少条目（对于首领来说也是一样的）。
 
-偷个懒，我把 TXT_KEY_CIV5_CELT_TEXT_1 当作 Dawn of Man 引用。
+偷个懒，我把 TXT_KEY_CIV5_CELT_TEXT_1 当作 Dawn of Man 的引述。
 
 4. 把下面内容添加到文件中：
 
@@ -323,7 +323,7 @@ Firaxis 也提供了一个 readme 文件，包含所有资源类型所需的图�
 |  World Types      |  128,64, 32               | 
 | | |
 
-上面这些内容意味着文明需要 256x256，128x128，80x80，64x64，45x45 和 32x32 的图标。所以我们要为新文明创造 6 个不同尺寸的图标。加载 IconAtlas256.psd 文件，我可以用 Photoshop 在第一个区域来创造一个图标。
+上面这些内容意味着文明需要 256x256，128x128，80x80，64x64，45x45 和 32x32 的图标。所以我们要为新文明创造 6 个不同尺寸的图标。加载 “IconAtlas256.psd” 文件，我可以用 Photoshop 在第一个区域来创造一个图标。
 
 ![](civ5_imgs/page33.jpg)
 
@@ -335,11 +335,11 @@ Firaxis 也提供了一个 readme 文件，包含所有资源类型所需的图�
 
 基本游戏文明的图片就是一个个普通的圆，但我把自己的图片弄出了圆外，因此我得调整透明度层来达到要求。
 
-当你完成了模版里的图标，将它保存成 dds 文件。你可能需要给你使用的工具下载特殊插件，使之能够保存 dds 文件。我把我的文明命名为 CivSymbolsColorLegends256.dds。
+当你完成了模版里的图标，将它保存成 dds 文件。你可能需要给你使用的工具下载特殊插件，使之能够保存 dds 文件。我把我的文件命名为 “CivSymbolsColorLegends256.dds”。
 
 ![](civ5_imgs/page34.jpg)
 
-这个 256x256 的模版有 2048x2048 个像素（横向有 8 个 256 像素的图标，纵向有 8 个高为 256 像素的图标）。要是把图片从 2048x2048 缩放到 1024x1024，就会将图标尺寸缩小到 128x128，这样就能保存成 CivSymbolsColorLegends128.dds 文件，缩小到 640x640 （80 x 8）保存成 CivSymbolsColorLegends80.dds 文件。然后依次保存 64x64，45x45 和 32x32 尺寸的 dds 文件。
+这个 256x256 的模版有 2048x2048 个像素（横向有 8 个 256 像素的图标，纵向有 8 个高为 256 像素的图标）。要是把图片从 2048x2048 缩放到 1024x1024，就会将图标尺寸缩小到 128x128，这样就能保存成 “CivSymbolsColorLegends128.dds” 文件，缩小到 640x640 （80 x 8）保存成 “CivSymbolsColorLegends80.dds” 文件。然后依次保存 64x64，45x45 和 32x32 尺寸的 dds 文件。
 
 这个工作完成后就能向在模组中创建的 Art 文件夹里添加文件了（尽管文件夹不是必须的，但我创建它来帮助管理项目），将文件拖到文件夹中即可。
 
@@ -396,9 +396,9 @@ Firaxis 也提供了一个 readme 文件，包含所有资源类型所需的图�
 </GameData>
 ```
 
-上面的内容定义了我们添加的 dds 文件。重要的部分是图标尺寸指定了它所能使用多大的图标，IconsPerRow 和 IconsPerColumn 表明有多少个图标。请注意所有图集都有一样的名字，区分他们的是游戏需要多大的图标。因此如果我们告诉游戏，需要 CIV_COLOR_ATLAS_LEGENDS 中的第 12 个图标，它就知道需要用 128x128 尺寸的图标进行显示。因此他就会去 CivSymbolsColorLegends128.dds 文件中查找，并且由于它知道图标是在一个 8x8 的格子中，它就知道第 12 个图标是第 2 行的第三个图片（行列都从 0 开始计数）。
+上面的内容定义了我们添加的 dds 文件。重要的部分是图标尺寸指定了它所能使用多大的图标，IconsPerRow 和 IconsPerColumn 表明有多少个图标。请注意所有图集都有一样的名字，区分他们的是游戏需要多大的图标。因此如果我们告诉游戏，需要 CIV_COLOR_ATLAS_LEGENDS 中的第 12 个图标，它就知道需要用 128x128 尺寸的图标进行显示。因此他就会去 “CivSymbolsColorLegends128.dds” 文件中查找，并且由于它知道图标是在一个 8x8 的格子中，它就知道第 12 个图标是第 2 行的第三个图片（行列都从 0 开始计数）。
 
-最后需要修改文明的定义来使用新图标。回到 Celt.xml 文件中，我们需要做这样的改动（蓝色标记的部分）：
+最后需要修改文明的定义来使用新图标。回到 “Celt.xml” 文件中，我们需要做这样的改动（蓝色标记的部分）：
 
 ```xml
 <GameData>

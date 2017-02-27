@@ -1,5 +1,3 @@
-
-
 #### 如何改变艺术家的定义
 
 This document won't cover creating art assets for Civ5. Firaxis has an SDK tool called Nexus for that, but I am the wrong guy to cover it.

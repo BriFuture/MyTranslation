@@ -1,8 +1,8 @@
 #### 如何添加首领
 
-Adding a leader is similar to adding a civilization. To create Boudica I copied all the attributes from Alexander, who I want her to act similar to. Then I switched to Elizabeth's art definitions for ArtDefineTag (the leader screen art) and PortraitIndex (the icon she uses). Last I switched her to the Hiawatha's trait of Ignore Terrain in Forest. In later sections we look at how to create new art and trait for Boudica.
+添加首领和添加文明差不多。我复制了 Alexander 的所有属性，以便于创造出和 Alexander 性格相近的 Boudica 。然后我替换了 Elizabeth 的关于 ArtDefineTag （首领页面的图画）和 PortraitIndex （她所使用的图标）的图画设定。最后我替换了 Hiawatha 无视森林地形的设定。在后几节中我们会学习如何为 Boudica 创造新的图像和特性。
 
-This is Boudica's leader definition. I created a new file called XML/Leaders/CIV5Leader_Bouidica.xml and set this file to update the database on the actions tab of the mod properties.
+这是 Boudica 的首领定义。我创建了在相应目录下叫做 `XML/Leaders/CIV5Leader_Bouidica.xml` 的新文件，在模组属性的 actions 标签页设置该文件要更改数据库。
 
 ```xml
 <GameData>
@@ -230,7 +230,7 @@ This is Boudica's leader definition. I created a new file called XML/Leaders/CIV
 </GameData>
 ```
 
-We need two more things before Boudica becomes a complete leader. First we need to modify our Celt civilization entry to make Boudica the leader. To do that we need to modify the Celt.xml entry we added from the LEADER_ELIZABETH leader to LEADER_BOUDICA.
+在 Boudica 成为一个完整的首领前我们还需要两个东西。首先我们需要把 Celt 文明的首领修改成 Boudica。我们需要修改 “Celt.xml” 文件，把 LEADER_ELIZABETH 修改成 LEADER_BOUDICA。
 
 ```xml
 <Civilization_Leaders>
@@ -241,7 +241,7 @@ We need two more things before Boudica becomes a complete leader. First we need 
 </Civilization_Leaders>
 ```
 
-Secondly we need to add the text strings to our already existing GameText.xml that is used by our new leader:
+其次我们需要向 “GameText.xml” 文件添加以下的文本，作为新首领的描述：
 
 ```xml
     <Row Tag="TXT_KEY_CIVILOPEDIA_LEADERS_BOUDICA_HEADING_1">
@@ -264,11 +264,11 @@ Secondly we need to add the text strings to our already existing GameText.xml th
     </Row>
 ```
 
-Notice that, just as with the civilizations, the CivilopediaTag attribute is a prefix for several text strings. The _NAME and _SUBTITLE are special to leaders and are displayed at the top of the pedia page. Exactly as with civilizations the _HEADING_1 and _TEXT_1 are used to create body sections in the pedia page. And there is a special tag for _LIVED which contains the years the years the leader was alive.
+注意，就像文明的标签一样，CivilopediaTag 属性是某些文本的前缀。_NAME 和 _SUBTITLE 对于首领很特殊，他们被展示在百科页面的顶部。就像文明的 _HEADING_1 和 _TEXT_1 是用来创建百科页面的主体部分。还有一个特殊的标签，_LIVED，它包含了首领的生卒年份。
 
-Finally, I would like to update the Dawn of Man (loading screen image) image for the Celt civ so that it loads with a picture of Boudica instead of the current picture of Elizabeth. As I was stretching the limits of my artistic ability to create that Celtic civilization icon, I'm going to have to find another source for a Boudica picture. Fortunately Boudica had great art in the Civilization IV: Warlords expansion, and I don't think Firaxis would mind if I borrowed it for a Civilization V mod.
+最后，我要换一下 Celt 文明的 Dawn of Man （游戏加载画面）图片，让它加载 Boudica 的一幅图片，而不是现在的 Elizabeth 的图片。当我想创造 Celtic 文明图标来展示我的艺术才能时，我不得不再找一幅 Boudica 的图片。幸运的是 Boudica 在 《文明 4》中有著作：《Warlords expansion》，我认为 Firaxis 不会介意我拿它当作《文明 5》的模组。
 
-A Dawn of Man picture is 1024x768 and has to be a DDS file. Outside of that any picture will do. I used photoshop to save a picture of Boudica in that size and format as BoudicaDOM.dds, included that picture with my mod and made the following change to the Celt's civilization definition (change in blue):
+Dawn of Man 图片的尺寸是 1024x768，而且得是 DDS 格式的文件。所有图片都可以用。我用 Photoshop 保存了一张叫做 “BoudicaDOM.dds” 的 Boudica 图片，尺寸是 1024x768，然后在模组里添加了这幅图片，并且在 Celt 文明的定义里做了以下变动（蓝色部分）：
 
 ```xml
 <Civilizations>
@@ -289,18 +289,21 @@ A Dawn of Man picture is 1024x768 and has to be a DDS file. Outside of that any 
         <AlphaIconAtlas>CIV_ALPHA_ATLAS</AlphaIconAtlas>
         <MapImage>MapEngland512.dds</MapImage>
         <DawnOfManQuote>TXT_KEY_CIV5_CELT_TEXT_1</DawnOfManQuote>
+        <!-- blue area -->
         <DawnOfManImage>BoudicaDOM.dds</DawnOfManImage>
+        <!-- blue area -->
         <DawnOfManAudio/>
     </Row>
 </Civilizations>
 ```
-And that's all we need to have a new, working leader. In the next section we will cover how to add a new trait to Boudica and there will be a screenshot of the Dawn of Man screen where we can see the new screen.
+
+这是我们要创建一个新的、可用的首领的所有东西了。下一节将会降到怎么给 Boudica 添加特性。我们也可以在 Dawn of Man 页面上看到全新的图片。
 
 #### 如何添加特性
 
-So far we have been borrowing Hiawatha's trait for our Boudica. It works fairly well, but our civilization would be more interesting if it had a unique trait. This section will go through the simple steps to add a trait to the game.
+目前为止我们借了 Hiawatha 的特性当作 Boudica 的。它很有用，但是如果我们的文明有个独特的特性，它会更有趣。这一节我们将涉及到添加特效的几个基本步骤。
 
-First we need to add a new file to our mod, CIV5Traits.xml in the /XML/Civilizations directory. We will be adding a trait called Battle Fury that will give all Melee, Mounted and Gun units 2 attacks per round instead of the normal 1. This is the definition we will need to do that:
+先在模组里面添加 “CIV5Traits.xml” 文件，放在 `/XML/Cilizations` 目录下。添加一个叫做 “Battle Fury” 的特性，让 Melee，Mounted 和 Gun 等单位拥有每回合 2 次攻击的能力，普通单位每回合只能攻击 1 次。这是我们需要的设定：
 
 ```xml
 <GameData>
@@ -331,11 +334,11 @@ First we need to add a new file to our mod, CIV5Traits.xml in the /XML/Civilizat
 </GameData>
 ```
 
-The above adds the new trait to the game. It's a fairly simple definition, it gives the Second Attack promotion to all this civilizations Melee, Mounted and Gun units (Second Attack is an already existing promotion that gives units an additional attack each turn).
+上述内容添加了新特性。这是很简单的设定，它让这个文明的 Melee、Mounted 和 Gun 单位得到二次攻击的晋升（二次进攻是游戏已经存在的晋升，让单位每回合多进行一次攻击）。
 
-But we need to modify our mod properties to add this to the list of files that will update the database when the mod is loaded, we need text string decodes for the text strings we use here and we need to assign this trait to Boudica.
+但是我们要修改模组属性，让模组加载时这个文件也能更新数据库，我们需要给使用的文本进行相应的翻译，并把这个特性赋予 Boudica。
 
-You should be familiar with adding text strings by this point. Add the following to the GameText.xml file:
+你应该很熟悉是如何添加文本的。把这些内容添加到 “GameText.xml” 文件中：
 
 ```xml
 <Row Tag="TXT_KEY_TRAIT_BATTLE_FURY">
@@ -346,7 +349,7 @@ You should be familiar with adding text strings by this point. Add the following
 </Row>
 ```
 
-To assign this to Boudica make the following change to our Boudica leader definition:
+要把这个特性赋予 Boudica，在 Boudica 的首领定义中作以下的修改：
 
 ```xml
 <Leader_Traits>
@@ -357,21 +360,21 @@ To assign this to Boudica make the following change to our Boudica leader defini
 </Leader_Traits>
 ```
 
-Creating a new trait is as easy as that. Be sure to look through the schema definition for Traits and the XML definitions for all the existing traits to get ideas for new traits for your leaders.
+创造一个新特性就这么简单。确保浏览过有关 Traits 的模式和所有已有的特性的 XML 定义，也许会得到新特性的启发。
 
 ![](civ5_imgs/page43.jpg)
 
 #### 如何添加单位
 
-Units are fun, and adding them is easy. As you may have noticed in the above screenshot there are two Unique Units assigned to the Celt's in this section we will cover how to add one of them.
+添加单位很简单。你可能注意到在之前的截图中，Celt 有两个特殊单位，这一节我们会讲到如何添加其中一个单位。
 
-This document covers the technical aspects of modding, but it's worth briefly mentioning some design considerations when adding new unique units to the game. When you consider a unique unit think about when that makes the civilization powerful (unique units are typically better than the unit they replace). Consider how that matches with their trait and how that compares to other unique units. For the Celts I've added a unique unit that replaces the warrior and one that replaces the swordsman. Both are early units and both combine nicely with the Boudica's trait. That makes the Celt's very strong militarily in the early game. They don't have buildings that help with their infrastructure and none of their abilities are very helpful defensively. But they are great early game raiders.
+这份文档会涉及到技术层面的模组开发，但要添加新特色单位时，讲一些简单的设计思想很有用。当你设计一个特色单位，让这个文明更强大（特色单位通常比他们替换的普通单位更好）。想一想怎么匹配文明的特性，与其它特色单位比较会如何。对于 Celts 我添加的一种特色单位替换了勇士，另一个替换了剑士。这两个都是前期单位，并且与 Boudica 的特性结合的很好。这让 Celt 文明前期的军事力量更加强大。他们没有能帮助他们的基础设施建筑，也没有非常有用的防守能力。但他们将会是前期强大的进攻者。
 
-The Gaelic Warrior is the same cost and strength of a normal warrior but he ignores terrain costs. Moving through forests, hills, jungles or across rivers happens exactly like open plains. This makes the Gaelic Warrior very quick raiders, especially with their trait ability of being able to attack twice a turn. This also helps with their forested starts.
+Gaelic 勇士的花费和攻击力与普通的勇士一样，但 Gaelic 勇士无视地形（对于移动力）的消耗。在森林、丘陵、雨林中移动甚至是渡河，都像在平原一样行动。这让 Gaelic 勇士很勇猛，尤其是配合他们的特色能力，每回合能够进行两次攻击。这让热带地区开局对他们也很有帮助。
 
 ![](civ5_imgs/page43-2.jpg)
 
-We need to make four changes to add a new unique unit to the game. First we need to add a new file CIV5Units.xml to our mod. I added it in the XML/Units/ folder. That file needs to contain the following unit definition.
+我们要修改四个地方来添加一种新特色单位。首先在模组里加入 “CIV5Units.xml” 文件。我把它放到了 `XML/Units/` 文件夹下。这个文件需要包含这些单位定义：
 
 ```xml
 <GameData>
@@ -450,15 +453,15 @@ We need to make four changes to add a new unique unit to the game. First we need
 </GameData>
 ```
 
-Notice that in the above there are a few tables that need to be updated when adding unit. The primary one is the Units table, But we also updated the Unit_FreePromotions table (to grant the promotion that allows the unit to ignore terrain costs), Unit_AITypes table (interestingly the game searches for an available UNITAI_DEFENSE unit to start the player with, since I didn't originally have this defined the Celts weren't starting with a free warrior until I fixed it), Unit_ClassUpgrades table (so that our new unit can be upgraded to a Swordsman) and the Unit_Flavors table (so different AI leaders can prefer different strategies).
+添加单位的时候，这里有很多表需要被更新。首要的表是 Units，但我们也更新了 Unit_FreePromotions 表 （用来赋予晋升，让单位能够无视地形损耗），Unit_AITypes 表（有趣的是游戏会在 UNITAI_DEFENSE 单位中寻找可用的单位来开局，因为我没有定义这个，因此除非我定义了，Celts 开局时候就没有免费的勇士了），Unit_ClassUpgrades 表（这样我们的新单位可以升级到剑士）以及 Unit_Flavors 表（不同的值代表 AI 首领偏好不同的策略）。
 
-The above unit uses the UNITCLASS_WARRIOR unitclass, so we don't need to define a new unitclass for it. Since it doesn't have its own unitclass, we know that this is a unique unit (that it replaces the warrior unit for a civilization).
+上面的单位使用 UNITCLASS_WARRIOR 作为单位类别，因此不必定义新的单位类别。由于它没有自己的单位类别，我们就知道这是一个特色单位（就是替换文明的勇士单位）。
 
-All of the Unit attributes should be fairly easy to understand. I included a custom art definition with the Gaelic Warrior, we will go over that in the next section.
+所有单位属性应该都很容易理解。我给 Gaelic 勇士添加了一个自定义的图片，下一节中将会涉及到。
 
-The second step to adding the unit is that we have to modify the mod properties and include the new file as one that updates the database when the mod is activated.
+添加单位的第二步是要修改模组属性，包含新文件，在激活模组时用来更新数据库。
 
-The third step is to add the text entries the unit requires. I didn't get fancy and add a custom pedia entry. Just the text string and a help string so the player knows what the unit does, so we only have two entries that need to be added to the text file.
+第三布是添加单位需要的文本条目。我没有什么主意，添加了一个自定义的百科条目。就是一些文本，和帮助文本让玩家知道这个单位是做什么的，因此只需要向文件里添加这两个条目：
 
 ```xml
 <Row Tag="TXT_KEY_UNIT_GAELIC_WARRIOR">
@@ -469,7 +472,7 @@ The third step is to add the text entries the unit requires. I didn't get fancy 
 </Row>
 ```
 
-The final step is we need to assign this unit as unique unit for the Celt civilization.
+最后一步需要将这个单位添加到 Celt 文明的特色单位。
 
 ```xml
 <Civilization_UnitClassOverrides>
@@ -481,4 +484,4 @@ The final step is we need to assign this unit as unique unit for the Celt civili
 </Civilization_UnitClassOverrides>
 ```
 
-That is all it takes to add a new unit to the game. In the next section we will look at how we assign new art to a unit.
+这是添加新的特色单位的所有步骤了。下一节里我们会看到怎么给单位设计图片。
