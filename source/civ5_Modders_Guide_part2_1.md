@@ -136,7 +136,7 @@ Here we have two tables, Specialists and SpecialistYields. Although slightly mor
 
 #### Updating an Object
 
-Sometimes you don't want to add a new asset, you just want to change an asset in the base game. This is as simple as adding an <Update> element between the asset tags (where the `<Row>` element typically goes).
+Sometimes you don't want to add a new asset, you just want to change an asset in the base game. This is as simple as adding an `<Update>` element between the asset tags (where the `<Row>` element typically goes).
 
 An Update element has two child elements, a `<Set`> element and a `<Where>` element.
 
@@ -348,7 +348,7 @@ In the above section there is a new Language_en_US (English text) asset being ad
 
 #### Changing Text Strings
 
-We may also want to change existing text strings in the base game. You overwrite the existing definition the same as changing any attribute. To begin you may want to look at the former text string definition. You can find base game text strings somewhere beneath "<install directory>\assets\Gameplay\XML\NewText\".
+We may also want to change existing text strings in the base game. You overwrite the existing definition the same as changing any attribute. To begin you may want to look at the former text string definition. You can find base game text strings somewhere beneath "`<install directory>\assets\Gameplay\XML\NewText\`".
 
 Looking through those files we can find the following text string definitions in CIV5ModdingText.xml:
 

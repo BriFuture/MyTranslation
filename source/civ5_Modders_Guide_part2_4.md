@@ -28,7 +28,7 @@ But we will go through the art definitions. There are two parts. The first, Unit
 </UnitArtInfos>
 ```
 
-Notice that this is the first XML definition we have covered that doesn't start with the <GameData> field. Unit art info isn't fully integrated into the database, so dealing with it is a bit different than the other XML assets.
+Notice that this is the first XML definition we have covered that doesn't start with the `<GameData>` field. Unit art info isn't fully integrated into the database, so dealing with it is a bit different than the other XML assets.
 
 The above definition for ART_DEF_UNIT_BARBARIAN_EURO contains ten units in its formation. Two EURO_ALPHA unit models, four EURO_BRAVO models and four EURO_CHARLIE models. Firaxis has different models makeup the formations so it doesn't look like a clone army. To see more about those models we need to check out the UnitMemberArtInfo definitions:
 
@@ -101,7 +101,7 @@ There are three UnitMemberArtInfo definitions in the above. Each sets the fScale
 
 Personally I'm not a huge fan of the large ten unit formations. The battles do look cool, but it's hard to distinguish all the small units on the map. So with this mod we are going to change from formations of ten units to a single large unit model.
 
-One of the differences with the UnitArtInfo and UnitMemberArtInfo, since they aren't in the database, is that we can't use the <Update> function one them. We have to provide a complete copy of the modified file. Also because the unit system is loaded before the mod is we need to set "Reload Unit System" in our mod properties to have our changed unit model definitions take effect.
+One of the differences with the UnitArtInfo and UnitMemberArtInfo, since they aren't in the database, is that we can't use the `<Update>` function one them. We have to provide a complete copy of the modified file. Also because the unit system is loaded before the mod is we need to set "Reload Unit System" in our mod properties to have our changed unit model definitions take effect.
 
 To do that we first have to change the UnitArtInfo for each unit to switch them to one member. Again I won't include the entire file here, but just our barbarian warrior example.
 
@@ -111,10 +111,12 @@ To do that we first have to change the UnitArtInfo for each unit to switch them 
         <Type>ART_DEF_UNIT_BARBARIAN_EURO</Type>
         <Formation>Barbarian</Formation>
         <DamageStates>1</DamageStates>
-        <blue><UnitMemberArt>
+        <!-- blue area -->
+        <UnitMemberArt>
             <MemberType>ART_DEF_UNIT_MEMBER_BARBARIAN_EURO_BRAVO</MemberType>
             <MemberCount>1</MemberCount>
-        </UnitMemberArt></blue>
+        </UnitMemberArt>
+        <!-- end of blue area -->
     </UnitArtInfo>
 </UnitArtInfos>
 ```
@@ -125,7 +127,9 @@ And secondly we need to change the definition for our ART_DEF_UNIT_MEMBER_BARBAR
 <UnitMemberArtInfos>
     <UnitMemberArtInfo>
         <Type>ART_DEF_UNIT_MEMBER_BARBARIAN_EURO_BRAVO</Type>
+        <!-- blue area -->
         <fScale>0.32</fScale>
+        <!-- end of blue area -->
         <Granny>Assets/Units/Barbarian/Barbarian_EURO/Barbarian_EURO_Bravo.fxsxml</Granny>
         <Combat>
             <Defaults>ART_DEF_TEMPLATE_SOLDIER</Defaults>
@@ -302,7 +306,7 @@ And the following is the base definition for a Hospital:
 </Buildings>
 ```
 
-The nice thing about the <update> tag is that you only have to specify exactly what you want to change. To change the definitions for these create a new files in the mod called /XML/Buildings/CIV5Buildings.xml and add that file to update the database in the Mod's properties as we have done with all of our other changes. As with the others the filename and directory path doesn't matter except to help us organize our mod.
+The nice thing about the `<update>` tag is that you only have to specify exactly what you want to change. To change the definitions for these create a new files in the mod called /XML/Buildings/CIV5Buildings.xml and add that file to update the database in the Mod's properties as we have done with all of our other changes. As with the others the filename and directory path doesn't matter except to help us organize our mod.
 
 If we want the Granary to keep 30% of the food after a population growth, and we want to remove that ability from the Hospital and replace it with the ability to grant the Medic promotion to any units trained there we need to add the following XML to our new CIV5Buildings.xml file:
 
@@ -394,7 +398,7 @@ But when this mod is loaded the game crashes and we get the following errors in 
 
 The problem is the existing references to non-existing Horses. Although the Database.log file gives us some indication of where the errors are coming from, the easiest way to find out what files contain a reference to RESOURSE_HORSE is a file search.
 
-To do that I start in the "<Civ5 install dir>\Assets\Gameplay\XML" directory and do a search for RESOURCE_HORSE and select to have my search include file contents. Doing so gives me the following:
+To do that I start in the "`<Civ5 install dir>\Assets\Gameplay\XML`" directory and do a search for RESOURCE_HORSE and select to have my search include file contents. Doing so gives me the following:
 
 ![](civ5_imgs/page54.jpg)
 

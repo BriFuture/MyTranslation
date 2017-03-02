@@ -6,7 +6,7 @@ THE MODDERS GUIDE TO SID MEIER'S CIVILIZATION V - part1
 ### What is Modding?
 Modding is a slang expression for modifying hardware or software to do something different than the designer intended. Firaxis developed Civilization V (and earlier versions) with modders in mind. A mod could be as simple as tweaking the costs of some units and buildings, changing the AI so that it plays differently or adding a new civilizaiton to the game. Or it could be as complex as a total conversion mod that creates a new game on the Civilization engine.
 
-This document was written to help modders get a jump start on modding Civilization V by helping to communicate what's possible, learn the technical issues and get modders as quickly as possible from coming up with a mod idea, to publishing their own mod. Although this document covers a wide range of mod concepts, it doesn;t cover evething that can be done with Civ5. In particular source code mods and 3d art changes aren't covered in this document.
+This document was written to help modders get a jump start on modding Civilization V by helping to communicate what's possible, learn the technical issues and get modders as quickly as possible from coming up with a mod idea, to publishing their own mod. Although this document covers a wide range of mod concepts, it doesn't cover evething that can be done with Civ5. In particular source code mods and 3d art changes aren't covered in this document.
 
 ### What has changed since Civilization IV?
 
@@ -33,7 +33,7 @@ XML is a format for qualifying data. It isn't a programming language, it's a lan
 
 The advantage of XML is that it is modifiable with a text editor and users don't have to learn a programming language to use it. Consider the following XML definition of a settler:
 
-```
+```xml
 <Row>
     <Class>UNITCLASS_SETTLER</Class>
     <Type>UNIT_SETTLER</Type>
@@ -75,7 +75,7 @@ Schema is the definition for XML elements. In Civ terms this means that Schema d
 
 You may have noticed that there are a lot of unit attributes that weren't on the setter definition in the proceeding section. For example it doesn't say if the settler is allowed to pillage or not. There is a attribute called Pillage that is defined in schema as follows:
 
-```
+```xml
 <Column name="Pillage" type="boolean" default="false"/>
 ```
 
@@ -83,9 +83,10 @@ This schema definition shows that the Pillage element is a boolean. It can be ei
 
 If you want to know what attributes are available for an object you should look at the schema definition for that object type. Sometimes we find attributes that aren't being used, things that can be used in Mods even if they aren't used in the base game. Consider the following from CIV5HurryInfos.xml:
 
-```
+```xml
 <GameData>
     <!-- Table definition -->
+    <!-- red area -->
     <Table name="HurryInfos">
         <Column name="ID" type="integer" primarykey="true" autoincrement="true"/>
         <Column name="Type" type="text" notnull="true" unique="true"/>
@@ -96,7 +97,9 @@ If you want to know what attributes are available for an object you should look 
         <Column name="GoldPerBeaker" type="integer" default="0"/>
         <Column name="GoldPerCulture" type="integer" default="0"/>
     </Table>
+    <!-- end of red area -->
     <!-- Table data -->
+    <!-- blue area -->
     <HurryInfos>
         <Row>
             <ID>0</ID>
@@ -112,6 +115,7 @@ If you want to know what attributes are available for an object you should look 
             <GoldPerProduction>6</GoldPerProduction>
         </Row>
     </HurryInfos>
+    <!-- end of blue area -->
 </GameData>
 ```
 
@@ -207,7 +211,7 @@ As an example all civilizations start with a free BUILDINGCLASS_PALACE. If you c
 
 - **CIV5TurnTimers.xml** - These define the turn timers when auto-end turns are set in the multi-player game options.
 
-- **CIV5Victories.xml** - This is where the victory conditions are defined. In general the victory conditions in Civ5 don't expose much to modding. The domination victory, for example, just has the Conquest element set to true(<Conquest>true</Conquest>). What the Conquest element does is set in the source code, not exposed to XML. But looking closely at schema for this file shows that there is a table defined in schema that isn't being used, VictoryPointAwards. Firaxis has a victory point system integrated and unused in Civ5. A modder can add new Victories that don't have WinsGame set to true and then assign points to them in the VictoryPointsAwards table.
+- **CIV5Victories.xml** - This is where the victory conditions are defined. In general the victory conditions in Civ5 don't expose much to modding. The domination victory, for example, just has the Conquest element set to true(`<Conquest>true</Conquest>`). What the Conquest element does is set in the source code, not exposed to XML. But looking closely at schema for this file shows that there is a table defined in schema that isn't being used, VictoryPointAwards. Firaxis has a victory point system integrated and unused in Civ5. A modder can add new Victories that don't have WinsGame set to true and then assign points to them in the VictoryPointsAwards table.
 
 - **CIV5Votes.xml** - This file is obsolete and unused in Civ5.
 
@@ -242,7 +246,7 @@ Effectively the XML files are translated into SQL queries and run against the da
 
 The easiest way to view the game database is to install Firefox with the SQLite Manager addon [https://addons.mozilla.org/en-US/firefox/addon/5817/](https://addons.mozilla.org/en-US/firefox/addon/5817/).
 
-Once it is installed, you can open SQLite Manager by opening Firefox and going to Tools->SQLite Manager. At the top menu in the application, go to Database->Connect Database. Navigate to <My Documents>/My Games/Sid Meier's Civilization V/cache/. Now, making sure that the file type drop down is set to "All Files", select CIV5CoreDatabase.db. Select OK and you can now view the database contents.
+Once it is installed, you can open SQLite Manager by opening Firefox and going to Tools->SQLite Manager. At the top menu in the application, go to Database->Connect Database. Navigate to `<My Documents>/My Games/Sid Meier's Civilization V/cache/`. Now, making sure that the file type drop down is set to "All Files", select CIV5CoreDatabase.db. Select OK and you can now view the database contents.
 
 ![](civ5_imgs/page12.jpg)
 
@@ -253,39 +257,45 @@ The files in the cache folder are subject to getting deleted and replaced while 
 The following examples can be applied by including an sql file with your mod. It is often a faster way to modify a lot of settings rather than manually changing each one.
 
 -- Make all buildings and units except the Settler and Scout unbuildable
-```
+
+```sql
 UPDATE Buildings SET 'PrereqTech' = 'TECH_FUTURE_TECH' WHERE Type <> 'BUILDING_PALACE';
 UPDATE Units SET 'PrereqTech' = 'TECH_FUTURE_TECH' WHERE Class <> 'UNITCLASS_SETTLER' and Class <> 'UNITCLASS_SCOUT';
 ```
 
 -- Another way to block the creation of certain unit's
-```
+
+```sql
 UPDATE UnitClasses SET MaxPlayerInstances = 0 WHERE Type IN ("UNITCLASS_SETTLER","UNITCLASS_ARTIST","UNITCLASS_SCIENTIST","UNITCLASS_MERCHANT","UNITCLASS_ENGINEER");
 ```
 
 -- Display All Civilizations
-```
+
+```lua
 for civ in DB.Query("select * from Civilizations") do
     print(civ.Type);
 end
 ```
 
 -- Display All Units that cost more than 200
-```
+
+```lua
 for unit in DB.Query("select * from Units where cost > 200") do
     print(unit.Type);
 end
 ```
 
 -- Display the RGB Values of the PrimaryColor for All Player Colors
-```
+
+```lua
 for color in DB.Query("select Colors.Red, Colors.Green, Colors.Blue from PlayerColors inner join Colors on PlayerColors.PrimaryColor = Color.Type") do
     print(string.Format("R: %f, G: %f, B: %f", color.Red, Color.Green, Color.Blue);
 end
 ```
 
 -- Display all American leaders
-```
+
+```lua
 local myCiv = "CIVLIZATION_AMERICA";
 for leader in DB.Query("select * from Leaders inner join Civilization_Leaders on Leaders.Type = Civilization_Leaders.LeaderheadType where Civilization_Leaders.CivilizationType = ?", myCiv) do
     print(leader.Type);
@@ -309,7 +319,7 @@ Lua scripts cannot directly call functions in other Lua scripts. Instead there i
 
 If you need a function to be callable by another Lua script you will need to create a LuaEvents function to do it such as:
 
-```
+```lua
 LuaEvents.ToggleHideUnitIcon.Add(
 function()
     if (bHideUnitIcon) then
@@ -322,7 +332,7 @@ end);
 
 The above function has been registered with the LuaEvents engine and can be called by any Lua script by:
 
-```
+```lua
 LuaEvents.ToggleHideUnitIcon();
 ```
 

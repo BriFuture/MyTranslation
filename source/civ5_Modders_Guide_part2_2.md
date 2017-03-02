@@ -86,7 +86,7 @@ Let's look at each of these values in detail:
 
 - **ID** - This is the database starter row. It is set as 0 on the first entry but shouldn't be modified.
 
-- **Type** - This is the key we will use to reference this civilization. We typically use CIVILIZATION_<name> (so CIVILIZATION_CANADA for Canada). We keep the object type as the first part of the name so that it doesn't get confused with another object type with the same name, and is easy to read and identify. Types have to be unique (you can't have two CIVILIZATION_CANADA's). If two objects with the same Type are loaded the one that is loaded second will replace the first one.
+- **Type** - This is the key we will use to reference this civilization. We typically use `CIVILIZATION_<name>` (so CIVILIZATION_CANADA for Canada). We keep the object type as the first part of the name so that it doesn't get confused with another object type with the same name, and is easy to read and identify. Types have to be unique (you can't have two CIVILIZATION_CANADA's). If two objects with the same Type are loaded the one that is loaded second will replace the first one.
 
 - **Description** - This is the text string description of the civ, for America it is "American Empire".
 
@@ -298,7 +298,7 @@ After that we have a new civilization in the game. We could use some art assets 
 
 Now we need an icon for our civilization.
 
-Firaxis has helped us out by providing icon templates in the <SDK install directory>\Art\ directory as .psd files. There are seven templates files, one for 32x32 icons, one for 45x45, 64x64, 80x80, 128x128, 214x214 and 256x256.
+Firaxis has helped us out by providing icon templates in the `<SDK install directory>\Art\` directory as .psd files. There are seven templates files, one for 32x32 icons, one for 45x45, 64x64, 80x80, 128x128, 214x214 and 256x256.
 
 Firaxis also provided a readme for icon sizes that are required for all the asset types.
 

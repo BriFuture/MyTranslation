@@ -437,14 +437,14 @@ include( "InstanceManager" );
 g_InstanceManager = InstanceManager:new( "ListingButtonInstance", "Button", Controls.ListingStack );
 
 function OnPopup( popupInfo )
-    <red>
+    -- red area
     if( popupInfo.Type ~= ButtonPopupTypes.BUTTONPOPUP_NOTIFICATION_LOG ) then
         return;
     end
     if( popupInfo.Data1 ~= 999 ) then
         return;
     end
-    </red>
+    -- end of red area
 
     local unsortedInstalledMods = Modding.GetInstalledMods();
     g_InstanceManager:ResetInstances();
@@ -466,7 +466,9 @@ function OnPopup( popupInfo )
 
     UIManager:QueuePopup( ContextPtr, PopupPriority.NotificationLog );
 end
-<blue>Events.SerialEventGameMessagePopup.Add( OnPopup );</blue>
+-- blue area
+Events.SerialEventGameMessagePopup.Add( OnPopup );
+-- end of blue
 
 function OnClose ()
     UIManager:DequeuePopup( ContextPtr );
@@ -558,7 +560,7 @@ To upload your mod go through the following steps after selecting Online Service
 
 3. Click the ... button on the Select Mod Package screen to browse for the mod to upload.
 
-4. Select the mod package. It defaults to ../My Documents/Firaxis ModBuddy/<ModName>/Packages directory. If you have multiple versions of the mod they will all appear here. Select the version you want to upload (typically the most recent version).
+4. Select the mod package. It defaults to `../My Documents/Firaxis ModBuddy/<ModName>/Packages` directory. If you have multiple versions of the mod they will all appear here. Select the version you want to upload (typically the most recent version).
 
 ![](civ5_imgs/page74-4.jpg)
 
@@ -606,6 +608,6 @@ This is a great place to find mistypes. If you have spelled LEADER_ELIZABETH inc
 Much as the Database.log helps you isolate XMl problems Lua.log helps you isolate Lua errors. Notice that in most cases (as in the example below) the Lua.log file gives you the file generating the error and the line number. Very handy when trying to figure out why your mod isn't working.
 
 ```
-[202778.570] Syntax Error: [string "Lua/ModList.lua"]:165: 'end' expected (to close 'function' at line 14) near '<eof>'
+[202778.570] Syntax Error: [string "Lua/ModList.lua"]:165: 'end' expected (to close 'function' at line 14) near '`<eof>`'
 [202778.570] Runtime Error: Error loading Lua/ModList.lua.
 ```

@@ -1,8 +1,8 @@
 #### 如何改变艺术家的定义
 
-This document won't cover creating art assets for Civ5. Firaxis has an SDK tool called Nexus for that, but I am the wrong guy to cover it.
+本文不会讲怎么做《文明 5》用的图片资源。Firaxis 有一个叫做 Nexus 的软件就是做这个的，但我不是讲这个的最好人选。
 
-But we will go through the art definitions. There are two parts. The first, UnitArtInfo, is for the formation as a whole. The unit definition points to this layer, it specifies how many units (and what sort of units) make up the formation. The entire file is too long to include here, but this is one sample from it.
+但我们还是要理解图片定义。有两个部分，第一是 UnitArtInfo，这是整体信息。单位定义指向这一层，它指定了有多少个（及多少种）单位组成信息。整个文件太长了，无法包含到这里，这里是文件中的一个例子：
 
 ```xml
 <UnitArtInfos>
@@ -26,9 +26,9 @@ But we will go through the art definitions. There are two parts. The first, Unit
 </UnitArtInfos>
 ```
 
-Notice that this is the first XML definition we have covered that doesn't start with the <GameData> field. Unit art info isn't fully integrated into the database, so dealing with it is a bit different than the other XML assets.
+注意这是我们看过的第一个不是以 `<GameData>` 开头的 XML 定义。单位图片信息不完全整合到数据库中，因此处理它要比其它 XML 文件稍微困难些。
 
-The above definition for ART_DEF_UNIT_BARBARIAN_EURO contains ten units in its formation. Two EURO_ALPHA unit models, four EURO_BRAVO models and four EURO_CHARLIE models. Firaxis has different models makeup the formations so it doesn't look like a clone army. To see more about those models we need to check out the UnitMemberArtInfo definitions:
+上面关于 ART_DEF_UNIT_BARBARIAN_EURO 的定义信息里包含了十个单位。两个 EURO_ALPHA 单位模型，四个 EURO_BRAVO 模型和四个 EURO_CHARLIE 模型。Firaxis 有不同的模型形态，因此它看上去不像是克隆的军队。要了解更多相关信息，我们得看一看 UnitMemberArtInfo 定义：
 
 ```xml
 <UnitMemberArtInfos>
@@ -95,13 +95,13 @@ The above definition for ART_DEF_UNIT_BARBARIAN_EURO contains ten units in its f
 </UnitMemberArtInfos>
 ```
 
-There are three UnitMemberArtInfo definitions in the above. Each sets the fScale (how large the unit model is) links to the actual art file (in the Granny attribute) and contains the tags used for the sound and animation effects.
+上面有三个 UnitMemberArtInfo 定义。每一个都设置了 fScale （单位模型的大小），关联到实际的图片文件（在 Granny 属性中），并且包含用于音效和动画效果的标签。
 
-Personally I'm not a huge fan of the large ten unit formations. The battles do look cool, but it's hard to distinguish all the small units on the map. So with this mod we are going to change from formations of ten units to a single large unit model.
+个人而言，我对巨大的单位形态不感兴趣。战斗看起来很酷，但很难分辨地图上的所有小单位。因此用这个模组我们会把十个单位的形态改成一个个巨大的单位模型。
 
-One of the differences with the UnitArtInfo and UnitMemberArtInfo, since they aren't in the database, is that we can't use the <Update> function one them. We have to provide a complete copy of the modified file. Also because the unit system is loaded before the mod is we need to set "Reload Unit System" in our mod properties to have our changed unit model definitions take effect.
+由于 UnitArtInfo 和 UnitMemberArtInfo 不在数据库中，它们与之前的 XML 文件不同的是我们没法用 `<Update>` 更新数据。我们已经提供了修改过的文件的完整副本。而且由于单位系统是在模组之前加载的，我们需要勾上模组属性里的 “Reload Unit System”，让修改的单位模型生效。
 
-To do that we first have to change the UnitArtInfo for each unit to switch them to one member. Again I won't include the entire file here, but just our barbarian warrior example.
+首先要修改每个单位的 UnitArtInfo，将他们放到一个成员组中。再次强调我不会把整个文件放在这里，这里只有野蛮人勇士的例子。
 
 ```xml
 <UnitArtInfos>
@@ -117,13 +117,15 @@ To do that we first have to change the UnitArtInfo for each unit to switch them 
 </UnitArtInfos>
 ```
 
-And secondly we need to change the definition for our ART_DEF_UNIT_MEMBER_BARBARIAN_EURO_BRAVO to increase its size.
+然后需要修改 ART_DEF_UNIT_MEMBER_BARBARIAN_EURO_BRAVO 定义，增大尺寸。
 
 ```xml
 <UnitMemberArtInfos>
     <UnitMemberArtInfo>
         <Type>ART_DEF_UNIT_MEMBER_BARBARIAN_EURO_BRAVO</Type>
+        <!-- blue area -->
         <fScale>0.32</fScale>
+        <!-- end of blue area -->
         <Granny>Assets/Units/Barbarian/Barbarian_EURO/Barbarian_EURO_Bravo.fxsxml</Granny>
         <Combat>
             <Defaults>ART_DEF_TEMPLATE_SOLDIER</Defaults>
@@ -144,13 +146,13 @@ And secondly we need to change the definition for our ART_DEF_UNIT_MEMBER_BARBAR
 </UnitMemberArtInfos>
 ```
 
-The only change to the above is highlighted in blue. The fScale of the unit was changed from 0.12 to 0.32, so it's almost three times the size of normal.
+唯一的改动是蓝色部分。把单位的 fScale 属性从 0.12 改到 0.32，所以它几乎是普通模型大小的三倍。
 
-One of the big advantages of switching from the larger formations to a single larger units is it leaves us with some unused unit art models. Before the barbarian unit formation was made up of three different unit models, Alpha, Bravo and Charlie. In our new barbarian formation we are using the Bravo model. So we have the Alpha model (which sports a cool deerskin antler headdress which is perfect for our Gaelic Warrior unit) available for use.
+把一个巨大单位调成巨大形态的一个好处是它能给我们留下一些未使用的单位图片模型。之前形成野蛮人单位形态的是三个不同的单位模型， Alpha，Bravo 以及 Charlie。新的野蛮人形态中我们用的是 Bravo 模型。因此 Alpha 模型（身穿鹿皮，头戴鹿角，很适合 Gaelic 勇士单位）就能使用。
 
 ![](civ5_imgs/page48.jpg)
 
-In the prior section, when we created our Gaelic Warrior we used the art definition of ART_DEF_UNIT_GAELIC_WARRIOR, now we need to add that definition to the UnitArtInfo.
+前一节中，创建 Gaelic 勇士时我们用的是 ART_DEF_UNIT_GAELIC_WARRIOR 的图片定义，现在我们要把这个定义添加到 UnitArtInfo。
 
 ```xml
 <UnitArtInfos>
@@ -166,15 +168,15 @@ In the prior section, when we created our Gaelic Warrior we used the art definit
 </UnitArtInfos>
 ```
 
-We don't need to change the UnitMemberArtInfo since that definition hasn't changed. Instead this tells the game to use the ART_DEF_UNIT_MEMBER_BARBARIAN_EURO_ALPHA model as a single unit formation when the ART_DEF_UNIT_GAELIC_WARRIOR definition is set.
+不必修改 UnitMemberArtInfo，因为还没改变定义。但上面的代码告诉游戏，当 ART_DEF_UNIT_GAELIC_WARRIOR 设置时使用 ART_DEF_UNIT_MEMBER_BARBARIAN_EURO_ALPHA 模型作为一个单位形态。
 
 #### 如何添加建筑
 
-Buildings are easy to add to the game. In this example we will add a palisade as an early defensive building. The palisade won't require any techs, so it's available from the first turn, and can't be built in any era except the Ancient Era (during later eras player should be using walls, castles and other powerful defensive buildings).
+添加建筑很简单。我们将添加栅栏作为早期的防御建筑。栅栏不需要任何科技，因此第一个回合就能建造，并且只能在远古时代建造（在其它时代玩家就应该使用城墙，城堡以及其它坚固的防御建筑了）。
 
 ![](civ5_imgs/page49.jpg)
 
-To do this we only need to update three tables. The first is Buildings table from CIV5Buildings.xml. The following adds the Palisade building to the game:
+要做的是更新三个表。第一个是 “CIV5Buildings.xml” 文件中的 Buildings 表。下面的代码添加了栅栏建造：
 
 ```xml
 <GameData>
@@ -203,9 +205,9 @@ To do this we only need to update three tables. The first is Buildings table fro
 </GameData>
 ```
 
-Civ5 uses Buildingclasses for the replacement buildings used as unique buildings, for example the Market and Bazaar are both BUILDINGCLASS_MARKET. That way all the AI and logic can be programmed using BUILDINGCLASS_MARKET and the game can translate that to mean a Market for most civilizations and a Bazaar for Arabian players.
+《文明 5》使用 BuildingClasses 来为特色建筑替换普通建筑，比如 Market （市场）和 Bazaar （集市）都是 BUILDINGCLASS_MARKET 类别的。这样所有 AI 和逻辑能够使用 BUILDINGCLASS_MARKET 进行编程，游戏能知道这意味着大多数文明用的是 Market，而阿拉伯文明的玩家用的是 Bazaar。
 
-The next entry is the BuildingClasses table in the CIV5BuildingClasses.xml file:
+下面的内容是“CIV5BuildingClasses.xml”文件中的 BuildingClasses 表：
 
 ```xml
 <GameData>
@@ -219,7 +221,7 @@ The next entry is the BuildingClasses table in the CIV5BuildingClasses.xml file:
 </GameData>
 ```
 
-And finally we need the text strings to support the building we added. There are three new tags we referenced in the above building definition.
+最后需要为我们添加的建筑设置文本。这是我们在上述建筑定义中引用的三个新标签。
 
 ```xml
 <GameData>
@@ -237,13 +239,13 @@ And finally we need the text strings to support the building we added. There are
 </GameData>
 ```
 
-That's it, a complete mod that adds a new building to the game, that is modular (can be used with other mods without compatibility issues) and can be created an published within 5-10 minutes.
+一个添加了新建筑的完整模组就做好了，这是模块化的（可以被其它模组使用，并且不会用兼容性问题），并且能够在 5-10 分钟内构建、发布。
 
 #### 如何修改建筑
 
-Let's assume we want to change the way that some buildings work in the game. Currently a Granary adds food to the city it is in and Hospital's allow a city to carry over 50% of its food after a population increase.
+假设我们要改变建筑的功能。粮仓给城市增加食物，医院允许城市能够保留 50% 食物以供人口增长。
 
-The following is the base definition for a Granary:
+下面是粮仓的基本定义：
 
 ```xml
 <Buildings>
@@ -275,7 +277,7 @@ The following is the base definition for a Granary:
 </Building_YieldChanges>
 ```
 
-And the following is the base definition for a Hospital:
+这个是医院的基本定义：
 
 ```xml
 <Buildings>
@@ -300,9 +302,9 @@ And the following is the base definition for a Hospital:
 </Buildings>
 ```
 
-The nice thing about the <update> tag is that you only have to specify exactly what you want to change. To change the definitions for these create a new files in the mod called /XML/Buildings/CIV5Buildings.xml and add that file to update the database in the Mod's properties as we have done with all of our other changes. As with the others the filename and directory path doesn't matter except to help us organize our mod.
+`<update>` 标签的优点在于你只需要指定你想要修改的东西。要做出修改，先创建一个文件 “/XML/Buildings/CIV5Buildings.xml”，做完所有改动后，在模组属性的更新数据库的设置中添加这个文件。和其它文件，文件名和路径无关紧要，但能帮助组织项目。
 
-If we want the Granary to keep 30% of the food after a population growth, and we want to remove that ability from the Hospital and replace it with the ability to grant the Medic promotion to any units trained there we need to add the following XML to our new CIV5Buildings.xml file:
+如果粮仓在人口增长后保持 30% 的食物，还要用新功能来取代医院之前的功能，让拥有医院的城市建造的所有单位获得医疗晋升，我们需要在 “CIV5Buildings.xml” 文件添加以下内容：
 
 ```xml
 <GameData>
@@ -327,11 +329,11 @@ If we want the Granary to keep 30% of the food after a population growth, and we
 </GameData>
 ```
 
-The above XML makes four changes. The first is to set the FoodKept attribute of Granaries to 30 (so 30% of the food is kept after population growth). The second sets the Help attribute of Granaries to TXT_KEY_BUILDING_GRANARY_HELP. Granaries don't normally have a Help string, but we will need one so players know about the functionality we are adding. The third removes the FoodKept ability from Hospitals by setting it to 0. And the fourth is to set the TrainedFreePromotion attribute of Hospitals to PROMOTION_MEDIC, so new units trained in a city with a Hospital start with the Medic promotion.
+上述的 XML 就改了四个地方。第一个是把粮仓的 FoodKept （保存食物）属性改成了 30 （因此 30% 的食物会被保存用于人口增长）。第二个设置了粮仓的 Help （提示）属性，改成了 TXT_KEY_BUILDING_GRANARY_HELP。粮仓一般没有提示文本，但我们需要这个来让玩家知道我们添加的功能。第三个移除了医院的 FoodKept 能力，将它改成 0。第四是把医院的 TrainedFreePromotion 属性设置成了 PROMOTION_MEDIC，这样拥有医院的城市建造的单位就有医疗晋升了。
 
-Not only is this very simple to read, and see exactly what you have changed (in prior versions all of the xml would need to be replaced so you would need to use a compare utility to see what was changed) it also makes the changes very modular. One mod can allow Granaries to store food after growth, another could modify the Granary's cost and a third could change the Granary to a different tech.
+这不仅仅易于阅读，而且可以清楚的看到你改了什么（在之前的版本里，所有的 xml 文件都要被替换掉，你就要用个比较工具查看改变了什么）。而且这让改动更容易模块话。一个模组能允许粮仓在人口增长后储藏食物，另一个可以修改粮仓的花费，而第三个模组能够修改建筑粮仓所需的科技。
 
-We also need a few text strings to support this. We will need to add the new TXT_KEY_BUILDING_GRANARY_HELP text string, and we need to update the already existing TXT_KEY_BUILDING_HOSPITAL_HELP text string.
+还是要一些文本来描述这些东西。我们要添加 TXT_KEY_BUILDING_GRANARY_HELP 文本，还要更新现有的 TXT_KEY_BUIDING_HOSPITAL_HELP 文本。
 
 ```xml
 <GameData>
@@ -347,21 +349,21 @@ We also need a few text strings to support this. We will need to add the new TXT
 <GameData>
 ```
 
-Notice that the Granary string is a new string, as we added for other assets. But the Hospital string is an update operation, which we need to change the base text string to the new one.
+注意粮仓是添加字符串，像我们添加其它资源一样。而医院文本要用到更新操作，这样才能改变文本。
 
 ![](civ5_imgs/page52.jpg)
 
-The process covered in this section is as valid for leaders, units and other assets as it is for buildings. The `<Update>` element is an easy way for modders to change existing base game assets in a modular way.
+这一节的步骤，修改建筑和修改首领，单位以及其它资源一样是有用的。`<Update>` 元素是模组开发者修改现有游戏数据的简单方式，也是可模块化的方式。
 
 #### 如何移除资源
 
-Removing a resource is a good example of removing any referenced asset from Civ5. Resources are referenced by units, buildings, improvements, and other sources. So simply deleting the asset will cause errors or the game to crash.
+移除资源是移除《文明 5》中移除相关联资源的好例子。资源被单位、建筑、改进以及其它资源所引用。因此简单的删除资源会导致错误，甚至游戏崩溃。
 
-If we want to remove horses from the game (and it wasn't for these references) the following mod would work:
+要是想要移除游戏里的马（它没有被引用）那么下面的模组就能正常运行：
 
 ![](civ5_imgs/page53.jpg)
 
-But when this mod is loaded the game crashes and we get the following errors in the Database.log file:
+但是游戏加载该模组时，会崩溃，我们在 “Database.log” 文件里得到以下错误：
 
 ```
 [66897.643] Validating Foreign Key Constraints...
@@ -390,25 +392,25 @@ But when this mod is loaded the game crashes and we get the following errors in 
 [66897.674] Failed Validation.
 ```
 
-The problem is the existing references to non-existing Horses. Although the Database.log file gives us some indication of where the errors are coming from, the easiest way to find out what files contain a reference to RESOURSE_HORSE is a file search.
+问题在于，现有的引用指向不存在的 Horses（马）。尽管 “Database.log” 文件给了错误发生的提示，但找出哪些文件里包含对 RESOURSE_HORSE 引用的最简单的方法是文件搜索。
 
-To do that I start in the "<Civ5 install dir>\Assets\Gameplay\XML" directory and do a search for RESOURCE_HORSE and select to have my search include file contents. Doing so gives me the following:
+我先在 “`<Civ5 install dir>\Assets\Gameplay\XML`” 目录下面搜索 RESOURCE_HORSE ，选择文件包含我搜索的内容。给了我这些东西：
 
 ![](civ5_imgs/page54.jpg)
 
-We don't need to worry about the text files. The text files are only string decodes, they don't reference anything. The fact that RESOURCE_HORSE exists in them is only part of a longer text string. That leaves us with: CIV5Units.xml, CIV5Buildings.xml, CIV5Resources.xml, CIV5Improvements.xml and Civ5Traits.xml.
+不用担心文本文件。文本文件只是解释字符串的，他们不引用任何东西。存在于文件中的 RESOURCE_HORSE 实际上只是长文本的一部分。搜索出了：“CIV5Units.xml”，“CIV5Buildings.xml”，“CIV5Resources.xml”，“CIV5Improvements.xml” 以及 “Civ5Traits.xml” 文件。
 
 ![](civ5_imgs/page54-2.jpg)
 
-My next step is to create xml files for each of the files I have to supply updates for. As stated in earlier sections, we could have all these changes in a single file and the folder and file names don't matter. I prefer to maintain Civ5's structure and filenames because it is easier for me to remember, but a single XML file called RemoveHorses.xml is just as valid.
+下一步要为每一个需要更新内容的文件创建各自相关的 XML 文件。如前几节所描述的，我们能够把所有改动都放在一个文件中，文件名无关紧要。我偏好于仿照 《文明 5》 的文件结构和文件名，因为这易于记忆，但是只用一个叫 “RemoveHorse.xml”的 XML 文件也可以。
 
-Once we have the blank files we have to look through the original version to see what reference we need to remove. We will start with Civ5Buildings.xml.
+当创建好了一个空文件后，就得浏览原始版本的几个文件，看看我们要移除哪些引用。从 “Civ5Buildings.xml” 开始吧。
 
-A search of Civ5Buildings.xml shows two references to RESOURCE_HORSE. It is in the Building_LocalResourceAnds table for Stables, and in the Building_LocalResourceOrs table for the Circus. Both of these references will need to be removed by our mod before it will be able to load.
+在 “Civ5Buildings.xml” 展示了两个对 RESOURCE_HORSE 的引用。在 Building_LocalResourceAnds 表的 Stables 和 Building_LocalResourceOrs 表中的 Circus 都对 RESOURCE_HORSE 进行了引用。这两个引用都要删除，这样我们的模组才能加载。
 
 ![](civ5_imgs/page55.jpg)
 
-The following xml for our Mod's Civ5Buildings.xml will remove both of the references.
+以下的 “Civ5Buildings.xml” 文件将会删除上述两个引用。
 
 ```xml
 <GameData>
@@ -421,9 +423,9 @@ The following xml for our Mod's Civ5Buildings.xml will remove both of the refere
 </GameData>
 ```
 
-And we need to do the same thing for the Traits, Units, Improvements and Resources files, which leaves us with the following.
+还要对 Traits，Units，Improvements 以及 Resource 文件进行同样的处理，这就有了以下内容。
 
-Civ5Traits.xml:
+“Civ5Traits.xml” 文件:
 
 ```xml
 <GameData>
@@ -433,7 +435,7 @@ Civ5Traits.xml:
 </GameData>
 ```
 
-Civ5Units.xml:
+“Civ5Units.xml” 文件:
 
 ```xml
 <GameData>
@@ -443,7 +445,7 @@ Civ5Units.xml:
 </GameData>
 ```
 
-Civ5Improvements.xml:
+“Civ5Improvements.xml” 文件:
 
 ```xml
 <GameData>
@@ -456,7 +458,7 @@ Civ5Improvements.xml:
 </GameData>
 ```
 
-Civ5Resources.xml:
+“Civ5Resources.xml” 文件:
 
 ```xml
 <GameData>
@@ -478,4 +480,4 @@ Civ5Resources.xml:
 </GameData>
 ```
 
-Once the above changes are made we will have a mod that removes horses, and all the references to horses from the game. Keep in mind that this mod will not be compatible with other mods that reference horses. If for example a mod adds a new mounted unit that has a resource require of horses. Which is why mods that delete base assets should be marked exclusive.
+做完了这些就能移除马匹和所有引用马匹的资源了。要记住这个模组与其它引用了马匹的模组不兼容。比如说，有一个模组添加了一个新的骑乘单位，需要一单位的马匹资源。这就是模组删除基本资源时应该被标记为排他的原因。

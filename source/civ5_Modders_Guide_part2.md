@@ -209,21 +209,27 @@ Sometimes we will want our update to check on more than one element before apply
 
 ```
 <Resource_YieldChanges>
+    <!-- red area -->
     <Row>
         <ResourceType>RESOURCE_BANANA</ResourceType>
         <YieldType>YIELD_FOOD</YieldType>
         <Yield>1</Yield>
     </Row>
+    <!-- end of red area -->
+    <!-- green area -->
     <Row>
         <ResourceType>RESOURCE_WHALE</ResourceType>
         <YieldType>YIELD_FOOD</YieldType>
         <Yield>1</Yield>
     </Row>
+    <!-- end of green area -->
+    <!-- blue area -->
     <Row>
         <ResourceType>RESOURCE_WHALE</ResourceType>
         <YieldType>YIELD_GOLD</YieldType>
         <Yield>1</Yield>
     </Row>
+    <!-- end of blue area -->
 </Resource_YieldChanges>
 ```
 
@@ -791,8 +797,10 @@ Lastly we need to modify our civilization definition to use our new icon. back i
             <ArtStyleType>ARTSTYLE_EUROPEAN</ArtStyleType>
             <ArtStyleSuffix>_EURO</ArtStyleSuffix>
             <ArtStylePrefix>EUROPEAN </ArtStylePrefix>
-            <blue><PortraitIndex>0</PortraitIndex></blue>
-            <blue><IconAtlas>CIV_COLOR_ATLAS_LEGENDS</IconAtlas></blue>
+            <!-- blue area -->
+            <PortraitIndex>0</PortraitIndex>
+            <IconAtlas>CIV_COLOR_ATLAS_LEGENDS</IconAtlas>
+            <!-- end of blue area -->
             <AlphaIconAtlas>CIV_ALPHA_ATLAS</AlphaIconAtlas>
             <MapImage>MapEngland512.dds</MapImage>
             <DawnOfManQuote>TXT_KEY_CIV5_DAWN_CELT_TEXT</DawnOfManQuote>
@@ -1097,7 +1105,9 @@ A Dawn of Man picture is 1024x768 and has to be a DDS file. Outside of that any 
         <AlphaIconAtlas>CIV_ALPHA_ATLAS</AlphaIconAtlas>
         <MapImage>MapEngland512.dds</MapImage>
         <DawnOfManQuote>TXT_KEY_CIV5_CELT_TEXT_1</DawnOfManQuote>
+        <!-- blue area -->
         <DawnOfManImage>BoudicaDOM.dds</DawnOfManImage>
+        <!-- end of blue area -->
         <DawnOfManAudio/>
     </Row>
 </Civilizations>
