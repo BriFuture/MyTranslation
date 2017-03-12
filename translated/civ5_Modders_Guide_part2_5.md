@@ -1,33 +1,33 @@
 #### 如何用 Lua 禁用单位图标
 
-In Civilization V Units have a Unit Icon floating above them. We are going to add the ability to disable that unit icon.
+《文明 5》的单位上方有一个浮动的图标。我们将添加禁用单位图标（Unit Icon）的能力。
 
 ![](civ5_imgs/page56.jpg)
 
-First we have to find what Lua file controls the unit icon. There is no easy reference for this, it takes a bit of searching. Fortunately Firaxis has used fairly explanatory names, the unit icon is controlled by the UnitFlagManager.lua and UnitFlagManager.xml files. These are both in the `<Civilization V>\assets\UI\InGame` directory.
+先要找到控制单位图标的 Lua 文件。没有简单的引用关系，搜索要花一番功夫。好在 Firaxis 用的文件名相当有含义，单位图标由 “UnitFlagManager.lua” 和 “UnitFlagManager.xml” 文件控制。他们都在 `<Civilization V>\assets\UI\InGame` 目录下。
 
 ![](civ5_imgs/page56-2.jpg)
 
-First we need to add two new files to our project. Unlike XML files it is important that we maintain the same names for Lua files so rename the new files to UnitFlagManager.lua and UnitFlagManager.xml and delete the contents of both. It doesn't matter what folder these files are placed in, but to keep things well organized I created a Lua folder and added both files beneath it.
+首先要在项目里添加两个新文件。与添加 XML 文件不同的是 Lua 文件要用 XML 一样的文件名，因此分别重命名新文件为 “UnitFlagManager.lua” 和 “UnitFlagManager.xml”，并且删除两个文件里的内容。它们放在哪个文件夹里不重要，但为让其有序，我创建了 Lua 文件夹，并把两个文件添加到里面。
 
-Now copy the contents of the normal UnitFlagManager.lua and UnitFlagManager.xml into our empty project copies. Lua is not as modular as XML (InGameUIAddin allows some modular Lua changes but it is limited) so the entire file needs to be copied for changes to happen.
+然后是把原始的 “UnitFlagManager.lua” 和 “UnitFlagManager.xml” 文件的内容复制到空的新副本里。Lua 不像 XML 那样易于模块化（InGameUIAddin 允许某些模块化的 Lua 修改，但很有限）因此需要复制整个文件进行修改。
 
-There is more than one way to disable the Unit Icon, and different programmers will prefer different methods. But here is one way we can disable it. The UpdateVisibility() function in UnitFlagManager.lua is:
+有很多禁用单位图标的方法，方法因人而异。这里有种禁用的方法。用 “UnitFlagManager.lua” 文件里的 UpdateVisibility() 函数：
 
 ```lua
 UpdateVisibility = function( self )
     if InStrategicView() then
         local bVisible = self.m_IsCurrentlyVisible and self.m_IsGarrisoned and g_GarrisonedUnitFlagsInStrategicView and not self.m_IsInvisible;
         self.m_Instance.Anchor:SetHide(not bVisible);
-        else
+    else
         self.m_Instance.Anchor:SetHide(not (self.m_IsCurrentlyVisible and not self.m_IsInvisible));
     end
 end,
 ```
 
-Looking at this code we can see that if the game is in the Strategic view then the Unit Icon is displayed if the unit is visible, garrisoned and the unit isn't invisible. If we aren't in the strategic view then the unit icon is shown if the unit is visible and not invisible.
+观察这段代码，能够发现如果游戏是处于战略视图状态下，那么当单位可见时，就会显示单位图标，单位不可见时单位图标就会隐藏。如果游戏不是战略视图状态，那么不论单位是否可见，都能显示单位图标。
 
-The easiest way to disable the Unit Icon is with the following change:
+禁用单位图标最简单的方法是做这样的修改：
 
 ```lua
 UpdateVisibility = function( self )
@@ -43,11 +43,11 @@ UpdateVisibility = function( self )
 end,
 ```
 
-In the above code we have simply set the Unit Icon to always be hidden when the game isn't in the strategic view. In strategic view the same rules are used for displaying the Unit Icon. Also note that I have commented the change to include who made the change, when I changed it, and why I changed it. I also kept an original copy of the line in case I want to back my change out later or see what it was set to (without having to go to the original file).
+上面的代码里我们只是简单的把单位图标设置成在游戏不是战略视图时永久隐藏。在战略视图里，同样的规则用于显示单位图标。要注意的是我对所作的修改进行了注释，包含谁做了修改，什么时候改的以及为什么修改它。同时用注释保留了原始文件中的一行代码，万一哪天我想撤回修改或者看看做了什么修改（就不用去找原来的文件了）。
 
-I could publish my mod now and it would be a mod with disabled Unit Icons. But it isn't a very elegant solution. It would be better if the player had the ability to enable and disable the Unit Icon according to his preference. To do that let's add a new menu option to the MiniMap Options panel so that players can choose if they want to display the Unit Icon.
+我现在能够发布我制作的模组了，它能够禁用单位图标。但这还不是最好的解决方案。如果玩家能够根据自己的喜好设置是否启用单位图标的话就更好了。让我们在 MiniMap Options 面板里添加一个新的菜单选项，这样玩家就能选择是否显示单位图标了。
 
-First we will need to extend our code change so that we use a variable instead of simply setting the Anchor Hide to true.
+首先要加入一些代码，这样才能使用变量而不是简单的把 Anchor Hide 属性设置为 true。
 
 ```lua
 UpdateVisibility = function( self )
@@ -63,9 +63,9 @@ UpdateVisibility = function( self )
 end,
 ```
 
-In this version rather than simply setting the Unit Icon to always be hidden when the player isn't in the Strategic View, we are using a variable to control it. If bHideUnitIcon is true it will act exactly like our previous code, hiding the Unit Icon. If bHideUnitIcon is false it will act exactly like the games default code.
+这个版本就不是简单的设置单位图标在玩家不是策略视图下永远隐藏了，我们用了一个变量来控制它。如果 bHideUnitIcon 是 true 的话，它就会像之前的代码一样，隐藏单位图标。但如果 bHideUnitIcon 是 false 的话，它就能像游戏的原始代码一样显示单位图标。
 
-We will need to set bHideUnitIcon's default value by adding the following at the top of UnitFlagManager.lua:
+需要设置 bHideUnitIcon 的默认值，在 “UnitFlagManager.lua” 文件顶部添加下面的代码：
 
 ```lua
 -- Added by Kael 07/17/2010 to disable the Unit Icon
@@ -73,10 +73,11 @@ local bHideUnitIcon = true;
 -- End Add
 ```
 
+注意 bHideUnitIcon 的默认值是 true，这样单位图标一开始就是隐藏的。现在可以加载我们的模组，确认单位图标是否被隐藏。
 
-Note that I selected true as the default value for bHideUnitIcon so that Unit Icon's will start hidden. This is a good time to load our mod and make sure that the Unit Icon is hidden.
-5. We will need a text string for our menu option. Create a new XML folder. Beneath it create a NewText folder. And in that folder create a new file called GameText.xml. The file structure is just for our organization, it mirrors the file structure of CIV5's xml files. The file name doesn't matter either (the GameData tag in the file is what matters). This would work if it was called stuff.xml at the root of the project.
-6. Replace any default text in the projects GameText.xml with the following:
+第五步，需要给菜单按钮添加文本。创建一个新的 XML 文件夹，然后在该文件夹下创建一个 NewText 文件夹，再在 NewText 文件夹下新建文件，就叫 “GameText.xml”。文件结构便于组织项目，它仿照的是《文明 5》的 xml 文件结构。文件名其实也不重要（文件里的 GameData 标签才重要）。即便把它放在项目根目录下，换个 “stuff.xml”的名字，也能正常运行。
+
+第六，用下面的内容替换 “GameText.xml” 文件中的默认文本。
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -89,11 +90,11 @@ Note that I selected true as the default value for bHideUnitIcon so that Unit Ic
 </GameData>
 ```
 
-The above is a simple text string replacement. Whenever the game is set to English and encounters TXT_KEY_MAP_OPTIONS_HIDE_UNIT_ICON it will replace it with "Hide Unit Icons".
+上面是一个简单的文本替换。当游戏语音是英语，并且遇到 TXT_KEY_MAP_OPTIONS_HIDE_UNIT_ICON 时，它就会被替换成 “Hide Unit Icons”。
 
-7. To add the option to enable/disable Unit Icon we will need to add two more file to our project, MiniMapPanel.lua and MiniMapPanel.xml. Just as with the UnitFlagManager files we will want to create two new empty files, rename them MiniMapPanel.lua and MiniMapPanel.xml and copy the contents of the original files into our project copies.
+第七，添加可以启用或禁用单位图标的选项，需要再添加两个文件 “MiniMapPanel.lua” 和 “MiniMapPanel.xml”。和 UnitFlagManager 文件一样，我们要创造两个空文件，再分别重命名，并把原始文件的内容复制到项目的副本中。
 
-8. Modify the projects MiniMapPanel.xml to add the new checkbox.
+第八，修改文件 “MiniMapPanel.xml”，添加一个新的复选框。
 
 ```xml
 <Grid ID="OptionsPanel" Anchor="R,B" Size="300,300" Color="White.256" Style="Grid9DetailSix140" Padding="30,46" Hidden="true" ConsumeMouse="1" >
@@ -119,15 +120,15 @@ The above is a simple text string replacement. Whenever the game is set to Engli
 </Grid>
 ```
 
-Note in the above that the change is still commented, but that commenting syntax is different in XML. A comment starts with "`<!--`" and ends with a "`-->`". The important setting in the added line are IsChecked="1", which means that the checkbox defaults to being checked. The ID of the checkbox is "HideUnitIcon" and the string that is displayed with it is "TXT_KEY_MAP_OPTIONS_HIDE_UNIT_ICON".
+注意，上面依然注解了修改，但是 XML 的注释符与 Lua 不同。注释始于“`<!--`”，止于“`-->`”。添加的那行重要的设定是 IsChecked="1"，这意味着复选框默认是勾选的。复选框的 ID 叫 “HideUnitIcon”，显示的文本是 “TXT_KEY_MAP_OPTIONS_HIDE_UNIT_ICON”。
 
 ![](civ5_imgs/page60.jpg)
 
-9. We have disabled unit icons by default and added a menu option to allow players to enable/disable unit icons. But the menu option doesn't do anything yet. When a player clicks the Hide Unit Icons checkbox it should toggle the bHideUnitIcon variable we created in the UntiFlagManager.lua file.
+第九，默认是禁用单位图标，我们添加了菜单选项允许玩家启用或禁用单位图标。但是菜单选项还做不了什么事情。当玩家点击“隐藏单位图标”的复选框时，应该触发我们在 “UnitFlagManager.lua” 文件中的 bHideUnit 变量、
 
 ![](civ5_imgs/page60-2.jpg)
 
-Lua scripts can't directly call functions in other scripts. If we want one Lua script to call a function in another we have to use LuaEvents. At the start of UnitFlagManager.lua we need to create a new LuaEvent as follows:
+Lua 脚本不能直接调用其它脚本里的函数。如果要一个 Lua 脚本能调用另一个脚本里的函数，我们要用到 LuaEvenets。在 “UnitFlagManager.lua” 文件的开始，我们需要创建一个新的 LuaEvent，如下：
 
 ```lua
 -- Added by Kael 07/16/2010
@@ -136,17 +137,17 @@ local bHideUnitIcon = true;
 LuaEvents.ToggleHideUnitIcon.Add(
 function()
     if (bHideUnitIcon) then
-    bHideUnitIcon = false;
+        bHideUnitIcon = false;
     else
-    bHideUnitIcon = true;
+        bHideUnitIcon = true;
     end
 end);
 -- End Add
 ```
 
-The LuaEvents.ToggleHideUnitIcon() function can now be called by external Lua scripts and change the value in this Lua script.
+现在 LuaEvents.ToggleHideUnitIcon() 函数能够被外部 Lua 脚本调用，并且修改脚本中的值了。
 
-10. We need the menu option we created to call LuaEvents.ToggleHideUnitIcon(). To do that we add the following to our projects MiniMapPanel.lua file:
+最后，我们需要菜单选项能够调用 LuaEvents.ToggleHideUnitIcon()。向 “MiniMapPanel.lua” 文件添加以下内容即可：
 
 ```lua
 -- Added by Kael 07/16/2010
@@ -158,21 +159,21 @@ Controls.HideUnitIcon:RegisterCheckHandler( OnHideUnitIconChecked );
 -- End Add
 ```
 
-The above code registers a trigger with the HideUnitIcon (that is the ID of the checkbox we added in MiniMapPanel.xml file) checkbox. If it is checked it calls the local OnHideUnitIconChecked function. The OnHideUnitIcon checked function calls the ToggleHideIcon() LuaEvent and the Events.StrategicViewStateChanged() function. StrategicViewStateChanged() forces the flag to be redrawn, this way the game won't wait for the next time that unit is updated to add or remove the flag, it will happen as soon as the player clicks the checkbox.
+上述代码给 HideUnitIcon 注册了一个触发器（也就是我们在 “MiniMapPanel.xml” 文件中添加的复选框的 ID）。如果被选中，它就调用本地的 OnHideUnitIconChecked 函数。OnHideUnitIconChecked 函数再调用 LuaEvent ToggleHideIcon() 以及 Events.StrategicViewStateChanged() 函数。StrategicViewStateChanged() 强制重画图标，这样游戏不会等到下一次更新单位时才添加或者移除图标，玩家一点击复选框就会更新单位。
 
-That is it, a complete mod that adds the ability for players to enable and disable the unit icons through a menu option on the minimap panel. In it we covered how to add text strings, how to modify Lua scripts in our project, how to tie Lua functions to xml objects and how to call functions in one Lua script from other through LuaEvents. Once these basics are understood the hardest part becomes figuring out which script and function controls the processes we want to change (how did we know that UnitIcons were controlled by UnitFlagManager.lua) and what functions to call to do what we need (how did we know that StrategicViewStateChanged() would update the unit flags). For me that meant experimenting and reading through lots of files.
+这就是一个完整的模组，可以通过小地图面板上的菜单选项启用或禁用单位图标。这里我们讲了怎么添加文本，怎么修改 Lua 脚本，怎么绑定 Lua 函数到 XML 对象，以及如何通过 LuaEvents 从一个 Lua 脚本调用另一个脚本的函数。一旦理解了这些基础，就明白了最难的部分，也就是脚本和函数控制着我们想要改变的流程（我们是如何知道 UnitIcons 是 “UnitFlagManager.lua” 文件控制的）以及调用什么函数能够做到我们想要做的（如何知道 StrategicViewStateChanged() 函数会更新单位图标）。对我而言，这意味着查找搜索了很多文件。
 
-In the beginning it may take a few hours to do something like the above (it took me quite a few). But hopefully this document reduces that time considerably. And now that I understand what I had to do here my next change will be much faster.
+一开始会花很久完成上述事情（它花了我很多时间）。但好在这篇文档明显地缩短了要用的时间。现在我知道我所作的下一个改变就会快得多。
 
 #### 如何用 InGameUIAddin 制作模块化的 UI 变化
 
-There is a way to create modular Lua changes through InGameUIAddin. As of this writing this functionality is limited, it can add new UI components, but it can't remove or modify existing UI components. To remove or modify existing UI components you will need to replace the Lua and XML files as we did in the "How to: Disable Unit Icons with Lua" section.
+通过 InGameUIAddin 可以创造模块化的 UI 变化。尽管它功能有限，但它能添加新的 UI 控件，但不能移除或者修改现有的 UI 控件。要移除或者修改现有的 UI 控件，你得照着 “如何用 Lua 禁用单位图标” 替这一节的做法换 Lua 和 XML 文件
 
 ![](civ5_imgs/page61.jpg)
 
-In this example we will add a clock to the interface. We start by adding a Clock.lua and Clock.xml file to the project. These are not replacement files, so the names don't matter. As with all Lua UI changes we need a paired XML and Lua file. The XML file provides the structure and settings, the Lua file provides the code.
+这个例子我们将在界面里添加一个时钟。从添加 “Clock.lua” 和 “Clock.xml” 文件开始。它们不是替换文件，因此文件名没关系。所有 Lua 的 UI 变化都要有配套的 XML 和 Lua 文件。XML文件提供结构和设置，Lua 文件提供代码。
 
-First we will fill in the Clock.xml file:
+首先在 “Clock.xml” 文件中填入以下内容：
 
 ```xml
 <Context ColorSet="Beige_Black" Font="TwCenMT20" FontStyle="Shadow" >
@@ -181,8 +182,9 @@ First we will fill in the Clock.xml file:
 ```
 
 The above defines a new label with the ID of "ClockLabel". We can see the font (TwCenMT20), color (Beige_Black_Alpha) and location (centered at the top of the screen, with an offset 0 to the left and 10 down) for the label.
+以上定义了一个叫做 “ClockLabel” 的新标签。可以看到标签的字体（font，TwCenMT20）,颜色（color，Beige_Black_Alpha）和位置（location，屏幕上方中央，距离左边为 0 ，距下边为 10）。（注： Label 中的 Anchor 指明位置，C 表示 Center、中央，T 表示 Top、顶部）
 
-But at this point this is an empty label. We need Clock.lua to populate it with the time. For Clock.lua we can use the following:
+但这还只是个空标签，需要 “Clock.lua” 来同步时间。“Clock.lua” 的内容如下：
 
 ```lua
 ContextPtr:SetUpdate(function()
@@ -191,41 +193,40 @@ ContextPtr:SetUpdate(function()
 end);
 ```
 
-ContextPtr:SetUpdate runs on each screen update. The above function adds this function to that process. It assigns the hour and minute to the "t" string, then sets the ClockLabel in the XML definition to that string.
+ContextPtr:SetUpdate 在屏幕画面更新时调用。上述代码添加了同步时间的函数。它将时和分赋给 “t” 字符串，然后设置成 XML 文件中定义的 ClockLabel 显示的文本。
 
-Our next step is that we need to have our UI changed loaded when the mod loads, similar to how XML needs an OnModActivated and UpdateDatabase function on the actions tab for the Mod properties. For InGameUIAddin changes we have to go to Content tab of Mod Properties and specify that this is an InGameUIAddin change, and the Lua file we want activated (the matching XML file doesn't need to be specified).
+下一步是当模组加载时，要加载 UI 的变化，与 XML 需要在模组属性的 actions 页设置 OnModActivated 和 UpdateDatabase 操作类似。对于 InGameUIAddin 变化，我们要转到模组属性的 Content 页，指定这是 InGameUIAddin 变化，以及我们想要激活的文件（相应的 XML 文件不需要指定）。
 
 ![](civ5_imgs/page63.jpg)
 
-In the following screenshot we can see the clock we added (the red highlight is added just to make it easier to find in the screen shot, it was not added by the mod).
+下面这幅截图中能够看到我们添加的时钟（红色框内的是添加的部分，让它在截图中更容易看到，红色框不是模组添加的）。
 
 ![](civ5_imgs/page63-2.jpg)
 
-#### 如何用 Lua 添加一个新镜头
+#### 如何用 Lua 添加一个新窗口
 
-There is no way to know what mods you have loaded while playing. In this section we will add a new screen on the Additional Information menu that lists all the loaded Mods.
+没有办法在进行游戏时知道你加载了什么模组（注：在 BNW 版本中已经可以查看了）。这一节将会在额外的信息菜单中添加一个新窗口，可以列出所有加载的模组。
 
-There are a few hurdles we have to work through before we add a new screen to the game. We worked through an example of using InGameUIAddin in the prior section. InGameUIAddin allows us to add new user interface aspects to the game, but doesn't allow us to modify existing UI components. To modify existing components we need to replace the those files. The problem with replacing Lua files is that this causes us to conflict with other mods that replace those same files.
+在添加新窗口前，还有一些问题需要解决。在前一节里，我们用了 InGameUIAddin 的例子。InGameUIAddin 允许添加新的 UI。但不允许修改现有的 UI 控件。要修改现有的控件，需要替换那些原始的文件。替换 Lua 文件的问题是这可能会与其它替换同样文件的模组冲突。
 
-For this mod to work we need to replace the following files:
+要让模组工作，得替换以下文件：
 
-- **DiploCorner.lua** - This lua file controls the UI control on the upper right corner of the screen. We will modify this file to add our new menu option.
-
-- **DiploCorner.xml** - This XML file controls the XML aspects of the UI diplomacy corner control.
-- **InGame.xml** - This is the main place where Lua files are registered.
-- **NotificationLogPopup.lua** - This controls the Notification popup menu, we are going to piggy back on this event to add out new one.
+- **DiploCorner.lua** -  该文件负责屏幕右上角的 UI 管理。我们将会修改这个文件，添加菜单按钮。
+- **DiploCorner.xml** - 这个 XML 文件负责 XML 层面的外交界面管理。
+- **InGame.xml** - 这是注册 Lua 文件的主要地方。
+- **NotificationLogPopup.lua** - 它控制通知的弹出菜单，我们将会通过这个事件添加一个新的事件。
 
 ![](civ5_imgs/page64.jpg)
 
-And we will add two new files to control the new screen:
+现在添加两个文件用来控制新窗口：
 
-- **ModList.lua** - The Lua file for the new screen.
+- **ModList.lua** - 控制窗口的 Lua 文件
 
-- **ModList.xml** - The XML file that controls the definitions for the new Mod List screen.
+- **ModList.xml** - 负责设定模组列表窗口的 XML 文件
 
-1. Our first step is to create the files in the Lua directory of our mod as in the above screenshot. For DiploCorner.lua, DiploCorner.xml, InGame.xml and NotificationLogPopup.lua copy the actual files from the "`<Civ5 install directory>\Assets\UI\`" directory into our mod copies.
+1. 第一步是像上面的截图那样，在 Lua 目录下创建相应的文件。从 “`<Civ5 install directory>\Assets\UI\`” 目录下分别复制 “DiploCorner.lua”，“DiploCorner.xml”，“InGame.xml” 以及 “NotificationLogPopup.lua” 等文件的内容到我们新创建的文件里面。
 
-The first change is a minor change to InGame.xml to load our new Lua file definition:
+第一个小改动是修改 “InGame.xml” 文件，使之能加载添加的 Lua 文件：
 
 ```xml
 <LuaContext FileName="Assets/UI/InGame/Popups/SetCityName" ID="SetCityName" Hidden="True" />
@@ -236,9 +237,9 @@ The first change is a minor change to InGame.xml to load our new Lua file defini
 <LuaContext FileName="Assets/UI/InGame/TopPanel" ID="TopPanel" />
 ```
 
-All the above does is load our new ModList.lua file when the mod loads. More about the ModList.lua file later.
+上面所作的是在加载模组时，同时运行我们的 “ModList.lua” 文件。稍后会介绍更多关于 “ModList.lua” 的信息。
 
-2. Next lets adjust the DiploCorner.lua and DiploCorner.xml to add the new menu option. The following is the addition in the DiploCoerner.lua file:
+2. 下一步是修改 “DiploCorner.lua” 和 “DiploCorner.xml” 添加新的菜单选项。下面是在 “DiploCorner.lua” 文件里添加的内容：
 
 ```lua
 local g_MultiPullInfo = {};
@@ -255,11 +256,11 @@ g_MultiPullInfo[7] = { text="TXT_KEY_MOD_LIST", call=function() Events.SerialEve
 -- End Add
 ```
 
-The above adds another option to the multipull menu. If that option is selected it passes the BUTTONPOPUP_NOTIFICATION_LOG and 999 in the Data1 field. Later we will cover how to capture that event and trigger the popup menu on it.
+这里往 multipull 菜单里添加了新的选项。如果它被选中，它将会把 BUTTONPOPUP_NOTIFICATION_LOG 和 Data1 里的 999 传递出去。然后我们就要捕捉事件，触发弹出菜单。
 
-!()[civ5_imgs/page65.jpg]
+![](civ5_imgs/page65.jpg)
 
-The above works fine for adding a new menu option to the Additional Options menu. But we will want to adjust the size of the dropdown dialog to make room for the new menu option. XML controls the size and format of the UI, so we need to change the DiploCorner.xml to adjust the size.
+以上完成了在选项菜单里添加新菜单项的工作。但我们想调整下拉框的大小，让新选项有足够的空间。XML 控制着 UI 的尺寸和形式，因此需要修改 “DiploCorner.xml” 调整大小。
 
 ```xml
 <!-- ==========================================================================================================-->
@@ -282,19 +283,21 @@ The above works fine for adding a new menu option to the Additional Options menu
 <!-- End Modify -->
 ```
 
-The above increases the size of the dropdown box from 260 to 280.
+这把下拉框的大小从 260 调到了 280.
 
-3. We piggybacked on the BUTTONPOPUP_NOTIFICATION_LOG function with our change to DiploCorner.lua. So whenever we select our new menu option it triggers as if the BUTTONPOPUP_NOTIFICATION_LOG popup had been called. If we had SDK access we would create a new BUTTONPOPUP definition for our Mod List. But without it we will have to get creative. So we call BUTTONPOPUP_NOTIFICATION_LOG and pass a value of 999 with it (normally the player number is passed, which would never be near that range).
+3. 这里用了在 “DiploConer.lua” 文件中添加的 BUTTONPOPUP_NOTIFICATION_LOG 函数。因此当我们选中添加的菜单选项时，它就触发了，就像是 BUTTONPOPUP_NOTIFICATION_LOG 函数被调用了一样。如果能够使用游戏开发包的话，还能给模组列表创建一个 BUTTONPOPUP 设定。没有这个定义就得想其它方法了。因此我们把 999 传给了调用的 BUTTONPOPUP_NOTIFICATION_LOG（通常是传递玩家号码，但也不会接近 999）。
 
-Since we are piggybacking on the BUTTONPOPUP_NOTIFICATION_LOG function we need to block the normal BUTTONPOPUP_NOTIFICATION_LOG dialog from triggering. Which is why we added NotificationLogPopup.lua to our project.
+由于利用了 BUTTONPOPUP_NOTIFICATION_LOG 函数，需要屏蔽掉普通的 BUTTONPOPUP_NOTIFICATION_LOG 对话框。这就是在项目中添加 “NotificationLogPopup.lua” 的原因。
 
-Remember that Lua functions cannot directly call Lua functions in other files. Instead Lua registers functions with a central event service, and monitors that event service to see when it needs to act. In this case this is the normal OnPopup function from NotificationLogPopup.lua:
+记住 Lua 函数不能直接调用其它文件的 Lua 函数。除了带有统一事件处理的 Lua 注册函数以及监控何时响应事件的监控器。这是 “NotificationLogPopup.lua” 文件中普通的 OnPopup 函数：
 
 ```lua
 function OnPopup( popupInfo )
+    -- red area
     if( popupInfo.Type ~= ButtonPopupTypes.BUTTONPOPUP_NOTIFICATION_LOG ) then
         return;
     end
+    -- end of red area
 
     CivIconHookup( Game.GetActivePlayer(), 64, Controls.CivIcon, Controls.CivIconBG, Controls.CivIconShadow, false, true );
     m_PopupInfo = popupInfo;
@@ -322,12 +325,14 @@ function OnPopup( popupInfo )
         UIManager:QueuePopup( ContextPtr, PopupPriority.NotificationLog );
     end
 end
+-- blue area
 Events.SerialEventGameMessagePopup.Add( OnPopup );
+-- end of blue area
 ```
 
-In the above the OnPopup function is defined and it is registered to the SerialEventGameMessagePopup event (in blue). The first check of the onPopup function is to verify if this event going through SerialEventGameMessagePopup applies to it or not. So it checks to see it the popupInfo.Type is anything other than BUTTONPOPUP_NOTIFICATION_LOG (in red). If it is anything other than that, it returns and ends the function.
+上面的代码定义了 OnPopup 函数，它被注册到 SerialEventGameMessagePopup 事件中（蓝色区域）。onPopup 函数里的第一个判断是验证传到 SerialEventGameMessagePopup 中的这个事件是否要被处理。因此检查 popupInfo.Type 是不是 BUTTONPOPUP_NOTIFICATION_LOG （红色区域）。如果不是的话，就会返回并且结束函数。
 
-But we will be triggering BUTTONGPOPUP_NOTIFICATION_LOG for another function, and we won't want this popup to trigger when we do it. So the following change is required to NotificationLogPopup.lua:
+但我们要让 BUTTONPOPUP_NOTIFICATION_LOG 触发别的函数，不希望触发弹出窗口。因此要在 “NotificationLogPopup.lua” 文件里做些修改：
 
 ```lua
 function OnPopup( popupInfo )
@@ -370,9 +375,9 @@ end
 Events.SerialEventGameMessagePopup.Add( OnPopup );
 ```
 
-In the above we added an additional check. Just like the check that exits the function if the type isn't BUTTONPOPUP_NOTIFICATION_LOG, this check exits the function if the Data1 property is 999. This was we can share the BUTTONPOPUP_NOTIFICATION_LOG function without bumping into each other.
+以上代码添加了另一个判断。就像如果 type 不是 BUTTONPOPUP_NOTIFICATION_LOG 的判断一样，如果 Data1 的值不是 999，这个判断也会退出函数，这样我们就能使用 BUTTONPOPUP_NOTIFICATION_LOG 函数，不用担心和其它的冲突了。
 
-4. Finally we get to creating the code for our new screen. First we need the XML definition for the screen. The following was the definition I used for ModList.xml:
+4. 最后需要为新窗口写代码。首先需要用 XML 定义窗口。这是我在 “ModList.xml” 文件中的设定：
 
 ```xml
 <Context Font="TwCenMT14" FontStyle="Base" Color="Beige" Color1="Black" >
@@ -428,23 +433,23 @@ In the above we added an additional check. Just like the check that exits the fu
 </Context>
 ```
 
-The above can be intimidating to look at creating out of thin air. I'm sure there are guys that can create the above from scratch, but I'm not one of them. Instead I take the XML definition from a screen that is similar to the one I want to create, and I cut, adjust and add to that one until it looks like I want it. I use the Notification screen as the base for this and then copied XML from the ModBrowser (the place you select mods from the main menu) to get the pieces I needed. Since all of Civ5's UI is in Lua it's all available to borrow from in making our own screens.
+ 在空文件里写出这么多东西很难。我确信有些人能够做到，但显然我不是其中一员。我在窗口文件中寻找和我想要做的窗口差不多的 XML 定义，然后复制，修改，添加，直到它看起来就是我想要的。我用 Notification 窗口作为这个窗口的基础，然后从 ModBrowser 相关文件中复制出我需要的 XML 片段（也就是你在主菜单里选择模组的地方）。由于《文明 5》所有的 UI 都是用 Lua 绘制的，因此能借鉴相应文件中的控件，制作自己的窗口。
 
-The above defines the screen, but it doesn't have any logic. That's where we need Lua. The ModList.lua file contains the following:
+以上定义了窗口，但还不能完成逻辑操作。这就是要用到 Lua。“ModList.lua” 文件包含了这些内容：
 
 ```lua
 include( "InstanceManager" );
 g_InstanceManager = InstanceManager:new( "ListingButtonInstance", "Button", Controls.ListingStack );
 
 function OnPopup( popupInfo )
-    <red>
+    -- <red>
     if( popupInfo.Type ~= ButtonPopupTypes.BUTTONPOPUP_NOTIFICATION_LOG ) then
         return;
     end
     if( popupInfo.Data1 ~= 999 ) then
         return;
     end
-    </red>
+    -- </red>
 
     local unsortedInstalledMods = Modding.GetInstalledMods();
     g_InstanceManager:ResetInstances();
@@ -466,7 +471,9 @@ function OnPopup( popupInfo )
 
     UIManager:QueuePopup( ContextPtr, PopupPriority.NotificationLog );
 end
-<blue>Events.SerialEventGameMessagePopup.Add( OnPopup );</blue>
+-- <blue>
+Events.SerialEventGameMessagePopup.Add( OnPopup );
+-- </blue>
 
 function OnClose ()
     UIManager:DequeuePopup( ContextPtr );
@@ -474,11 +481,11 @@ end
 Controls.CloseButton:RegisterCallback( Mouse.eLClick, OnClose );
 ```
 
-Notice that the above is very similar to the Notification log code we modified. It registers to the SerialEventGameMessagePopup (in blue) just like the Notification log popup did. But in this case we only allow the OnPopup function to process if the type is BUTTONPOPUP_NOTIFICATION_LOG and Data1 is 999 (in red).
+注意，以上代码很像我们修改的 Notification log 代码。像 Notification log popup 一样，它也在 SerialEventGameMessagePopup 中注册了（蓝色区域）。但是本例中,只有当类型是 BUTTONPOPUP_NOTIFICATION_LOG 并且 Data1 是 999 的时候（红色区域），我们才用 OnPopup 函数进行处理。
 
-The code is fairly simply. I looked through the ModBroser Lua files to find the calls and functions I would need (that's how I found out about the Modding.GetInstalledMods() function and the .Name and .Enabled attributes for the returns). In essence the OnPopup function adds new lines to the screen display for every installed mod that is enabled for this particular game. It displays the mods name, the version and stability (Experimental, Alpha, Beta, Final) for each of these mods.
+代码很简单。我从 ModBroser 的 Lua 文件中查找我需要的函数及其调用（这是我找到 Modding.GetInstalledMods() 函数以及返回 .Name 和 .Enabled 属性的方法）。实际上在显示窗口时 OnPopup 函数为每一个已安装并在该局游戏启用的模组添加了一条分割线。显示了每个模组名称，版本号和稳定性（实验性的，初始版，测试版，最终版）。
 
-The only additional function is the code to Control the close button. A very simple example of adding a new screen to the game.
+唯一添加的函数是控制关闭按钮的代码。这就是一个非常简单的添加新窗口的例子了。
 
 ![](civ5_imgs/page70.jpg)
 
