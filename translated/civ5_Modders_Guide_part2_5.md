@@ -494,114 +494,114 @@ Controls.CloseButton:RegisterCallback( Mouse.eLClick, OnClose );
 
 ![](civ5_imgs/page70-2.jpg)
 
-Worldbuilder is a map editor and scenario creator for Civilization V. With it maps can be created quickly, and complex scenarios with starting teams can be developed. This section will go through the options in Worldbuilder so that modders can quickly start creating their scenarios.
+WorldBuilder 是针对《文明 5》而推出的一款地图编辑器。它可以帮你快速创造地图，也能帮助刚起步的团队开发复杂的场景。这一节将会讲一讲 Worldbuildier 里的选项，这样开发者就能快速编辑他们的地图场景了。
 
-Across the top of the file bar there is a description option that allows you to enter your map name and a brief description for the players.
+在文件栏顶部有一个 description 选项，这让你能够给地图命名，给它作个简单的介绍。
 
 ![](civ5_imgs/page71.jpg)
 
-Next is the Team editor. It allows the scenario creator to assign the available civilizations for this scenario as well as their starting techs, policies, diplomacy, gold, etc. Before cities or non-barbarian units can be placed on the map those teams need to be assigned in team editor.
+然后是队伍编辑器（team editor）。它允许场景创造者给该场景分配可用的文明以及起始科技，政策，金钱等等。在城市之前或者不是野蛮人的单位在该地图里可以被替换掉，需要在队伍编辑器中分配队伍。
 
 ![](civ5_imgs/page71-2.jpg)
 
-The map editor in WorldBuilder is fairly straight forward. The Map Editor Tools box contains all the tools needed to create an interesting map on the following tabs.
+WorldBuilder 里的地图编辑器（map editor）清楚直白。地图编辑器的工具箱包含各种工具，可以用这些标签页来创造一个有意思的地图：
 
-- **Edit Plot** - This allows the selected plot to have any terrain, feature, resource and improvement set. This is also where you can set the plot as the start position for any configured players.
-- **Plopper** - This tab allows features, resources, improvements, natural wonders and roads to be quickly painted on plots.
-- **Paint** - This tab allows differing brush sizes to be used to lay down terrain, features, continent definitions, cultural borders and revealed terrain.
-- **Rivers** - If you are familiar with process of laying rivers with the Civ4 WorldBuilder (I'm fairly sure it involved sacrificing a goat) then it is vastly improved in Civ5. All the hex intersections that can support rivers can be clicked to enable or disable a river passing through that intersection.
-- **Continents** - This is where areas can be distinguished as continents (Americas, Asia, Africa and Europe).
-- **Units** - Only barbarian units can be placed unless there are players set in the team editor. If there are players set then this tab allows all units to be set on the map, and the state (health, fortified, embarked) of that unit.
-- **Cities** - Players have to be set on the team editor before this can be used. If that is done cities can be placed on the map, and the population and the buildings in that city can be set.
-- **Misc** - The Misc tab allows the world wrap and randomize resources options to be set.
+- **Edit Plot** - 这允许选中的地块拥有任意地形，地貌，资源以及基础设施。这也是你设置玩家的开局地点的地方。
+- **Plopper** - 这个标签页允许特征，资源基础设施，自然奇观和道路能够在该地块快速绘制。
+- **Paint** - 这个标签页区分笔刷尺寸，设置地形，地貌，大洲设定，文化边界以及可见地形。
+- **Rivers** - 如果你熟悉《文明 4》 WorldBuilder 中设置河流的过程（我敢担保完成它得烧支高香），那么你就能发现《文明 5》里得到了极大的改良。所有六边形的交界处支持设置河流，点击交界处就能决定河流是否应该流经这一边界。
+- **Continents** - 设置大洲（美洲，亚洲，非洲和欧洲）的地方。
+- **Units** - 只能放置野蛮人的单位，除非在队伍编辑器中添加了玩家。如果有玩家，那么这个标签页允许在该地图上设置所有单位，以及单位的状态（血量，强化，航运模式）。
+- **Cities** - 需要在队伍编辑器中设置玩家，才能用这个标签。如果设置了玩家，就能在地图上放置城市，设置该城市的人口以及建筑。
+- **Misc** - Misc 标签页允许覆盖世界，设置随机资源。
 
-Once your map is complete, select Save from the file menu to save it. It can always be reloaded to make further changes. WorldBuilder maps are saved in the "`..\<My Games>\Sid Meier's Civilization V\Maps\`" directory.
+完成地图后，点击菜单的保存（Save）按钮来保存它。也能重新加载这个地图，做更多改变。WorldBuilder 的地图保存在 “`..\<My Games>\Sid Meier's Civilization V\Maps\`” 这个目录。
 
 #### 保存文明 5 的地图
 
-If you like the map you are playing on, or believe it may make a good base for your scenario you can save it directly from the game.
+如果你喜欢正在使用的地图，或者认为它能够作为场景的良好基础，你可以直接在游戏里保存它。
 
 ![](civ5_imgs/page72.jpg)
 
-To do so go to the save game menu and there is a button for "Save Map".
+移到保存游戏菜单，这里有个按钮 “Save Map”。
 
-That will open the Save Map window where a name can be entered. Click save to save the map. The map will be saved in the "`..\<My Games>\Sid Meier's Civilization V\Maps\`" directory (the same directory that WorldBuilder saves its files in).
+这将打开一个保存地图（Save Map）窗口，可以输入名字。点击保存（save）就能保存地图了。这个地图会被保存到 “`..\<My Games>\Sid Meier's Civilization V\Maps\`” 目录（WorldBuilder 保存文件的目录）。
 
 ![](civ5_imgs/page72-2.jpg)
 
 #### 向模组中添加地图
 
-Copy the map file into your mod in ModBuddy to add it to your mod. The name and location of the map doesn't matter. I recommend creating a "Map" directory off the root of your project to place map's in, but it isn't required.
+把 ModBuddy 中的地图文件复制到你的模组中，就添加到模组里了。这个地图的名称和位置不重要。我建议在你项目的根目录下创建一个 “Map” 目录来存放地图文件，尽管这不是必须的。
 
 ![](civ5_imgs/page73.jpg)
 
-With the mod loaded your map can be selected from the setup menu. It appears with the normal game maps. In this screenshot Ireland is a map provided by the mod.
+当模组成功加载后，可以在选择菜单中选择你的地图。它看起来像游戏的普通地图。这个截图 Ireland 是模组中带的一个地图。
 
-If you created custom players in the team editor then you will have a "Load Scenario" option on the setup screen. If this is unchecked your map will be loaded without any custom players, units, cities, etc. Just the map will be used. If "Load Scenario" is selected then the only civilizations/leaders from the map can be loaded.
+如果你在队伍编辑器中设置了玩家，那你会在选择窗口中看到一个“加载场景（Load Scenario）”的选项。如果该选项未被选中，加载地图时就没有自定的玩家，单位，城市等等。仅仅会用到这幅地图。如果选中了“加载场景”，那么只会加载该地图中的文明和首领。
 
 ![](civ5_imgs/page73-2.jpg)
 
 ### 发布模组
 
-Before you can test your mod you need ModBuddy to "Build" it for you. Building is the process of taking everything you have included with your mod and putting it in a format the game can recognize. You will need to Build your mod each time you want all your latest changes to take effect. You should build frequently and test each change as you add it (rather than changing a lot of files at once then having the hard task of figuring out which change is keeping the game from loading).
+你需要用 ModBuddy 进行“构建（Build）”才能测试模组。构建就是取出你模组里的所有东西，然后将它们转换成游戏能够识别的格式。如果你想要让最新的修改生效的话，每次修改后都要构建模组。当你做出修改后，要经常构建和测试（而不是修改了一堆文件后，再来查看是哪个改动让游戏无法加载模组）。
 
-Once you are ready to share your mod with others you can publish it in two different ways.
+要是你准备好与他人分享模组，就可以用两种不同的方式进行发布。
 
-The first way is that the files can be distributed outside of the game. The Mod Browser is a great resource, but it isn't required to share mods. Your mod will be in your "`..\< My Games>\Sid Meier's Civilization V\MODS`" directory. You can zip that mod directory and share it with others (who will have to extract it to their "`..\< My Games>\Sid Meier's Civilization V\MODS`" directory).
+第一种方式是在游戏外部分发文件。模组浏览器是个很好的资源，但不是分享模组所必需的。你的模组会被放在 "`..\< My Games>\Sid Meier's Civilization V\MODS`" 目录下。你可以打包模组目录，然后分享给别人（那么这个人需要把这个压缩包解压到 "`..\< My Games>\Sid Meier's Civilization V\MODS`" 目录下）。
 
-The second way is through ModBuddy with the "Online Services" option under the Tools menu. This uploads your mod to the mod database so that others will see it in the mod browser.
+第二种方式是通过 ModBuddy 工具菜单下的“在线服务（Online Services）”选项。这会将你的模组上传到模组数据库中，然后别人就能在模组浏览器中看到它。
 
 ![](civ5_imgs/page74.jpg)
 
-To upload your mod go through the following steps after selecting Online Services:
+点击在线服务之后，通过这几个步骤就能上传模组了：
 
 ![](civ5_imgs/page74-2.jpg)
 
-1. Login to Gamespy (if required).
+1. 登陆 Gamespy（如果需要的话）。
 
-2. Select Upload from the Online Services screen. Notice that this screen will also show you the status of mods you have already uploaded, including prior versions.
+2. 点击在线服务窗口的上传（Upload）按钮。注意这个窗口会显示上传模组的状态，包括较早的版本。
 
 ![](civ5_imgs/page74-3.jpg)
 
-3. Click the ... button on the Select Mod Package screen to browse for the mod to upload.
+3. 在选择模组窗口点击 “...” 按钮，浏览你要上传的模组。
 
-4. Select the mod package. It defaults to ../My Documents/Firaxis ModBuddy/<ModName>/Packages directory. If you have multiple versions of the mod they will all appear here. Select the version you want to upload (typically the most recent version).
+4. 选择模组包。默认是在 `../My Documents/Firaxis ModBuddy/<ModName>/Packages` 目录下。如果该模组有多个版本，它们都会显示在这里。选择你想要上传的版本（一般是最新的版本）。
 
 ![](civ5_imgs/page74-4.jpg)
 
-5. Wait while the Mod uploads.
+5. 等待模组上传。
 
-6. Select the Mod categories that apply to your mod.
+6. 选择包含模组的目录。
 
-That's it, your mod should be uploaded and available for players to download.
+好了，你的模组就被上传并能被其它玩家下载了。
 
-To update a mod change the version number on your mod's property screen then reupload using the above process.
+要更新模组，修改模组属性里的版本号然后按照上述步骤重新上传就行了。
 
 #### 兼容性
 
-There are three levels of exclusivity for Civilization V mods.
+《文明 5》中的模组有三种级别的兼容性。
 
-- **Nonexclusive** - Any mod can be enabled with your mod (default).
-- **Partially Exclusive** - Any mod that is referenced by your mod or references your mod can be enabled.
-- **Totally Exclusive** - Only mods which are referenced by your mod can be enabled.
+- **Nonexclusive** - 其它任何模组都可以与你的模组共同使用（默认）。
+- **Partially Exclusive** - 被你的模组引用或者是引用了你的模组的其它所有模组都能被启用。
+- **Totally Exclusive** - 只能启用你的模组所引用的模组。
 
-Most mod's will be non-exclusive. Meaning that they will work with all other nonexclusive mods (and partially or totally exclusive mods that select them). If you are making a mod that adds a new civilization, new units then you will probably want to make it a nonexclusive mod.
+大多数模组都是非排他的。这意味着他们可以与其它非排他性模组共用（部分排他或者完全排他的模组筛选这些模组）。如果你要做一个模组，添加新文明和新单位，那么你很有可能要做成一个非排他的模组。
 
-Partially Exclusive is the appropriate setting for total conversion mods. If you make a civil war mod you probably don't want the player to run it with a Spain Civ, or with a mod that adds Firaxis as a new world wonder. If your mod deletes any base assets in the game (removes a resource, tech, etc) you will probably want it to be Partially Exclusive, since those assets may be used by other mods. If you or other mod authors set their mod to be able to run together with yours then they will be able to be run together.
+部分排他性是整个转换模组的合适设定。如果你制作一个战争模组，又不想玩家使用西班牙文明，或者想要制作一个添加了 Firaxis 这个世界奇观的模组。如果你的模组删除了游戏的某些基础资源（移除了一个资源或者科技等等），你可能会想让这个模组是部分排他的，这是因为这些资源可能会被其它模组所使用。如果你或者其它模组作者设置了模组能够与你的这个模组一起运行，那么这些模组就能一起运行。
 
-Totally Exclusive is the ultimate in mod control. Your mod can't be used in combination with any other mods unless you specifically allow that mod. The only difference between this and being partially exclusive is that it keeps other mod authors from being able to allow their mods to be able to work with yours. This setting should be very rare, only for mod authors who have had problems with other mod authors marking their mods compatible and causing compatibility issues.
+完全排他性是模组控制的最后一部分。你的模组不能与其它任何模组一起运行，除非你指定能够一起使用的模组。与部分排他性相比，它的唯一不同是防止其它模组作者让他们的模组能够与你的一起运行。这个设置用的很少，只有当与其它模组作者存在标记兼容性或者导致兼容性的问题才使用。
 
 ### 排除故障
 
-If you are a dumb guy like me, you spend 10% of your time creating, and 90% of the time trying to figure out why it doesn't work. Of all the files Firaxis provides to help us mod, I spend the most time looking at the debug logs.
+如果你像我一样是个不善言谈的人,你会花 10% 的时间制作模组，然后用 90% 的时间找出它不能正常运行的问题。在 Firaxis 帮助我们制作模组提供的所有文件中，我在 debug 日志上花的时间最多。
 
-The debug logs are located in the "..\My Games\Sid Meier's Civilization 5\Logs\" directory. There are numerous files here, I find it helpful to sort the files by date to see which file has been updated the most recently. I won't go through all the files here, only the two I refer to most commonly.
+debug 日志在 "..\My Games\Sid Meier's Civilization 5\Logs\" 目录下。这里有很多文件，我发现按照修改时间来排序文件很有效，能够看到哪个文件是最近修改的。我不会把这里的所有文件都讲到，讲的是我最常用到的两个文件。
 
 #### Database.log
 
-This file contains all the exceptions when the database loads. This typically means XML reference issues. If a Civilization refers to a leader that doesn't exist anymore, or a unit refers to a resource that has been removed then the Database.log is a great place to find it.
+这个文件包含了游戏加载时出现的所有异常。这通常是指 XML 引用问题。如果一个文明引用了一个根本不存在的首领，或者一个单位引用了一个已经被移除的资源，那么 “Database.log” 就是一个很好的能找到问题所在的地方。
 
-This is a great place to find mistypes. If you have spelled LEADER_ELIZABETH incorrectly and your game is crashing on load this log file will give you a clue as to what went wrong. Here are some sample errors from Database.log:
+这也是个寻找错误类型的好地方。如果你拼写错了 LEADER_ELIZABETH，游戏加载模组时就会崩溃，这个日志文件会提供线索，告诉你是什么出错了。这里是 “Database.log” 文件中的一个错误案例：
 
 ```
 [207898.601] Invalid Reference on Civilizations.Civilopedia - "TXT_KEY_CIV_RUSSIA_PEDIA" does not exist in Language_en_US
@@ -610,7 +610,7 @@ This is a great place to find mistypes. If you have spelled LEADER_ELIZABETH inc
 
 #### Lua.log
 
-Much as the Database.log helps you isolate XMl problems Lua.log helps you isolate Lua errors. Notice that in most cases (as in the example below) the Lua.log file gives you the file generating the error and the line number. Very handy when trying to figure out why your mod isn't working.
+就像 “Database.log” 文件帮你找出 XML 问题一样，“Lua.log” 帮你找错 Lua 错误。注意大多数情况（像下面这个例子），“Lua.log” 文件给出导致错误的文件以及行号。这对想要找出模组不能正常运行的原因很有帮助。
 
 ```
 [202778.570] Syntax Error: [string "Lua/ModList.lua"]:165: 'end' expected (to close 'function' at line 14) near '<eof>'
