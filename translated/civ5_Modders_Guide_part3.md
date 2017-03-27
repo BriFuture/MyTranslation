@@ -1,245 +1,243 @@
 ## 设计之理
 
-This section includes some insight into common design pitfalls and how to avoid them. Though the rest of the document focused on the technical issues around modding, this section is devoted to game design.
+这一节包含了对平常设计时候遇到的陷阱以及如何避免的感悟。尽管这份文档的其它部分都在讲有关制作模组的技术性问题，但这一节要讲的是游戏设计。
 
-There is no perfect way to make a mod. Understanding that I am unqualified to write this section I enlisted the aid of some of my fellow mod makers (and my favorite designer) so that readers could get a wide range of opinions. Each of the Danger sections are concluded by a question that has been asked to the designers about how they deal with the challenges of development. Their responses offer very practical advice for all mod makers.
+制作模组没有什么绝佳的方法。要知道我并没有资格写这一节，但我从制作模组的同事（以及我最崇敬的设计师）那里获得了帮助，这样读者就能看到各种观点。每个危险的部分都能用向设计师咨询的问题进行总结，这个问题是关于他们是如何处理开发过程中出现的问题的。他们的回答能给所有开发模组的人提供非常使用的建议。
 
-I would like to thank the following people for responding to the interview questions and providing input for this section:
+我要感谢下列这些人，他们回答了我所采访的问题，并且帮助书写了这一节：
 
-- **Soren Johnson** - Civilization IV Lead Designer.
-- **Jon Shafer** - Civilization V Lead Designer.
-- **Sevo** - Designer of Sevomod 3, Sevo’s Civilopedia and Sevo’s Faces of God.
-- **Rhye** - Designer of Rhye’s Catapult, Rhye’s of Civilization and Rhye's and Fall of Civilization.
+- **Soren Johnson** - 《文明 4》的首席设计师。
+- **Jon Shafer** - 《文明 5》的首席设计师。
+- **Sevo** - “Sevomod 3”、“Sevo's Civilopedia”以及“Sevo's Faces of God”的设计师，
+- **Rhye** - “Rhye's Catapult”、“Rhye's of Civilization”以及“Fall of Civilization”的设计师。
 
 ### 做出你想玩的游戏
 
-This is the first rule: you are the only person who has to like what you have created. Don’t make the mod you think other people will want, don’t change a design based on outside feedback unless you agree with it. It is better to have an unpopular mod you enjoy than a popular one you don’t. That goes for all the advice in this section, if you don’t like it, don’t use it. This is the advantage of modding, Firaxis has to worry about making sales and mass appeal, but we don’t.
+这是首要的规则：你是唯一的一个不得不喜欢你所创造出来的东西的人。不要去想别人要的是什么样的模组，不要随意听从别人的看法修改设计，除非你同意别人的看法。有一个不受欢迎但你喜欢的模组要比受欢迎而你不喜欢的更好。这就是这一节要给你的建议。要是你不喜欢某个模组的话，就不要使用它。这是自制模组的优势，Firaxis 公司要考虑销量和口碑，但我们不用。
 
-The truth is, if you stick to what you like in time you will find others that are looking for the same thing, so it will work out anyway.
+事实是，如果你坚持做你喜欢的，你会找到志同道合的人，因此这很有用。
 
 ### 避免设计缺陷
 
 #### 多的危险
 
-“Perfection is not achieved when there is nothing left to add, but when there is nothing left to take away.” -- Antoine de St. Exupery
+“没有东西可以添加了，不叫完美，相反，没有东西需要移除了才是完美。” -- Antoine de St. Exupery
 
-Every new object has a cost, not just in what it takes to create, test and manage, but the player has to keep track of it as well. In general we should only add items because they offer a significant improvement to some aspect of the game, and not just to have more units, more resources, etc.
+每一个新事物都有相应的代价，不单单是在创造，测试和管理方面，同时也在玩家使用的过程中。一般来说我们只用添加东西，因为某种程度上他们为游戏做出了很重要的改进，不仅仅是指更多的单位，更多的资源等等。
 
-It sounds good to be able to offer a long list of new objects. That was much of the appeal of the very popular Civ3 Double your Pleasure (DyP) mod. But the success of DyP wasn’t because of all the new objects, but because each one had a distinct functional purpose. Adding buildings is easy, making them truly worthwhile is the hard part.
+能够添加一系列新东西，听起来很不错。《文明 3》中的“Double your Pleasure（DyP）”模组就很受欢迎。但是 DyP 的成功不仅仅因为那些新事物，还因为每一个事物都有它独特的功能。添加建筑很简单，最难的是让他们物有所值，
 
-Is it needed? Would it be missed if it was taken out? Is it functionaly unique? If the answer to these is no, it should be considered for removal.
+这个模组很必要吗？如果移除了，会不会怀念它？它的功能很独特吗？如果这些问题的答案都是否，那么就应该考虑删除它了。
 
-**Q: There always seems to be one more building or unit that would be perfect to have in the game, how do you decide what to include and what to keep out?**
+**问：游戏中似乎总有一个建筑或者单位是完美的，你怎么知道哪些东西要保留，哪些要删除**
 
 Soren Johnson
 
 ----------
 
-    Look at other successful games as an example of the number of units/buildings/choices to include. For example, Blizzard RTS's stick to a very rigid limit of 12-15 units per faction. That's a reasonable number of choices. We tried to have about 8-10 unit choices per era in Civ4, with the understanding that there would be some overlap. This is one area where there really might be a "magic formula" for how many choices are just right for fun gameplay.
+    参考其它成功的游戏例子，决定要保留的那些单位/建筑/选项。比如，暴雪即时战略游戏的每一次进攻造成的伤害被限制在 12-15 点。这些选择的数量很可观。我们在《文明 4》中尝试了每个时代增加 8-10 点，因为考虑到有些伤害可以叠加。这可能是“魔法”的一个地方了，有多少种选项正适合游戏的乐趣。
 
 Jon Shafer
 
 ----
 
-    As a designer a lot of times you just have to go with your gut. What "too much" or "too little" means varies from person to person. I think most designers tend to lean in the direction of "what would I enjoy playing with." For example, in Civ 5 Paratroopers are in the game to start, whereas that wasn't the case in Civ 4. Why? Really, just because I thought they were cool. It's a way to spice up combat in the modern era. Once you've added or changed anything though, it's vital to play with what you've done to make sure it works. So many of the ideas I've thought were cool on paper turned out to be duds in the game. As experienced designers like to say, design is more about making something work than having cool ideas.
+    作为设计师，很多时候你都要配合你的同事。每个人对“太多”或“太少”的定义都不同。我认为大多数设计师都会往“我想要玩的是什么”的方向靠拢。比如说，《文明 5》中游戏开局的是 Paratroopers ，但《文明 4》却不是。为什么？说真的，就因为我觉得他们很酷。这是区分现代战斗的一种方式。不管你添加或者修改了什么东西，你都要亲自体验一下，确保它能正常运行，这很重要！因此我在纸上设想的方案都很好，但是在游戏中实现起来就很糟糕了。作为设计师，我想说，设计方案考虑的更多是如何让事物工作运行，而不是单独有一些好想法。
 
 
 Sevo
 
 -------
 
-You need to be careful about adding every new unit that pops up or you can think of--at some point you'll lose focus. I prefer a slower staged approach: add a unit or two and play out a game; see how the new units work in the overall scheme. Actually, that's a point I should have made earlier: if you're in any way responsible for the overall direction and management of a mod, you ought to be playing it pretty regularly during "upgrading". It's the single best way to learn how your mod is functioning and what the problems are.
+    添加每一个你能想到的新单位时你都要很小心 —— 有时候你会迷失方向。我偏好短期目标：添加一两个单位，然后试玩游戏；看看新单位在一般环境里表现如何。实际上，我应该早点确定这个观点的：如果你要为一个模组的大致方向和管理负责，你应该尝试在“升级（upgrading）”时经常使用它。这是了解你的模组如何工作，有哪些问题的最好方式。
 
 Rhye
 
 ----------
 
-Statistically, I decline 80% or more of the proposals I receive from users, for different reasons. One is the design scheme: often they don't fit it. Another reason is the lack of graphics: I don't add anything that hasn't an adequate representation. Another reason is complexity / feasibility: often what they propose can't be done or is too hard: but in most cases the idea is good and a simpler variant would be fine.
+    通常，我会因各种原因忽略用户提出的超过 80% 的提议。其中一个是设计模式：通常这些提议都不符合要求。另一个原因是缺少图片：我不会添加任何缺少足够代表性的东西。还有一个原因是复杂度/简易度：他们提出的要么无法实现，要么很难实现。但大多数情况是想法很好，并且易于实现。
 
-And a final aspect, one always has to ask himself: will the AI know how to use this change?
+    最后一个方面，有人总是问自己：AI 知道怎么使用我做的改变？
 
 #### 特点的危险
 
-Why do games based on movies and movies based on books always seem to be bad? There are exceptions, but we are usually disappointed with the results of these conversions. The reason is that the design of the new game or movie is based so strongly on the flavor of its source that its own functional design suffers.
+为什么根据电影改编的游戏以及根据小说改编的电影总是不被看好呢？这里面有偶然因素，但改编的结果通常是令我们大失所望的。原因在于新游戏或者电影的设计太依赖于被改编的东西了，导致它的功能性设计受到影响。
 
-At some point you should look at your mod as just a functional process, a board game without any stylized components, an exercise in mathematics. A game must be enjoyable at this layer to be fun. Some games are so well designed they only exist at this layer and are still amazing to play (chess, othello, tetris, etc). But a game that has incredible flavor but no meaningful functional elements will always be a bad game.
+某些方面你应该把你的模组看作是一个功能性的过程，一个缺少美观界面、只有数学运算的白板游戏。在这一层面上游戏必须要很有趣，能够吸引人。某些游戏设计的很好，他们只在这个层次上花了功夫，但仍然值得一玩（棋、黑白棋、俄罗斯方块 等等）。但是一个拥有很好的特色却缺少有意义的功能性元素的游戏永远不会是个好游戏。
 
-If you fall in love with a concept that seems like a great idea, but doesn’t have any functional value, the temptation will be to come up with a functional need. There isn’t anything wrong with this, some ideas come from flavor, and some come from function. Different people are more apt to think from one end or the other. But, be aware of the danger that designing from flavor presents. If you aren’t able to come up with an elegant functional need you are best off to remove or change the flavor rather than let the functional design suffer for it.
+如果你看好一个概念，似乎是个很好的创意，但还没有什么实质性的行动，不久就有实质性的需求。没有什么关系，有些创意来源于特色，有些来源于功能。不同的人看问题的角度不同。但要注意从特色出发的设计的危险。如果你没有什么功能上的需求，你最好移除护着改变这一特点，而不是让功能性的设计影响到它。
 
-This danger is even more prevalent when you are basing your mod on a known source. It is nice to already have all that flavor developed for you, but it can be as constraining as it is helpful. You will either have to let your design suffer (to what level is up to your own ability to find creative elegant solutions) or be willing to step outside the bounds of the source material and develop new elements, or exclude elements despite their existence in the source when the material doesn’t improve the game play of your mod.
+当你基于一个已知的来源制作模组，这个危险更加明显。已经弄好了所有特色很不错，但是有利有弊。你也得削减你的设计（削减的程度根据你能找到创造性的解决方案的能力）或者想要跳出源头的局限，形成新的元素，或者当材料不能增加你模组的可玩性时，导出元素尽管他们存在于源中。
 
-**Q: How do you balance between Function and Flavor? What do you do when you have a functional need for an element but aren’t excited about the flavor ideas you have? How do you deal with a good flavor concept that has no functional need?**
+**问：你怎样平衡功能和特色？当有一个实用性的需求时但你却对这个创意不满意时，你是怎么做的？你是怎么处理一个好的创意但是缺少具体的实用需求**
 
 Soren Johnson
 
 ----------
 
-It's easy to think that Function (game play) should beat Flavor, but really the Flavor is the whole reason people decide to play a game in the first place. They come for the Flavor; they stay for the Function. You've got to have both elements, so if you have a nice Flavor bit without a matching Function, either work harder to find the Function or cut it out entirely.
+    很简单，实用性（游戏可玩性）应该优先于特色，但是特色是人们选择这款游戏的首要原因。他们因特色而来，被功能性吸引。这两个元素你都得有，因此如果你有一个很好的特色，却没有相应的功能，或者很难做出相应的功能，不如放弃掉这个特色。
 
 Jon Shafer
 
 -------------
 
-Function and Flavor definitely need to be balanced. How you end up there can vary quite a bit from feature to feature. I think most of the time it's best to start with Flavor, because that's what's going to make your work memorable. It's one of the reasons why Alpha Centauri is such a beloved game. Every game starts with a "hook," where you're trying to sell people on an idea. In a broad sense, Civilization is about running an empire and crafting history in the way YOU'D like to see it. Everything has to somehow point back to that basic premise. You also have to apply that same thinking to individual mechanics. "What do I expect a player to think or feel when they play or use X?"
+    功能和特色肯定要平衡。你怎么决定取决于很多因素。我认为绝大多数情况，以特色开头是最好的，因为这将会让你的工作被记住。这是 “Alpha Centauri” 是一款如此受欢迎的游戏的原因之一。每款游戏从一个“钩子”开始，你向他人兜售你的创意。深层次来说，《文明》系列是关于经营一个帝国，按你所想改变历史。每件事某种程度上都是基本情况的反馈。你也得把同样的思想应用到独立的功能上。“当玩家进行游戏或者使用某个东西的时候，我期望他们的怎样的看法或感受？”
 
-That having been said, there are also times as a designer you have an idea for a system that you're really excited about, and you have to craft some flavor around it. This is kind of how the Social Policies came to be in Civ 5. I had a pretty good idea of how I wanted the mechanics to work at the start of the project, but many of the names and details came later. And it went through a few variants - the system didn't pop out of my head fully-formed or anything like that. It needed some time and love before it ended up in a place that I was happy with.
+    已经说过了，作为设计师，有很多时间你有一个你十分看好的创意，而你需要围绕着它做一些特色。这是《文明 5》中社会政策的由来。我有一个绝佳的创意，在项目前期我想要实现功能，但很多名字和细节接踵而至。而且有很多变数 - 系统不能弹出全格式的标题或者其它类似的东西。在破坏我满意的部分前，需要一些时间来改进。
 
 Sevo
 
 -----------
 
-This is probably the most important question to answer in creation of a mod, in my opinion. This game is so open to creation and modification and there are so many interesting ideas floating around that one tends to want to throw it ALL together and it's easy to get carried away. I think what you leave OUT of a mod is as important as what you put in.
+    我想，这应该是制作模组中，要回答的最重要的问题。这款游戏对于创造和修改很开放，让许多有趣的创意有很大的发挥空间，有人想要把它们糅合在一起，而且发布又很简单。我认为你在模组里面留出的空间和你添加的内容一样重要。
 
-To that end, when I'm working on a mod, I tend to focus first on function and second on flavor, because if it's beautiful and it's unique but it's totally unplayable because of balance issues or game play, then no one will play it. That's really the trick, I suppose, to making a great mod: creating the flavor and style you picture without losing the function.
+    还有，当我在制作一个模组时，我首先关注功能，其次才是特色，因为如果它很美观而且很独特，但却由于平衡性问题或者游戏本身导致完全不能玩，那么没有人会玩的。我认为，这对于制作模组来说，是一条有用的建议：创造一个美观又有特色，又不失功效的模组。
 
-As to the need for a functional element without flavor and vice-versa: this is where the ingenuity and creativity of modding come into play. You will find things that are imbalanced, or pieces you need, or things that must be adjusted: you as a modder can implement them any way you can imagine, and your charge is to keep the feel of your mod while you do it. On the other hand, sometimes you have a flavor, an idea that you really love, but the function is poor. You have two choices: find a way to MAKE it function, or drop it despite its flavor.
+    至于不需要特色和其它副作用的功能性元素的需求：这是制作模组的创造性决定的。你会发现事情都不是平衡的，或者不是你想要的部分，又或者要调整事物：作为模组开发者，你可以实现你所想的，你的动力来源于保持制作时的感觉。另一方面，有时候你有一个很喜欢的创意，但是功能却很简陋。有两个选择：找到实现功能的方法，或者不管特色多好都放弃它。
 
-For example, the settler religion mod: At one point I included this in Sevomod, but it completely unbalanced game play since ALL new cities started with a religion. I really like the idea, but it doesn't work in the mod, so I had to lose it. It hurts, but if you can't find a way to keep it functional, then it's better to leave it out. I've tried and dropped dozens of ideas/units/etc because they just didn't fit.
+    比如，宗教移民模组：有一次我在 “Sevomod” 中用了这个模组，但它让游戏可玩性完全失去平衡，因为所有的新城市都带有宗教。我很喜欢这个创意，但是在模组里没有作用，因此我只能移除它。很难过，但是如果你不能找到实现功能的方法，那么移除它更好。我试过、放弃过一堆创意、单位等等，因为它们不适合游戏。
 
 Rhye
 
 --------
 
-I always tend to add only things that have both function and flavour. I mean that if I have a cool unit designed by somebody else to add, but nowhere to put it without unbalancing the game, I won't bother. And if I feel a gap should be filled by a unit, but I don't have an adequate graphical representation, I won't add it as well.
+    我总想添加一个既好看又实用的东西。我是说如果我要添加别人制作的个很厉害的单位，但是添加它就不能保证游戏平衡性，我不会纠结。并且如果我想要用单位填补空缺，但缺少绘图精良的代表，我也不会添加。
 
-If we speak about maps, then the function is more important than the flavour. See how many giga maps are being / have been developed: they're pointless, because nobody has a computer strong enough to play them.
+    谈到地图，实用性比美观度更重要。许多超大地图正在制作或者已经被制作出来：他们没有什么意义，因为没人有电脑那样的精力去玩。
 
 #### 模式的危险
 
-Starcraft was a big eye-opener for me, an RTS that offered 3 different forces that were balanced but completely unlike each other. It’s so much easier to balance a game by making the options mirror each other but it’s more enjoyable for the player to have a variety of options that are dissimilar.
+星际争霸令我大开眼界，RTS 提供了 3 种不同的方式用于平衡，相互之间各不相同。通过相互复制选项来平衡游戏很简单，但是对玩家来说，多种不相同的选项更有意思。
 
-We could be talking about any game feature. For example we could have a series of Civics that gave +3 research at the first level, then you could upgrade to one that gave +9 research when you learned the appropriate tech and up to +15 with the final tech. Or you could have a series of civics, one of which gave +3 research, another gave +3 gold and one that game +3 hammers. In either case the result may be balanced but uncreative, and dull for the player.
+我们可以谈谈游戏特性。例如我们给一些特性，第一级的时候 +3 科研，当你研究出了相应的科技可以升级到 +9 科研，研究出了最后的科技可以 +15 点科研。或者其它的特性，一个是 +3 科研，另一个是 +3 金钱。其它情况可能很平衡但无新意，还可能被玩家舍弃。
 
-The obvious response to this is that if we don’t stick to patterns then invariably some options will be better than others. Better or unbalanced options are the same as no options. But I think we have some flexibility here. This is the challenge of design, presenting the player with multiple options with different risks and rewards for each, and having each viable for different reasons or in different situations.
+突出的原因在于如果我们不根据某个模式，那么某些选项可能就比其它的要更好些。更好或者不平衡的选项都像没有选项一样。但这里还有些灵活性。这是设计的难处，给玩家多种多样的选项，每个选项都有不同的风险和价值，不同的原因和情形让每个选项都有各自的特色。
 
-**Q: It seems easier to build on a tested design, and have new elements be functionally similar concepts to existing ones but with a new power level or different range of effect. How do you determine when this isn’t innovative enough? Or is that even a concern for a strategy game?**
+**问：根据验证过的设计方案来设计似乎更简单，让新元素与已有的理念在功能上相近，但作用范围和效果更强大。你是如何决定什么时候这些东西不是那么强大了？或者说这就是策略游戏的问题？**
 
 Soren Johnson
 
 --------
 
-Innovation should not be a primary goal - fun game play should be the goal. Innovation is the process of both improving old systems as well as creating new ones out of thin air. However, it is always best to understand what your game's aesthetics are so that your new systems aren't a mis-match. For example, Civ's aesthetics are tiles, turns, and boxes-filling-up-with-stuff.
+    改革不是主要的目的 - 做一个有趣的游戏才是目的。改革既是改进旧系统也是创造新系统的过程。然而能理解你的游戏理念是什么总是最好的，这样你的新系统就能适应。比如，《文明》的理念就是六方格、回合以及填满单位的地格。
 
 Jon Shafer
 
 -----------
 
-I think it comes down to having clear goals at the start. Throwing stuff at the wall until it works is one way to design a game or a mod, but it generally takes a long time and can be expensive. Once I have a rough target, my inclination is always to try the extremes, and tone things back if necessary. If you try something crazy you could strike gold, or you might not, but you'll have at least learned something, and perhaps there are some ideas you can use in other ways. If absolutely nothing works, you can always fall back on what's been done before. Fortune favors the bold!
+    我认为一开始就要明确目标。把任务记下来，完成它，这是一种设计游戏或者模组的好方式，但它通常也要花些时间，而且代价高昂。当我有个艰难的目标时，我倾向于竭尽所能的尝试，必要的话就进行回滚。如果你要尝试某些疯狂的东西，你可以花费金钱，或许也不会，但你至少能学到某些东西。如果确实没有有用的东西，你也可以回滚到之前所作的东西那儿。好运眷顾顽强的人！
 
 Sevo
 
 --------
 
-This is a harder question to answer, and I think it falls into the domain of "what makes a good mod". It is certainly easier to simply change combat values or movement or whatnot; to actually innovate an entirely new system is difficult.
+    这是一个比较难回答的问题，我认为这可以归结到“好模组需要什么”的领域。修改战斗力、移动力或者其它数值确实很简单。要真正引入一个全新的系统却很难。
 
-Sometimes a new system works very well: for example the new Civilopedia I started with was well received because, I think, it was a marked improvement over the old system. On the other hand, I tried a new system for religions in "Faces of God" and while I spent hours and hours putting together the units, python, etc for that mod, in the end the system didn't lend itself to great game play; at least not as it stood and I haven't had time to go back and re-examine it. So there's a bit of trial and error involved, certainly, but hitting on a successful new idea is worth the losses you'll encounter.
+    有时候新系统运行的很正常：比如我制作的新文明百科（Civilopedia）就被接受了，因为我认为，它是在旧系统上的一种改进。另一方面，我试过“Faces of God”的有关宗教的新系统，尽管我为模组整合单位、python 代码等东西花了许多时间，但最后这个系统却不能成为一个好游戏；至少它不能运行，我也没有花什么时间回滚，重新检测它。所以这里面有很多的尝试和错误，当然，想到一个好点子值得你去尝试，哪怕失败。
 
 Rhye
 
 --------
 
-I think that this is a concern. That makes the difference between a mod for personal use and for sharing. For instance, if I just want to boost some units stats, I will not post it. Usually I'd eventually find out another mod better than mine, that does the boost I wanted, plus something else.
+    我认为这是要考虑的。这区分了适于个人使用或者适于分享的模组。比如，如果我只是想修改某些单位的状态，我不会发布这个模组。通常我最终会找到比我做的更好的模组，做到了我需要的功能，添加了别的东西。
 
-I'll share it if I have a unique idea instead, something that hasn't been done before by anybody.
-
+    当我有一个独特的创意时，其他人也没有做过相关的东西，那我会分享这个模组。
 
 #### 复杂性的危险
 
-Overly complex designs are the easiest mistake for a designer to make. A designer should differentiate between systems that are fun to design, and those that are fun to play, they are rarely the same.
+过于复杂的设计是设计者最容易犯的错误。设计者应该把系统区分开，有些是设计很有趣的，有些是玩起来很有趣的，这些系统很少相同。
 
-Personally I am fighting this issue all of the time. I find myself designing the system the way I imagine, setting it down and coming back to it with a clear head to take a look at what I made. Most of the time I can cut a lot of the design without losing its functional purpose or flavor, or I find that the mod is better without it at all.
+个人来说，我总在思考这个问题。我是这样设计系统的，先思考，然后记下来，整理思绪看看我做了什么。很多时候我能够删减设计方案，却不会删掉功能或者特色，或者说我发现这个模组没有这一功能或者特色会更好。
 
-As in all things there is a balance here. Every new feature brings in some additional complexity, just as every new object adds to the amount of information the player needs to track as we discussed in the Danger of More section. Having the idea is only the start.
+所有东西都有一定的平衡性。每一个新特性会带来额外的复杂度，就像新物品增加信息量，当我们讨论更多章节时的危险时，玩家需要适应一样。有了点子还只是开始。
 
-I was considering a manufacturing process for a mod. If you have access to dyes and cotton you can build a tailor shop that produces a “Cloth” resource. If you have access to fur you can build a leatherworker that produces a “Leather” resource. If you have cloth and leather in a city then all units produced in that city get leather breastplates that improve their combat ability. And on and on it went, it was a lot of fun to design, huge complex systems with interdependencies everywhere. It would have been a disaster to play for most players. That’s not to say that some people wouldn’t have enjoyed it, some people love complexity. Just keep in mind that what sounds reasonably simple in the design stages, when added together with everything else and in the hands of a player that hasn’t spent the hours considering and tinkering with the mod as you have, can be a substantial roadblock.
+我在思索模组的手动过程。如果你有染料和棉花资源，你可以建造一个纺织厂，生产“衣服”资源。如果有皮毛资源你可以建造皮革厂，生产“皮革”资源。如果城市中有衣服和皮革，那么这个城市制造的单位就能获得皮革胸甲，增强他们的战斗力。顺着这个思路，设计一个复杂的巨大的所有东西都相互关联的系统很有意思。对许多玩家而言也有可能是一场灾难。也有些人会喜欢这个，他们喜欢复杂的。只要记住，设计阶段听起来简单合理的，添加其它东西放在一起的时候，玩家就不会像你一样在这个模组上面花费很多时间思考和攻略，这是个很大的障碍。
 
-**Q: How do you balance between complex ideas that bring new elements to the game and the difficulty they cause casual players?**
+**问：你怎么平衡添加新元素的复杂的创意和他们给普通玩家带来的难度？**
 
 Soren Johnson
 
 --------
 
-The best place to introduce complex ideas are at the fringes, in places where the player doesn't have to understand the complexities if they he or she doesn't want to. For example, many Civ4 players probably didn't realize how Great People probabilities are calculated - but not knowing the details didn't necessarily stop them from progressing and enjoying the occasional Great Person that they got naturally.
+    介绍复杂创意的最佳地方是在次要部分，在这里如果玩家不想了解，就不需要理解复杂度。比如，很多《文明 4》的玩家可能不知道伟人的产出点数是怎么计算的 - 但是不知道相关细节也不影响他们体验和喜爱他们自然得到的偶然出现的伟人。
 
 Jon Shafer
 
 -------
 
-I think systems can be designed in a way to be relatively approachable and yet still have depth. This was my goal with the Social Policies. Lots and lots of choices to make, but the system isn't impossible to figure out as a first-time player. Again, everyone's specific tastes vary, but I do feel it's possible to hit both ends of the spectrum if that's your goal from the beginning. You won't end up there accidentally though! I think you can have mechanics aimed at more experienced players, but they can't be core to the experience of playing the game, and new players should be able to safely ignore a feature if it's not something they're comfortable using.
+    我认为可以用一种既相关联的途径又有深度意味的方式设计系统。这是我引入社会政策的目的。有很多选项，但是新手玩家也有可能弄清楚这个系统。而且，每个人的喜好不同，但我确实认为你一开始就想点满一个政策树的话，还是有可能做到的。尽管有其它因素导致你不会点完！我认为你可以把目标人群定在资深玩家里，但他们不能是玩游戏的经验的核心，而且新玩家需要能够忽略一个让他们感觉不适应的特性。
 
 Sevo
 
 ---------
 
-I don't worry too much about adding new ideas to game play, but my mod is primarily an expansion of game play so most users follow pretty readily. Even when I change stuff I find that gamers by nature are quick to pick up new functions, if they aren't too mysterious or complicated.
+    我不担心往游戏里添加新的创意，但我的模组主要是游戏的扩展，因此大多数玩家非常喜欢。尽管当我修改东西时我发现，玩家很自然的能够接受游戏的新功能，只要这些功能不是过于神秘或复杂。
 
 Rhye
 
 --------
 
-I base myself on feedback. If I see that a complex change is welcome and understood anyway, it's okay. Documentation (including a site, a faq, and quick answers on the forum thread) can be important. But even more important than this, is the difficulty that it will cause me. When I add something to my schedule, I have already asked myself if it's possible to do that, and how.
+    我很注重反馈。要是一个复杂的改变很受欢迎，受理解，它就是可以的。文档（包括网站，问答，以及论坛帖子里的快速回复）非常重要。但是更重要的是它给我带来的复杂程度。当我按照计划添加东西时，我已经知道它重不重要，如何实现它。
 
-Two examples of what NOT to do:
-
-- compile a list of features and advertise it with no idea about how to do it, and
-- work without a deadline, keeping postponing your work for months and months. it's true, you work for free, but if you don't finish your work you'll have really wasted your time.
+    有两件事不要做：
+    1. 列出一系列的特色，宣传它的时候又不谈具体的想法。
+    2. 没有期限，导致工作一拖再拖。当然，你是无偿劳动，但是如果你不想完成你的工作，你就是在浪费时间。
 
 ### 制作模组的过程
 
 #### 书写设计文档
 
-It’s not fun, everyone wants to get right into making changes and seeing those changes in the game. But your first step is to get a design document written. It can be a forum post you update, a Word document or just notes on paper. Without it your mod design won’t have focus and it will be difficult to make the best use of your time without a clear idea of what needs to be done. It will also be difficult for team members to help you if they don’t have access to the full design list.
+这个没什么意思，每个人都想立即做出修改，看一看游戏里有什么反应。但是你首先要写一个设计文档。可以是你发的帖子，一个 Word 文档或者纸上的笔记。没有这些，你设计模组时就没有确定的方向，而且没有一个清晰的目标也很难高效利用时间。如果你的团队成员不知道整个设计列表，他们就很难帮你。
 
-I have a hard time being creative in front of a computer so I grab a notepad and pen when I want to do serious design work. Sitting in a comfortable chair I jot down ideas and think about things I want to improve. Different people have different methods, the important part is to find one that works for you.
+我曾在电脑前冥思苦想度日如年，因此我在构思方案的时候，总是拿着笔和本子。我坐在舒服的椅子上记下我的想法，思考如何改进。方法因人而异，重要的是找到适合自己发挥的方法。
 
 #### 经济性 = 缺乏资源时的选择
 
-A game is an entertainment activity that gives us options, and rewards us for selecting them skillfully. The quality of those options, the amount of appropriate risk and reward we get from each, the variety of options (without being overwhelming) and the successful merger of function with a matching flavor determines if the game is a good one.
+游戏是一种能够给我们选择的娱乐活动，用多样的选择使我们满意。这些选项的质量，每一个选项带来的适当风险和价值的量，选项的多样性（多而不杂）以及功能和特色的有机结合决定了这是一个好游戏。
 
-To make choices we need to have some cost, something we give up to gain the advantage the option offers. This could be paid in some other resource like gold or production time, or it could be in something less definable. One of the classic early game options is, do you build the infrastructure of your cities or build defenders? If you build the infrastructure you will have better cities by the mid-game, if you last that long. But the price you pay for it is in increased risk of attack and losing the game.
+要付出点代价我们才能做出选择，我们放弃的一些东西里却有选项包含的优势。可以在其它资源比如黄金或产能上得到补偿，或者也可以是其它的没有明确定义的东西。早起的经典游戏选项是这样的，你会建造城市的经济设施还是防御设施？如果你建造的是经济设施，游戏中期你的城市就更好，如果你能撑到那个时候。但是你要付出的代价是受到攻击或者游戏失败的风险将会增加。
 
-That is an elegant game design (thanks to Sid Meier). To have options we need to have limits, we can’t do it all so some things need to be sacrificed to gain others. That doesn’t mean that all of the options need to have a direct disadvantage, it may be enough to just have the sacrifice be that you have given up taking other paths, it is economics.
+这是一个非常好的设计（要感谢 Sid Meier）。要增加选项，就要做些限制，没法全部做完，因此要舍弃某些东西才能获得别的东西。这不是说所有的选项都有一个明显的劣势，可能你舍弃东西所做出的牺牲刚刚好，那这就很划算。
 
-I’m particularly fond of Civ4’s civic design. Personally I like having civics that have a direct disadvantage along with whatever advantages it offers, but from a straight design perspective I have a deep appreciation for what Firaxis did. The civics don’t need disadvantages, their disadvantage is that if you pick a civic you can’t pick any of the other ones in that category.
+我十分喜欢《文明 4》的国家设计。个人而言，我喜欢给国家一个明显的优势和劣势，但是从设计角度看，我很欣赏 Firaxis 公司所做的。国家不需要劣势，他们的劣势在于如果你选了一个国家，就不能选择列表中的其它任何一个国家。
 
-Another truism of scarcity is that we must have good and bad elements for it to work, the Desert dilemma. From a players perspective deserts seem useless, they have a few functions but are generally the least useful of the terrains. So you may wonder why they can’t be removed and replaced with something that does more. Their design function is that they aren’t useful, and therefore by comparison other terrains are. The difference between the two makes the players strategic options more interesting.
+还有一个鲜为人知的真理是游戏元素有好有坏，只要正常工作，也就是荒漠法则。从玩家角度来看荒漠似乎没什么用，他们作用有限，却是很常见的地形。因此你可能会奇怪，为什么不能把荒漠移除，用其它更有用的东西替代它。他们在设计上就是这样的，因此相应的就有其它有用的地形。两者的不同之处让玩家的策略更有趣。
 
 #### 困惑时，请相信 Firaxis
 
-The old saying is if there is a fence in the woods you should know who built it and why it was built before you tear it down. That was never more true than when making mods. I will admit, I love changing things more than I love reading about the way things work so the trap I sometimes get caught in is designing something without a good appreciation for the way its associated systems work.
+有句老话：在你拆了林子里有个栅栏之前，你要了解是谁造的以及制造的原因。制作模组时，这句话就太对了。我承认，与观察他们工作的方式相比，我更喜欢主动改变事物，所以我遇到的困难通常是缺少对它相关的系统任务的良好认知。
 
-My advice is before you make a significant change you review the way a similar system works in detail. If you want to make a new unitcombat, look at the ones that are already developed. Do a search in the python, xml and the SDK for matches against a similar unitcombat and see where it has been used and what it has been used for. When you understand how the data is used you will be better prepared to make your own.
+我的建议是在你做出一个重要的修改前，回顾一下相似的系统工作的细节。要是你想要做一个新的战斗单位，看看已经做好的单位。在 python，xml 以及 SDK 中搜索一下相类似的战斗单位看看它用在了哪些地方，用来干什么的。当你理解了数据是如何使用的，你就能做出更好的模组。
 
-The same goes for balancing. Firaxis has done more work, and has had more man hours invested in “Vanilla Civ” then we can hope to with any one mod. Don’t let all of the testing and feedback go to waste. Look at the iCombat increases between upgraded units that Civ applied when you consider your own. Base your new specialists effects on those that already exist.
+对于平衡性而言是一样的。Firaxis 已经做了很多工作，在 “普通的文明花了很多时间”，这样我们就有可能做出任何想要的模组。不要浪费这些测试和反馈。看看文明中升级单位的战斗力增幅，然后思考你自己的。参考那些已有的专家，想出新专家的作用。
 
 #### 制定优先级，学会拒绝
 
-The sad fact is that we all have limited time. As much as we may love to mod there are only so many hours in the day and most of us have jobs and families that also demand our time (to my wife: "I mean that we want to spend time with").
+很不幸，我们的时间都有限。不论我们有多热爱模组，一天也只有有这么多个小时，而且大多数都有工作和家庭要兼顾（对我妻子而言：“我认为我们需要共度良辰”）。
 
-We have to be careful about our ambition. If our only goal is to mod for fun, to play around, change our game and learn a little bit in the process then this isn’t a big concern. If we are working with others and they have helped by devoting time and effort to your mod this becomes more important. In those situations there is some responsibility to produce a working mod.
+我们要注意自己的欲望。要是我们只是为了乐趣而制作模组，想要用模组进行游戏，修改游戏，在这个过程中学习知识，那么就没有什么大问题。要是我们与他人共事，他们给你的模组贡献了时间，做了努力，这就更加重要了。这些情形下，制作一个可以运行的模组就需要一定的责任感了。
 
-So we have to realistically decide what will and won’t be done, at least for the short term. If you aren’t familiar with python or C++ then starting a mod that requires programming changes is probably going to be too much. But you could focus on xml modding only.
+因此我们要慎重决定做什么，不做什么，至少要决定短期内的。如果你不熟悉 python 或 c++，那么制作一个需要编程的模组时会很麻烦。但是你也可以只制作模组的 XML 部分。
 
-Once you have your idea you will need to prioritize them. I am always on the lookout for “Drool Factor”, those features or additions that will make people want to download and play the mod. No one ever downloaded a mod because it had 17 different kinds of infantry or a ice cream truck unit that played music when it drove around (well, maybe I would download that mod just to try it out) so as interesting as those ideas may be they don’t have any “Drool Factor”.
+当你想好创意后，需要给他们定优先级。我总是关注“吸引人的因素”，这些特性或者附件会让别人想要去下载、试玩模组。没有人会为了 17 种不同的 infantry 或者冰淇淋形状、能在移动时够播放音乐的单位（好吧，我可能会下载这个模组试一试）而下载模组，因此尽管这些创意很有趣，也但他么没有什么“吸引人的要素”。
 
-You have read countless marketing releases talking about one game or another. What features did you read about that excited you? Those are the kinds of things that should be at the top of the priority list. I hate to spend time working on a feature that players aren’t going to be excited about.
+你已经看过有关一个或几个游戏的不计其数的发行版。有哪些特性让你很欣喜？这些就应该是优先级列表中的放在前面的东西。我讨厌在玩家不会喜欢的某个特性上花时间。
 
-And some changes shouldn’t be made at all. This is more difficult when you are working with a team that is as excited and working as hard on the mod as you are. But the mod owner has to be the one to say what is going to go in and what isn’t. Remember it's easier to say no and then change your mind and add it later than it is to do all the work to make something only to remove it later on.
+有时候根本不用做什么改动。当你在一个像你一样热爱模组又很勤奋的团队中工作的话，这就很难了。但模组的拥有者有责任告诉大家哪些应该做，哪些不需要做。记住，拒绝修改，可以之后再添加一个功能，这要比完成所有的工作后再删除这个功能简单。
 
-#### 组件队伍
+#### 组建队伍
 
-There is no magic trick to building a team. Assume from the beginning that you will need to do all of the work yourself, then start working. If people join you along the way to help out, so much the better, but don’t expect it.
+没有什么特别有效的组建队伍的方式。假设一开始你就需要自己做所有的事情，那么就开始工作。如果有人要参与帮助你，就更好了，但不要指望这个。
 
-In most cases an idea, no matter how appealing, won’t draw a team by itself. Instead the mod owner will have to show the work he has done to start getting help. The reason is that there are new ideas for mods posted every day asking for help. Naturally people don’t want to spend time working on a mod idea that won’t ever be released. If they see that you have put a lot of effort into it yourself the risk that their work will go wasted is lessened and they will be more apt to join.
+大多数情况下，无论多有吸引力，一个想法也不会召来一个队伍。相反，模组拥有者需要展示他所做的事情来让别人能够帮助他。原因在于每天都有上传的关于模组的新想法在寻求帮助。当然别人不会把时间花在一个不会发布的模组的想法上。如果他们看到你已经做了很多工作，那么他们的努力白费的风险就会降低，那么他们就会更有意愿来加入到你的工作中。
 
-It is my opinion that the mod owner for a complex mod should be a programmer. He doesn’t need to be the best programmer on the team (I’m certainly not on my team) but he does need to understand the programming aspects. This is because the mod owner has to be the one to decide what is and isn’t going to go into the mod, he won’t be able to make these decisions well if he doesn’t have a decent appreciation for what has to happen “under the covers” to make it work. Also the mod owner always has to be prepared to do it alone if need be. If you leave the programming aspects to someone else without an ability to pick up if they leave you may risk losing your mod if they go on to other things.
+这是我的观点，要制作一个复杂的模组，拥有者应该是个程序员。他不必是整个队伍里最厉害的程序员（我在队伍里也不是），但他要能理解编程。这是因为模组拥有者需要决定模组的最终走向，如果他没有十足的把握实现“内部的”技术细节，他就没法很好的做出决定。同样的，拥有者总是要准备好自己一个人完成工作。如果你把编程方面的任务交给别人，而自己没有能力处理编程问题，如果他们离开队伍做其它事情去了，你的项目将有可能夭折。
 
-One more point about teams. This is an open, fun, collaborative process. Don’t expect deadlines and arbitrary goals to be met unless you are willing to pay your team. It’s the mod owners responsibility to get the work that needs to be done listed and the team members can work on different aspects as they desire. Anything more than that isn’t fun for anyone. Invariably you will be working on some component and want a piece from a team member to finish it, or team members will come and go as their real lives dictate, but that is the nature of collaborative modding.
+还有一点。这是一个开放，有趣，合作的过程。不要指望日子到了，之前定的目就标完成了，除非你要给团队发工资。模组拥有者的任务就是要完成清单上列出的需要完成的任务，队伍成员能够按照自己的实际情况进行不同的工作。除此之外的任何事情都不会多有意思。你可能会用到某些容器，想要一部分队员去完成它，或者队员会按照他们的实际情况来跟进任务，这就是合作制作模组的真实情况。
 
 #### 何时发布
 
-A mod is never perfect, there is always some new feature, art or object you would love to get added before you release. The danger of that is that you may never get it out.
+没有模组是完美的，在你发布之后，总会有些想要添加的新特性，图片或者其它东西。困难在于你可能永远不知道什么时候会添加。
 
-Momentum is important for a mod, both for you (hearing from players that enjoy your mod will give you the energy to keep going) and especially for your team (who want to see their contributions out and available). Other mod makers may have different ways of doing this but I like to set hard release dates and then work back from them instead of working from feature lists. If I commit to release a new version on the first Friday of each month then you and your team know when they have to have new stuff in by to have it included.
+反馈对模组来说很重要，对你（听取喜爱你的模组的玩家的建议会给你坚持的动力）和你的团队（想要看到贡献和成果的那些人）也很重要。其它模组制作者可能有他们的方式，但我喜欢设定一个固定的发布时间，然后计时工作，而不是按照罗列特性的列表来工作。如果我在每个月的第一个周五提交发布了新版本，那么你和你的团队知道应该什么时候要添加新任务并完成它了。
 
-Releasing after certain features are in creates a pressure to get work done that may aggravate your team if they feel like they are holding up the release. Better to just tell them the dates and let them manage their part as they prefer.
+在特征确定后发布模组将会造成一种要完成工作的压力，如果你的团队认为他们正在负责这个版本，可能会影响他们。更好的做法是告诉他们日期，让他们按照自己的进度处理任务。
