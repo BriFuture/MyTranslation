@@ -2,13 +2,13 @@
 
 《文明 5》的单位上方有一个浮动的图标。我们将添加禁用单位图标（Unit Icon）的能力。
 
-![](civ5_imgs/page56.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page56.jpg)
 
 先要找到控制单位图标的 Lua 文件。没有简单的引用关系，搜索要花一番功夫。好在 Firaxis 用的文件名相当有含义，单位图标由 “UnitFlagManager.lua” 和 “UnitFlagManager.xml” 文件控制。他们都在 `<Civilization V>\assets\UI\InGame` 目录下。
 
-![](civ5_imgs/page56-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page56-2.jpg)
 
-首先要在项目里添加两个新文件。与添加 XML 文件不同的是 Lua 文件要用 XML 一样的文件名，因此分别重命名新文件为 “UnitFlagManager.lua” 和 “UnitFlagManager.xml”，并且删除两个文件里的内容。它们放在哪个文件夹里不重要，但为让其有序，我创建了 Lua 文件夹，并把两个文件添加到里面。
+首先要在项目里添加两个新文件。与添加 XML 文件不同的是 Lua 文件要用 XML 一样的文件名，因此分别把新文件重命名为 “UnitFlagManager.lua” 和 “UnitFlagManager.xml”，并且删除两个文件里的内容。它们放在哪个文件夹里不重要，但为让其有序，我创建了 Lua 文件夹，并把两个文件添加到里面。
 
 然后是把原始的 “UnitFlagManager.lua” 和 “UnitFlagManager.xml” 文件的内容复制到空的新副本里。Lua 不像 XML 那样易于模块化（InGameUIAddin 允许某些模块化的 Lua 修改，但很有限）因此需要复制整个文件进行修改。
 
@@ -63,7 +63,7 @@ UpdateVisibility = function( self )
 end,
 ```
 
-这个版本就不是简单的设置单位图标在玩家不是策略视图下永远隐藏了，我们用了一个变量来控制它。如果 bHideUnitIcon 是 true 的话，它就会像之前的代码一样，隐藏单位图标。但如果 bHideUnitIcon 是 false 的话，它就能像游戏的原始代码一样显示单位图标。
+这个版本就不是简单的设置单位图标在非策略视图下永远隐藏了，我们用了一个变量来控制它。如果 bHideUnitIcon 是 true 的话，它就会像之前的代码一样，隐藏单位图标。但如果 bHideUnitIcon 是 false 的话，它就能像游戏的原始代码一样显示单位图标。
 
 需要设置 bHideUnitIcon 的默认值，在 “UnitFlagManager.lua” 文件顶部添加下面的代码：
 
@@ -122,11 +122,11 @@ local bHideUnitIcon = true;
 
 注意，上面依然注解了修改，但是 XML 的注释符与 Lua 不同。注释始于“`<!--`”，止于“`-->`”。添加的那行重要的设定是 IsChecked="1"，这意味着复选框默认是勾选的。复选框的 ID 叫 “HideUnitIcon”，显示的文本是 “TXT_KEY_MAP_OPTIONS_HIDE_UNIT_ICON”。
 
-![](civ5_imgs/page60.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page60.jpg)
 
-第九，默认是禁用单位图标，我们添加了菜单选项允许玩家启用或禁用单位图标。但是菜单选项还做不了什么事情。当玩家点击“隐藏单位图标”的复选框时，应该触发我们在 “UnitFlagManager.lua” 文件中的 bHideUnit 变量、
+第九，默认是禁用单位图标，我们添加了菜单选项允许玩家启用或禁用单位图标。但是菜单选项还做不了什么事情。当玩家点击“隐藏单位图标”的复选框时，应该触发修改在 “UnitFlagManager.lua” 文件中的 bHideUnit 变量、
 
-![](civ5_imgs/page60-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page60-2.jpg)
 
 Lua 脚本不能直接调用其它脚本里的函数。如果要一个 Lua 脚本能调用另一个脚本里的函数，我们要用到 LuaEvenets。在 “UnitFlagManager.lua” 文件的开始，我们需要创建一个新的 LuaEvent，如下：
 
@@ -163,13 +163,13 @@ Controls.HideUnitIcon:RegisterCheckHandler( OnHideUnitIconChecked );
 
 这就是一个完整的模组，可以通过小地图面板上的菜单选项启用或禁用单位图标。这里我们讲了怎么添加文本，怎么修改 Lua 脚本，怎么绑定 Lua 函数到 XML 对象，以及如何通过 LuaEvents 从一个 Lua 脚本调用另一个脚本的函数。一旦理解了这些基础，就明白了最难的部分，也就是脚本和函数控制着我们想要改变的流程（我们是如何知道 UnitIcons 是 “UnitFlagManager.lua” 文件控制的）以及调用什么函数能够做到我们想要做的（如何知道 StrategicViewStateChanged() 函数会更新单位图标）。对我而言，这意味着查找搜索了很多文件。
 
-一开始会花很久完成上述事情（它花了我很多时间）。但好在这篇文档明显地缩短了要用的时间。现在我知道我所作的下一个改变就会快得多。
+一开始会花很久完成上述事情（它花了我很多时间）。但好在这篇文档明显地缩短了要用的时间。现在我知道我下一个要作的改变就会快得多。
 
 #### 如何用 InGameUIAddin 制作模块化的 UI 变化
 
 通过 InGameUIAddin 可以创造模块化的 UI 变化。尽管它功能有限，但它能添加新的 UI 控件，但不能移除或者修改现有的 UI 控件。要移除或者修改现有的 UI 控件，你得照着 “如何用 Lua 禁用单位图标” 替这一节的做法换 Lua 和 XML 文件
 
-![](civ5_imgs/page61.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page61.jpg)
 
 这个例子我们将在界面里添加一个时钟。从添加 “Clock.lua” 和 “Clock.xml” 文件开始。它们不是替换文件，因此文件名没关系。所有 Lua 的 UI 变化都要有配套的 XML 和 Lua 文件。XML文件提供结构和设置，Lua 文件提供代码。
 
@@ -181,7 +181,6 @@ Controls.HideUnitIcon:RegisterCheckHandler( OnHideUnitIconChecked );
 </Context>
 ```
 
-The above defines a new label with the ID of "ClockLabel". We can see the font (TwCenMT20), color (Beige_Black_Alpha) and location (centered at the top of the screen, with an offset 0 to the left and 10 down) for the label.
 以上定义了一个叫做 “ClockLabel” 的新标签。可以看到标签的字体（font，TwCenMT20）,颜色（color，Beige_Black_Alpha）和位置（location，屏幕上方中央，距离左边为 0 ，距下边为 10）。（注： Label 中的 Anchor 指明位置，C 表示 Center、中央，T 表示 Top、顶部）
 
 但这还只是个空标签，需要 “Clock.lua” 来同步时间。“Clock.lua” 的内容如下：
@@ -197,11 +196,11 @@ ContextPtr:SetUpdate 在屏幕画面更新时调用。上述代码添加了同�
 
 下一步是当模组加载时，要加载 UI 的变化，与 XML 需要在模组属性的 actions 页设置 OnModActivated 和 UpdateDatabase 操作类似。对于 InGameUIAddin 变化，我们要转到模组属性的 Content 页，指定这是 InGameUIAddin 变化，以及我们想要激活的文件（相应的 XML 文件不需要指定）。
 
-![](civ5_imgs/page63.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page63.jpg)
 
 下面这幅截图中能够看到我们添加的时钟（红色框内的是添加的部分，让它在截图中更容易看到，红色框不是模组添加的）。
 
-![](civ5_imgs/page63-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page63-2.jpg)
 
 #### 如何用 Lua 添加一个新窗口
 
@@ -216,7 +215,7 @@ ContextPtr:SetUpdate 在屏幕画面更新时调用。上述代码添加了同�
 - **InGame.xml** - 这是注册 Lua 文件的主要地方。
 - **NotificationLogPopup.lua** - 它控制通知的弹出菜单，我们将会通过这个事件添加一个新的事件。
 
-![](civ5_imgs/page64.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page64.jpg)
 
 现在添加两个文件用来控制新窗口：
 
@@ -258,7 +257,7 @@ g_MultiPullInfo[7] = { text="TXT_KEY_MOD_LIST", call=function() Events.SerialEve
 
 这里往 multipull 菜单里添加了新的选项。如果它被选中，它将会把 BUTTONPOPUP_NOTIFICATION_LOG 和 Data1 里的 999 传递出去。然后我们就要捕捉事件，触发弹出菜单。
 
-![](civ5_imgs/page65.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page65.jpg)
 
 以上完成了在选项菜单里添加新菜单项的工作。但我们想调整下拉框的大小，让新选项有足够的空间。XML 控制着 UI 的尺寸和形式，因此需要修改 “DiploCorner.xml” 调整大小。
 
@@ -433,9 +432,9 @@ Events.SerialEventGameMessagePopup.Add( OnPopup );
 </Context>
 ```
 
- 在空文件里写出这么多东西很难。我确信有些人能够做到，但显然我不是其中一员。我在窗口文件中寻找和我想要做的窗口差不多的 XML 定义，然后复制，修改，添加，直到它看起来就是我想要的。我用 Notification 窗口作为这个窗口的基础，然后从 ModBrowser 相关文件中复制出我需要的 XML 片段（也就是你在主菜单里选择模组的地方）。由于《文明 5》所有的 UI 都是用 Lua 绘制的，因此能借鉴相应文件中的控件，制作自己的窗口。
+ 在空文件里写出这么多东西很难。我确信有些人能够做到，但显然我不能。我在窗口文件中寻找和我想要做的窗口差不多的 XML 定义，然后复制，修改，添加，直到它看起来就是我想要的。我用 Notification 窗口作为这个窗口的基础，然后从 ModBrowser 相关文件中复制出我需要的 XML 片段（也就是你在主菜单里选择模组的地方）。由于《文明 5》所有的 UI 都是用 Lua 绘制的，因此能借鉴相应文件中的控件，制作自己的窗口。
 
-以上定义了窗口，但还不能完成逻辑操作。这就是要用到 Lua。“ModList.lua” 文件包含了这些内容：
+以上定义了窗口，但还不能完成逻辑操作。这就要用到 Lua。“ModList.lua” 文件包含了这些内容：
 
 ```lua
 include( "InstanceManager" );
@@ -487,28 +486,28 @@ Controls.CloseButton:RegisterCallback( Mouse.eLClick, OnClose );
 
 唯一添加的函数是控制关闭按钮的代码。这就是一个非常简单的添加新窗口的例子了。
 
-![](civ5_imgs/page70.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page70.jpg)
 
 
 ### WorldBuilder
 
-![](civ5_imgs/page70-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page70-2.jpg)
 
 WorldBuilder 是针对《文明 5》而推出的一款地图编辑器。它可以帮你快速创造地图，也能帮助刚起步的团队开发复杂的场景。这一节将会讲一讲 Worldbuildier 里的选项，这样开发者就能快速编辑他们的地图场景了。
 
 在文件栏顶部有一个 description 选项，这让你能够给地图命名，给它作个简单的介绍。
 
-![](civ5_imgs/page71.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page71.jpg)
 
 然后是队伍编辑器（team editor）。它允许场景创造者给该场景分配可用的文明以及起始科技，政策，金钱等等。在城市之前或者不是野蛮人的单位在该地图里可以被替换掉，需要在队伍编辑器中分配队伍。
 
-![](civ5_imgs/page71-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page71-2.jpg)
 
-WorldBuilder 里的地图编辑器（map editor）清楚直白。地图编辑器的工具箱包含各种工具，可以用这些标签页来创造一个有意思的地图：
+WorldBuilder 里的地图编辑器（map editor）很简单。地图编辑器的工具箱包含各种工具，可以用这些标签页来创造一个有意思的地图：
 
-- **Edit Plot** - 这允许选中的地块拥有任意地形，地貌，资源以及基础设施。这也是你设置玩家的开局地点的地方。
+- **Edit Plot** - 修改选中的地块使其拥有任意地形，地貌，资源以及基础设施。这也是你设置玩家的开局地点的地方。
 - **Plopper** - 这个标签页允许特征，资源基础设施，自然奇观和道路能够在该地块快速绘制。
-- **Paint** - 这个标签页区分笔刷尺寸，设置地形，地貌，大洲设定，文化边界以及可见地形。
+- **Paint** - 这个标签页有笔刷尺寸，可以用来设置地形，地貌，大洲设定，文化边界以及可见地形。
 - **Rivers** - 如果你熟悉《文明 4》 WorldBuilder 中设置河流的过程（我敢担保完成它得烧支高香），那么你就能发现《文明 5》里得到了极大的改良。所有六边形的交界处支持设置河流，点击交界处就能决定河流是否应该流经这一边界。
 - **Continents** - 设置大洲（美洲，亚洲，非洲和欧洲）的地方。
 - **Units** - 只能放置野蛮人的单位，除非在队伍编辑器中添加了玩家。如果有玩家，那么这个标签页允许在该地图上设置所有单位，以及单位的状态（血量，强化，航运模式）。
@@ -521,25 +520,25 @@ WorldBuilder 里的地图编辑器（map editor）清楚直白。地图编辑器
 
 如果你喜欢正在使用的地图，或者认为它能够作为场景的良好基础，你可以直接在游戏里保存它。
 
-![](civ5_imgs/page72.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page72.jpg)
 
-移到保存游戏菜单，这里有个按钮 “Save Map”。
+打开保存游戏菜单，这里有个按钮 “Save Map”。
 
 这将打开一个保存地图（Save Map）窗口，可以输入名字。点击保存（save）就能保存地图了。这个地图会被保存到 “`..\<My Games>\Sid Meier's Civilization V\Maps\`” 目录（WorldBuilder 保存文件的目录）。
 
-![](civ5_imgs/page72-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page72-2.jpg)
 
 #### 向模组中添加地图
 
-把 ModBuddy 中的地图文件复制到你的模组中，就添加到模组里了。这个地图的名称和位置不重要。我建议在你项目的根目录下创建一个 “Map” 目录来存放地图文件，尽管这不是必须的。
+把 ModBuddy 中的地图文件复制到你的模组中，就添加到模组里了。这个地图的名称和位置不重要。我建议在你项目的根目录下创建一个 “Map” 目录来存放地图文件，尽管这不是必要的。
 
-![](civ5_imgs/page73.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page73.jpg)
 
-当模组成功加载后，可以在选择菜单中选择你的地图。它看起来像游戏的普通地图。这个截图 Ireland 是模组中带的一个地图。
+当模组成功加载后，可以在选择菜单中选择你的地图。它看起来像游戏的普通地图。这个关于 Ireland 截图是模组中带的一个地图。
 
 如果你在队伍编辑器中设置了玩家，那你会在选择窗口中看到一个“加载场景（Load Scenario）”的选项。如果该选项未被选中，加载地图时就没有自定的玩家，单位，城市等等。仅仅会用到这幅地图。如果选中了“加载场景”，那么只会加载该地图中的文明和首领。
 
-![](civ5_imgs/page73-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page73-2.jpg)
 
 ### 发布模组
 
@@ -547,27 +546,27 @@ WorldBuilder 里的地图编辑器（map editor）清楚直白。地图编辑器
 
 要是你准备好与他人分享模组，就可以用两种不同的方式进行发布。
 
-第一种方式是在游戏外部分发文件。模组浏览器是个很好的资源，但不是分享模组所必需的。你的模组会被放在 "`..\< My Games>\Sid Meier's Civilization V\MODS`" 目录下。你可以打包模组目录，然后分享给别人（那么这个人需要把这个压缩包解压到 "`..\< My Games>\Sid Meier's Civilization V\MODS`" 目录下）。
+第一种方式是在游戏外部分发文件。模组浏览器是个很好的资源，但不是分享模组所必需的。你的模组会被放在 "`..\< My Games>\Sid Meier's Civilization V\MODS`" 目录下。你可以打包模组文件夹，然后分享给别人（这个人需要把这个压缩包解压到 "`..\< My Games>\Sid Meier's Civilization V\MODS`" 目录下）。
 
 第二种方式是通过 ModBuddy 工具菜单下的“在线服务（Online Services）”选项。这会将你的模组上传到模组数据库中，然后别人就能在模组浏览器中看到它。
 
-![](civ5_imgs/page74.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page74.jpg)
 
 点击在线服务之后，通过这几个步骤就能上传模组了：
 
-![](civ5_imgs/page74-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page74-2.jpg)
 
 1. 登陆 Gamespy（如果需要的话）。
 
 2. 点击在线服务窗口的上传（Upload）按钮。注意这个窗口会显示上传模组的状态，包括较早的版本。
 
-![](civ5_imgs/page74-3.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page74-3.jpg)
 
 3. 在选择模组窗口点击 “...” 按钮，浏览你要上传的模组。
 
 4. 选择模组包。默认是在 `../My Documents/Firaxis ModBuddy/<ModName>/Packages` 目录下。如果该模组有多个版本，它们都会显示在这里。选择你想要上传的版本（一般是最新的版本）。
 
-![](civ5_imgs/page74-4.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page74-4.jpg)
 
 5. 等待模组上传。
 
@@ -585,7 +584,7 @@ WorldBuilder 里的地图编辑器（map editor）清楚直白。地图编辑器
 - **Partially Exclusive** - 被你的模组引用或者是引用了你的模组的其它所有模组都能被启用。
 - **Totally Exclusive** - 只能启用你的模组所引用的模组。
 
-大多数模组都是非排他的。这意味着他们可以与其它非排他性模组共用（部分排他或者完全排他的模组筛选这些模组）。如果你要做一个模组，添加新文明和新单位，那么你很有可能要做成一个非排他的模组。
+大多数模组都是不排他的。这意味着他们可以与其它非排他性模组共用（部分排他或者完全排他的模组会筛选掉这些模组）。如果你要做一个模组，添加新文明和新单位，那么你很有可能要做成一个非排他的模组。
 
 部分排他性是整个转换模组的合适设定。如果你制作一个战争模组，又不想玩家使用西班牙文明，或者想要制作一个添加了 Firaxis 这个世界奇观的模组。如果你的模组删除了游戏的某些基础资源（移除了一个资源或者科技等等），你可能会想让这个模组是部分排他的，这是因为这些资源可能会被其它模组所使用。如果你或者其它模组作者设置了模组能够与你的这个模组一起运行，那么这些模组就能一起运行。
 
@@ -593,9 +592,9 @@ WorldBuilder 里的地图编辑器（map editor）清楚直白。地图编辑器
 
 ### 排除故障
 
-如果你像我一样是个不善言谈的人,你会花 10% 的时间制作模组，然后用 90% 的时间找出它不能正常运行的问题。在 Firaxis 帮助我们制作模组提供的所有文件中，我在 debug 日志上花的时间最多。
+如果你像我一样，是个不善言谈的人,你会花 10% 的时间制作模组，然后用 90% 的时间找出它不能正常运行的问题。在 Firaxis 帮助我们制作模组提供的所有文件中，我在 debug 日志上花的时间最多。
 
-debug 日志在 "..\My Games\Sid Meier's Civilization 5\Logs\" 目录下。这里有很多文件，我发现按照修改时间来排序文件很有效，能够看到哪个文件是最近修改的。我不会把这里的所有文件都讲到，讲的是我最常用到的两个文件。
+debug 日志在 "..\My Games\Sid Meier's Civilization 5\Logs\" 目录下。这里有很多文件，我发现按照修改时间来排序文件很有效，能够看到哪个文件最近被修改过。我不会把这里的所有文件都讲到，讲的是我最常用到的两个文件。
 
 #### Database.log
 

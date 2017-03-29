@@ -1,4 +1,4 @@
-#### 如何添加文明
+#### How to: Add a Civilization
 
 In this section we will go through the entire process of adding a new civilization to the game. First let's look at the schema definition for a civilization from the Civ5Civilizations.xml file:
 
@@ -249,7 +249,7 @@ I only used 3 city names in the above example just to simplify this document. Fo
 
 3. Define the text strings. We used a lot of text strings in the civ definition. We will have to define those in XML as well. Create a New Text directory under XML and add a new file under it. I have called mine GameText.xml.
 
-![](civ5_imgs/page31.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page31.jpg)
 
 The pedia entries use a special format. The prefix for the pedia entries is whatever we put in the CivilopediaTag attribute (TXT_KEY_CIV5_CELT). But the pedia is built form matching pairs of _HEADING_# and _TEXT_# entries. If we add a text entry for TXT_KEY_CIV5_CELT_HEADING_1, then that will be the heading for the for section of the pedia, TXT_KEY_CIV5_CELT_TEXT_1 will be the pedia entry under that heading. This way modders can add as many pedia entries as they want for a civilization (the same system is used for leaders).
 
@@ -290,11 +290,11 @@ Being lazy, I also used TXT_KEY_CIV5_CELT_TEXT_1 as the Dawn of Man quote.
 
 5. Lastly we have to make sure our modified files update the database. On the Actions tab on the mod properties we have to add the following entries to get the game to convert our xml files to sql and write them to the game database when the mod is loaded. This is one of the few places where the file path is important, if we change our directory or file names we will have to update the entry here on the Actions tab.
 
-![](civ5_imgs/page32.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page32.jpg)
 
 After that we have a new civilization in the game. We could use some art assets to make it look better, a new leader to go with it, and a unique unit and building. All of those will be covered in later sections.
 
-#### 如何添加图标
+#### How to: Add an Icon
 
 Now we need an icon for our civilization.
 
@@ -325,7 +325,7 @@ Firaxis also provided a readme for icon sizes that are required for all the asse
 
 The above means that civilizations, for example, need a 256x256, 128x128, 80x80, 64x64, 45x45 and 32x32 icon. So we need to create six icons for different sizes for our civilization. Loading the IconAtlas256.psd I can use Photoshop to create an icon in the first slot.
 
-![](civ5_imgs/page33.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page33.jpg)
 
 I prefer Photoshop, but many modders like to use Gimp, which has the considerable advantage of being free. The art tool doesn't matter, as long as it can read the .psd template and save the file as a .dds file.
 
@@ -337,13 +337,13 @@ All the base game civilization icons are simple circles, but I got a little fanc
 
 Once you have the icon created in the template, save it as a dds file. You may need to download special plugins for your art tool of choice to be able to save dds files. I selected to call my file CivSymbolsColorLegends256.dds.
 
-![](civ5_imgs/page34.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page34.jpg)
 
 The 256x256 template is 2048x2048 pixels (eight 256 width icons across, eight 256 height icons from top to bottom). If we resize our image from 2048x2048 to 1024x1024 this will reduce our icons to 128x128, then we can save CivSymbolsColorLegends128.dds, resize to 640x640 (80 x 8) and save CivSymbolsColorLegends80.dds. And on to create a 64x64, 45x45 and 32x32 icon size dds file.
 
 Once that is done we can add the files to our mod by creating an Art folder (though this isn't nessesary, I create it to help organize the project) and dragging and dropping our files into it.
 
-![](civ5_imgs/page34-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page34-2.jpg)
 
 Once all of our art files our added to the project we need to be able to reference them. to do that add a new asset type we need to add, IconTextureAtlases. Add the GameInfo folder underneath the XML folder and add an XML file called CIV5IconTextureAtlases.xml that contains the following:
 
@@ -428,4 +428,4 @@ Lastly we need to modify our civilization definition to use our new icon. back i
 
 The above tells the civilization to use the new atlas we defined and use Icon 0 (the first icon in that atlas) the civ icon. Loading up the mod we can take a look at our new icon.
 
-![](civ5_imgs/page36.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page36.jpg)

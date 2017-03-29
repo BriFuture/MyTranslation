@@ -1,12 +1,12 @@
-#### 如何用 Lua 禁用单位图标
+#### How to: Disable Unit Icons with Lua
 
 In Civilization V Units have a Unit Icon floating above them. We are going to add the ability to disable that unit icon.
 
-![](civ5_imgs/page56.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page56.jpg)
 
 First we have to find what Lua file controls the unit icon. There is no easy reference for this, it takes a bit of searching. Fortunately Firaxis has used fairly explanatory names, the unit icon is controlled by the UnitFlagManager.lua and UnitFlagManager.xml files. These are both in the `<Civilization V>\assets\UI\InGame` directory.
 
-![](civ5_imgs/page56-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page56-2.jpg)
 
 First we need to add two new files to our project. Unlike XML files it is important that we maintain the same names for Lua files so rename the new files to UnitFlagManager.lua and UnitFlagManager.xml and delete the contents of both. It doesn't matter what folder these files are placed in, but to keep things well organized I created a Lua folder and added both files beneath it.
 
@@ -121,11 +121,11 @@ The above is a simple text string replacement. Whenever the game is set to Engli
 
 Note in the above that the change is still commented, but that commenting syntax is different in XML. A comment starts with "`<!--`" and ends with a "`-->`". The important setting in the added line are IsChecked="1", which means that the checkbox defaults to being checked. The ID of the checkbox is "HideUnitIcon" and the string that is displayed with it is "TXT_KEY_MAP_OPTIONS_HIDE_UNIT_ICON".
 
-![](civ5_imgs/page60.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page60.jpg)
 
 9. We have disabled unit icons by default and added a menu option to allow players to enable/disable unit icons. But the menu option doesn't do anything yet. When a player clicks the Hide Unit Icons checkbox it should toggle the bHideUnitIcon variable we created in the UntiFlagManager.lua file.
 
-![](civ5_imgs/page60-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page60-2.jpg)
 
 Lua scripts can't directly call functions in other scripts. If we want one Lua script to call a function in another we have to use LuaEvents. At the start of UnitFlagManager.lua we need to create a new LuaEvent as follows:
 
@@ -164,11 +164,11 @@ That is it, a complete mod that adds the ability for players to enable and disab
 
 In the beginning it may take a few hours to do something like the above (it took me quite a few). But hopefully this document reduces that time considerably. And now that I understand what I had to do here my next change will be much faster.
 
-#### 如何用 InGameUIAddin 制作模块化的 UI 变化
+#### How to: Use InGameUIAddin to create modular UI changes
 
 There is a way to create modular Lua changes through InGameUIAddin. As of this writing this functionality is limited, it can add new UI components, but it can't remove or modify existing UI components. To remove or modify existing UI components you will need to replace the Lua and XML files as we did in the "How to: Disable Unit Icons with Lua" section.
 
-![](civ5_imgs/page61.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page61.jpg)
 
 In this example we will add a clock to the interface. We start by adding a Clock.lua and Clock.xml file to the project. These are not replacement files, so the names don't matter. As with all Lua UI changes we need a paired XML and Lua file. The XML file provides the structure and settings, the Lua file provides the code.
 
@@ -195,13 +195,13 @@ ContextPtr:SetUpdate runs on each screen update. The above function adds this fu
 
 Our next step is that we need to have our UI changed loaded when the mod loads, similar to how XML needs an OnModActivated and UpdateDatabase function on the actions tab for the Mod properties. For InGameUIAddin changes we have to go to Content tab of Mod Properties and specify that this is an InGameUIAddin change, and the Lua file we want activated (the matching XML file doesn't need to be specified).
 
-![](civ5_imgs/page63.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page63.jpg)
 
 In the following screenshot we can see the clock we added (the red highlight is added just to make it easier to find in the screen shot, it was not added by the mod).
 
-![](civ5_imgs/page63-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page63-2.jpg)
 
-#### 如何用 Lua 添加一个新镜头
+#### How to: Add a new screen with Lua
 
 There is no way to know what mods you have loaded while playing. In this section we will add a new screen on the Additional Information menu that lists all the loaded Mods.
 
@@ -215,7 +215,7 @@ For this mod to work we need to replace the following files:
 - **InGame.xml** - This is the main place where Lua files are registered.
 - **NotificationLogPopup.lua** - This controls the Notification popup menu, we are going to piggy back on this event to add out new one.
 
-![](civ5_imgs/page64.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page64.jpg)
 
 And we will add two new files to control the new screen:
 
@@ -257,7 +257,7 @@ g_MultiPullInfo[7] = { text="TXT_KEY_MOD_LIST", call=function() Events.SerialEve
 
 The above adds another option to the multipull menu. If that option is selected it passes the BUTTONPOPUP_NOTIFICATION_LOG and 999 in the Data1 field. Later we will cover how to capture that event and trigger the popup menu on it.
 
-!()[civ5_imgs/page65.jpg]
+!()[https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page65.jpg]
 
 The above works fine for adding a new menu option to the Additional Options menu. But we will want to adjust the size of the dropdown dialog to make room for the new menu option. XML controls the size and format of the UI, so we need to change the DiploCorner.xml to adjust the size.
 
@@ -482,22 +482,22 @@ The code is fairly simply. I looked through the ModBroser Lua files to find the 
 
 The only additional function is the code to Control the close button. A very simple example of adding a new screen to the game.
 
-![](civ5_imgs/page70.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page70.jpg)
 
 
 ### WorldBuilder
 
-![](civ5_imgs/page70-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page70-2.jpg)
 
 Worldbuilder is a map editor and scenario creator for Civilization V. With it maps can be created quickly, and complex scenarios with starting teams can be developed. This section will go through the options in Worldbuilder so that modders can quickly start creating their scenarios.
 
 Across the top of the file bar there is a description option that allows you to enter your map name and a brief description for the players.
 
-![](civ5_imgs/page71.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page71.jpg)
 
 Next is the Team editor. It allows the scenario creator to assign the available civilizations for this scenario as well as their starting techs, policies, diplomacy, gold, etc. Before cities or non-barbarian units can be placed on the map those teams need to be assigned in team editor.
 
-![](civ5_imgs/page71-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page71-2.jpg)
 
 The map editor in WorldBuilder is fairly straight forward. The Map Editor Tools box contains all the tools needed to create an interesting map on the following tabs.
 
@@ -512,31 +512,31 @@ The map editor in WorldBuilder is fairly straight forward. The Map Editor Tools 
 
 Once your map is complete, select Save from the file menu to save it. It can always be reloaded to make further changes. WorldBuilder maps are saved in the "`..\<My Games>\Sid Meier's Civilization V\Maps\`" directory.
 
-#### 保存文明 5 的地图
+#### Saving a Map from Civilization V
 
 If you like the map you are playing on, or believe it may make a good base for your scenario you can save it directly from the game.
 
-![](civ5_imgs/page72.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page72.jpg)
 
 To do so go to the save game menu and there is a button for "Save Map".
 
 That will open the Save Map window where a name can be entered. Click save to save the map. The map will be saved in the "`..\<My Games>\Sid Meier's Civilization V\Maps\`" directory (the same directory that WorldBuilder saves its files in).
 
-![](civ5_imgs/page72-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page72-2.jpg)
 
-#### 向模组中添加地图
+#### Adding the Map to your Mod
 
 Copy the map file into your mod in ModBuddy to add it to your mod. The name and location of the map doesn't matter. I recommend creating a "Map" directory off the root of your project to place map's in, but it isn't required.
 
-![](civ5_imgs/page73.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page73.jpg)
 
 With the mod loaded your map can be selected from the setup menu. It appears with the normal game maps. In this screenshot Ireland is a map provided by the mod.
 
 If you created custom players in the team editor then you will have a "Load Scenario" option on the setup screen. If this is unchecked your map will be loaded without any custom players, units, cities, etc. Just the map will be used. If "Load Scenario" is selected then the only civilizations/leaders from the map can be loaded.
 
-![](civ5_imgs/page73-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page73-2.jpg)
 
-### 发布模组
+### Publishing your Mod
 
 Before you can test your mod you need ModBuddy to "Build" it for you. Building is the process of taking everything you have included with your mod and putting it in a format the game can recognize. You will need to Build your mod each time you want all your latest changes to take effect. You should build frequently and test each change as you add it (rather than changing a lot of files at once then having the hard task of figuring out which change is keeping the game from loading).
 
@@ -546,23 +546,23 @@ The first way is that the files can be distributed outside of the game. The Mod 
 
 The second way is through ModBuddy with the "Online Services" option under the Tools menu. This uploads your mod to the mod database so that others will see it in the mod browser.
 
-![](civ5_imgs/page74.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page74.jpg)
 
 To upload your mod go through the following steps after selecting Online Services:
 
-![](civ5_imgs/page74-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page74-2.jpg)
 
 1. Login to Gamespy (if required).
 
 2. Select Upload from the Online Services screen. Notice that this screen will also show you the status of mods you have already uploaded, including prior versions.
 
-![](civ5_imgs/page74-3.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page74-3.jpg)
 
 3. Click the ... button on the Select Mod Package screen to browse for the mod to upload.
 
 4. Select the mod package. It defaults to `../My Documents/Firaxis ModBuddy/<ModName>/Packages` directory. If you have multiple versions of the mod they will all appear here. Select the version you want to upload (typically the most recent version).
 
-![](civ5_imgs/page74-4.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page74-4.jpg)
 
 5. Wait while the Mod uploads.
 
@@ -572,7 +572,7 @@ That's it, your mod should be uploaded and available for players to download.
 
 To update a mod change the version number on your mod's property screen then reupload using the above process.
 
-#### 兼容性
+#### Exclusivity
 
 There are three levels of exclusivity for Civilization V mods.
 
@@ -586,7 +586,7 @@ Partially Exclusive is the appropriate setting for total conversion mods. If you
 
 Totally Exclusive is the ultimate in mod control. Your mod can't be used in combination with any other mods unless you specifically allow that mod. The only difference between this and being partially exclusive is that it keeps other mod authors from being able to allow their mods to be able to work with yours. This setting should be very rare, only for mod authors who have had problems with other mod authors marking their mods compatible and causing compatibility issues.
 
-### 排除故障
+### Troubleshooting
 
 If you are a dumb guy like me, you spend 10% of your time creating, and 90% of the time trying to figure out why it doesn't work. Of all the files Firaxis provides to help us mod, I spend the most time looking at the debug logs.
 

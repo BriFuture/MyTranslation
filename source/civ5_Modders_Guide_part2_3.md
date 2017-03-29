@@ -1,4 +1,4 @@
-#### 如何添加首领
+#### How to: Add A Leader
 
 Adding a leader is similar to adding a civilization. To create Boudica I copied all the attributes from Alexander, who I want her to act similar to. Then I switched to Elizabeth's art definitions for ArtDefineTag (the leader screen art) and PortraitIndex (the icon she uses). Last I switched her to the Hiawatha's trait of Ignore Terrain in Forest. In later sections we look at how to create new art and trait for Boudica.
 
@@ -296,7 +296,7 @@ A Dawn of Man picture is 1024x768 and has to be a DDS file. Outside of that any 
 ```
 And that's all we need to have a new, working leader. In the next section we will cover how to add a new trait to Boudica and there will be a screenshot of the Dawn of Man screen where we can see the new screen.
 
-#### 如何添加特性
+#### How to: Add A Trait
 
 So far we have been borrowing Hiawatha's trait for our Boudica. It works fairly well, but our civilization would be more interesting if it had a unique trait. This section will go through the simple steps to add a trait to the game.
 
@@ -359,9 +359,9 @@ To assign this to Boudica make the following change to our Boudica leader defini
 
 Creating a new trait is as easy as that. Be sure to look through the schema definition for Traits and the XML definitions for all the existing traits to get ideas for new traits for your leaders.
 
-![](civ5_imgs/page43.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page43.jpg)
 
-#### 如何添加单位
+#### How to: Add A Unit
 
 Units are fun, and adding them is easy. As you may have noticed in the above screenshot there are two Unique Units assigned to the Celt's in this section we will cover how to add one of them.
 
@@ -369,7 +369,7 @@ This document covers the technical aspects of modding, but it's worth briefly me
 
 The Gaelic Warrior is the same cost and strength of a normal warrior but he ignores terrain costs. Moving through forests, hills, jungles or across rivers happens exactly like open plains. This makes the Gaelic Warrior very quick raiders, especially with their trait ability of being able to attack twice a turn. This also helps with their forested starts.
 
-![](civ5_imgs/page43-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page43-2.jpg)
 
 We need to make four changes to add a new unique unit to the game. First we need to add a new file CIV5Units.xml to our mod. I added it in the XML/Units/ folder. That file needs to contain the following unit definition.
 

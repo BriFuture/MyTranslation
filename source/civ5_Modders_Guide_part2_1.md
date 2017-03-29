@@ -10,7 +10,7 @@ Follow these steps to get started on your own mod. (Screen shots may differ slig
 
 1. Load ModBuddy (the Sid Meier's Civilization V SDK).
 
-![](civ5_imgs/page15.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page15.jpg)
 
 2. From the Main menu of ModBuddy select "New Mod"
 
@@ -20,7 +20,7 @@ Follow these steps to get started on your own mod. (Screen shots may differ slig
 
 Once that is done select "Next".
 
-![](civ5_imgs/page15-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page15-2.jpg)
 
 That is all you need to create a new mod. The mod doesn't do anything yet, we will get to that later sections.
 
@@ -28,7 +28,7 @@ That is all you need to create a new mod. The mod doesn't do anything yet, we wi
 
 There is no required directory structure for your mod project in ModBuddy. Modders can places the files where it is convenient for them and their project. Many people may start by creating files at the root of the project but as the project grows having all the files in one location can be frustrating and waste the modders time.
 
-![](civ5_imgs/page16.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page16.jpg)
 
 Renaming, moving and deleting files, if you want to reorganize them later, is fairly easy to do (files aren't typically referenced by their path).
 
@@ -42,7 +42,7 @@ Note: This is one way to organize your project. It is equally valid to organize 
 
 Right click on Mod icon in the Solution Explorer and select properties to view the mod properties. This is where the mod instructions are setup, and modders should become familiar with the options here (especially the Actions tab) to configure and enable the features their mod needs.
 
-![](civ5_imgs/page16-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page16-2.jpg)
 
 **Mod Info** - This contains all the setup information you entered when creating your mod. It can be updated if you add new members to your team, you want to modify the description, or add thanks to more people. This is what people see when they browse for mods.
 
@@ -61,7 +61,7 @@ Right click on Mod icon in the Solution Explorer and select properties to view t
 
 The most common "Set" you will need is "OnModActivated" (meaning to happen when the mod loads) and the most common type is "UpdateDatabase" (to apply the specified xml file). An example of a mod with applied xml files is in the following screenshot:
 
-![](civ5_imgs/page18.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page18.jpg)
 
 **Content** - The content screen specifies special file types within the mod much as the Actions screen is used for database updates. The following content types are available:
 - CityViewUIAddin- Adds the UI to the City View root
@@ -320,7 +320,7 @@ Deleting all the assets is also a big step. Remember that order in the file matt
 
 Text is an asset type similar to civilizations, leaders and units. The asset type for English is `<Language_en_US>`, just as the asset type for civilizations is `<Civilizations>`. The `<Row>` element is used to add new text, but with text we have to include an attribute with the `<Row>` element to assign the Tag.
 
-![](civ5_imgs/page24.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page24.jpg)
 
 In the screenshot we have added new text tags in ModBuddy. The Tag is how the game refers to the text string, the entry in `<Text></Text>` is what the game will display for this language when that text string is referenced. For example, with the above when TXT_KEY_CIV_CELT_DESC is referenced (as we will see in the How to: Add a Civilization section of this document) the game will display "Celtic Empire" when English is the active language.
 

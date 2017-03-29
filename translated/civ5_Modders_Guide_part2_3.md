@@ -1,6 +1,6 @@
 #### 如何添加首领
 
-添加首领和添加文明差不多。我复制了 Alexander 的所有属性，以便于创造出和 Alexander 性格相近的 Boudica 。然后我替换了 Elizabeth 的关于 ArtDefineTag （首领页面的图画）和 PortraitIndex （她所使用的图标）的图画设定。最后我替换了 Hiawatha 无视森林地形的设定。在后几节中我们会学习如何为 Boudica 创造新的图像和特性。
+添加首领和添加文明差不多。我复制了 Alexander 的所有属性，用来创造出和 Alexander 性格相近的 Boudica 。然后我替换了 Elizabeth 关于 ArtDefineTag （首领页面的图画）和 PortraitIndex （她所使用的图标）的图画设定。最后我替换了 Hiawatha 无视森林地形的设定。在后几节中我们会学习如何为 Boudica 创造新的图像和特性。
 
 这是 Boudica 的首领定义。我创建了在相应目录下叫做 `XML/Leaders/CIV5Leader_Bouidica.xml` 的新文件，在模组属性的 actions 标签页设置该文件要更改数据库。
 
@@ -299,6 +299,8 @@ Dawn of Man 图片的尺寸是 1024x768，而且得是 DDS 格式的文件。所
 
 这是我们要创建一个新的、可用的首领的所有东西了。下一节将会讲到怎么给 Boudica 添加特性。我们也可以在 Dawn of Man 页面上看到全新的图片。
 
+> 译者注：这里的首领名称在 BNW 版本里也是重复的，需要把 LEADER_BOUDICA 换成其它的名字，（可以是 LEADER_BOUDICA_NEW，名字无所谓，只要不重复就行）。重复的还有这些 TXT_KEY（包括下一节的 TXT_KEY，总之，只要游戏出现了 bug，你就应该检查一下自己的模组是哪里出错了），也要改一下。注意把相应的位置都改一下就可以了。
+
 #### 如何添加特性
 
 目前为止我们借了 Hiawatha 的特性当作 Boudica 的。它很有用，但是如果我们的文明有个独特的特性，它会更有趣。这一节我们将涉及到添加特效的几个基本步骤。
@@ -360,9 +362,9 @@ Dawn of Man 图片的尺寸是 1024x768，而且得是 DDS 格式的文件。所
 </Leader_Traits>
 ```
 
-创造一个新特性就这么简单。确保浏览过有关 Traits 的模式和所有已有的特性的 XML 定义，也许会得到新特性的启发。
+创造一个新特性就这么简单。确保浏览过有关 Traits 的模式和所有已有特性的 XML 定义，你或许会得到一些关于新特性的启发。
 
-![](civ5_imgs/page43.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page43.jpg)
 
 #### 如何添加单位
 
@@ -372,7 +374,7 @@ Dawn of Man 图片的尺寸是 1024x768，而且得是 DDS 格式的文件。所
 
 Gaelic 勇士的花费和攻击力与普通的勇士一样，但 Gaelic 勇士无视地形（对于移动力）的消耗。在森林、丘陵、雨林中移动甚至是渡河，都像在平原一样行动。这让 Gaelic 勇士很勇猛，尤其是配合他们的特色能力，每回合能够进行两次攻击。这让热带地区开局对他们也很有帮助。
 
-![](civ5_imgs/page43-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page43-2.jpg)
 
 我们要修改四个地方来添加一种新特色单位。首先在模组里加入 “CIV5Units.xml” 文件。我把它放到了 `XML/Units/` 文件夹下。这个文件需要包含这些单位定义：
 
@@ -453,7 +455,7 @@ Gaelic 勇士的花费和攻击力与普通的勇士一样，但 Gaelic 勇士�
 </GameData>
 ```
 
-添加单位的时候，这里有很多表需要被更新。首要的表是 Units，但我们也更新了 Unit_FreePromotions 表 （用来赋予晋升，让单位能够无视地形损耗），Unit_AITypes 表（有趣的是游戏会在 UNITAI_DEFENSE 单位中寻找可用的单位来开局，因为我没有定义这个，因此除非我定义了，Celts 开局时候就没有免费的勇士了），Unit_ClassUpgrades 表（这样我们的新单位可以升级到剑士）以及 Unit_Flavors 表（不同的值代表 AI 首领偏好不同的策略）。
+添加单位的时候，这里有很多表需要被更新。首先是 Units 表，但我们也更新了 Unit_FreePromotions 表 （用来提供晋升能力，让单位能够无视地形损耗），Unit_AITypes 表（有趣的是游戏会在 UNITAI_DEFENSE 单位中寻找可用的单位来开局，因为我没有定义这个，所以 Celts 文明开局时候就没有免费的勇士了），Unit_ClassUpgrades 表（这样我们的新单位可以升级到剑士）以及 Unit_Flavors 表（不同的值代表 AI 首领偏好不同的策略）。
 
 上面的单位使用 UNITCLASS_WARRIOR 作为单位类别，因此不必定义新的单位类别。由于它没有自己的单位类别，我们就知道这是一个特色单位（就是替换文明的勇士单位）。
 

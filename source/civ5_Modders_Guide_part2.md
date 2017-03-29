@@ -10,7 +10,7 @@ Follow these steps to get started on your own mod. (Screen shots may differ slig
 
 1. Load ModBuddy (the Sid Meier's Civilization V SDK).
 
-![](civ5_imgs/page15.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page15.jpg)
 
 2. From the Main menu of ModBuddy select "New Mod"
 
@@ -20,7 +20,7 @@ Follow these steps to get started on your own mod. (Screen shots may differ slig
 
 Once that is done select "Next".
 
-![](civ5_imgs/page15-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page15-2.jpg)
 
 That is all you need to create a new mod. The mod doesn't do anything yet, we will get to that later sections.
 
@@ -28,7 +28,7 @@ That is all you need to create a new mod. The mod doesn't do anything yet, we wi
 
 There is no required directory structure for your mod project in ModBuddy. Modders can places the files where it is convenient for them and their project. Many people may start by creating files at the root of the project but as the project grows having all the files in one location can be frustrating and waste the modders time.
 
-![](civ5_imgs/page16.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page16.jpg)
 
 Renaming, moving and deleting files, if you want to reorganize them later, is fairly easy to do (files aren't typically referenced by their path).
 
@@ -42,7 +42,7 @@ Note: This is one way to organize your project. It is equally valid to organize 
 
 Right click on Mod icon in the Solution Explorer and select properties to view the mod properties. This is where the mod instructions are setup, and modders should become familiar with the options here (especially the Actions tab) to configure and enable the features their mod needs.
 
-![](civ5_imgs/page16-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page16-2.jpg)
 
 **Mod Info** - This contains all the setup information you entered when creating your mod. It can be updated if you add new members to your team, you want to modify the description, or add thanks to more people. This is what people see when they browse for mods.
 
@@ -61,7 +61,7 @@ Right click on Mod icon in the Solution Explorer and select properties to view t
 
 The most common "Set" you will need is "OnModActivated" (meaning to happen when the mod loads) and the most common type is "UpdateDatabase" (to apply the specified xml file). An example of a mod with applied xml files is in the following screenshot:
 
-![](civ5_imgs/page18.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page18.jpg)
 
 **Content** - The content screen specifies special file types within the mod much as the Actions screen is used for database updates. The following content types are available:
 - CityViewUIAddin- Adds the UI to the City View root
@@ -325,7 +325,7 @@ Deleting all the assets is also a big step. Remember that order in the file matt
 
 Text is an asset type similar to civilizations, leaders and units. The asset type for English is `<Language_en_US>`, just as the asset type for civilizations is `<Civilizations>`. The `<Row>` element is used to add new text, but with text we have to include an attribute with the `<Row>` element to assign the Tag.
 
-![](civ5_imgs/page24.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page24.jpg)
 
 In the screenshot we have added new text tags in ModBuddy. The Tag is how the game refers to the text string, the entry in `<Text></Text>` is what the game will display for this language when that text string is referenced. For example, with the above when TXT_KEY_CIV_CELT_DESC is referenced (as we will see in the How to: Add a Civilization section of this document) the game will display "Celtic Empire" when English is the active language.
 
@@ -634,7 +634,7 @@ I only used 3 city names in the above example just to simplify this document. Fo
 
 3. Define the text strings. We used a lot of text strings in the civ definition. We will have to define those in XML as well. Create a New Text directory under XML and add a new file under it. I have called mine GameText.xml.
 
-![](civ5_imgs/page31.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page31.jpg)
 
 The pedia entries use a special format. The prefix for the pedia entries is whatever we put in the CivilopediaTag attribute (TXT_KEY_CIV5_CELT). But the pedia is built form matching pairs of _HEADING_# and _TEXT_# entries. If we add a text entry for TXT_KEY_CIV5_CELT_HEADING_1, then that will be the heading for the for section of the pedia, TXT_KEY_CIV5_CELT_TEXT_1 will be the pedia entry under that heading. This way modders can add as many pedia entries as they want for a civilization (the same system is used for leaders).
 
@@ -675,7 +675,7 @@ Being lazy, I also used TXT_KEY_CIV5_CELT_TEXT_1 as the Dawn of Man quote.
 
 5. Lastly we have to make sure our modified files update the database. On the Actions tab on the mod properties we have to add the following entries to get the game to convert our xml files to sql and write them to the game database when the mod is loaded. This is one of the few places where the file path is important, if we change our directory or file names we will have to update the entry here on the Actions tab.
 
-![](civ5_imgs/page32.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page32.jpg)
 
 After that we have a new civilization in the game. We could use some art assets to make it look better, a new leader to go with it, and a unique unit and building. All of those will be covered in later sections.
 
@@ -707,7 +707,7 @@ Firaxis also provided a readme for icon sizes that are required for all the asse
 
 The above means that civilizations, for example, need a 256x256, 128x128, 80x80, 64x64, 45x45 and 32x32 icon. So we need to create six icons for different sizes for our civilization. Loading the IconAtlas256.psd I can use Photoshop to create an icon in the first slot.
 
-![](civ5_imgs/page33.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page33.jpg)
 
 I prefer Photoshop, but many modders like to use Gimp, which has the considerable advantage of being free. The art tool doesn't matter, as long as it can read the .psd template and save the file as a .dds file.
 
@@ -719,13 +719,13 @@ All the base game civilization icons are simple circles, but I got a little fanc
 
 Once you have the icon created in the template, save it as a dds file. You may need to download special plugins for your art tool of choice to be able to save dds files. I selected to call my file CivSymbolsColorLegends256.dds.
 
-![](civ5_imgs/page34.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page34.jpg)
 
 The 256x256 template is 2048x2048 pixels (eight 256 width icons across, eight 256 height icons from top to bottom). If we resize our image from 2048x2048 to 1024x1024 this will reduce our icons to 128x128, then we can save CivSymbolsColorLegends128.dds, resize to 640x640 (80 x 8) and save CivSymbolsColorLegends80.dds. And on to create a 64x64, 45x45 and 32x32 icon size dds file.
 
 Once that is done we can add the files to our mod by creating an Art folder (though this isn't nessesary, I create it to help organize the project) and dragging and dropping our files into it.
 
-![](civ5_imgs/page34-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page34-2.jpg)
 
 Once all of our art files our added to the project we need to be able to reference them. to do that add a new asset type we need to add, IconTextureAtlases. Add the GameInfo folder underneath the XML folder and add an XML file called CIV5IconTextureAtlases.xml that contains the following:
 
@@ -812,7 +812,7 @@ Lastly we need to modify our civilization definition to use our new icon. back i
 
 The above tells the civilization to use the new atlas we defined and use Icon 0 (the first icon in that atlas) the civ icon. Loading up the mod we can take a look at our new icon.
 
-![](civ5_imgs/page36.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page36.jpg)
 
 #### How to: Add A Leader
 
@@ -1177,7 +1177,7 @@ To assign this to Boudica make the following change to our Boudica leader defini
 
 Creating a new trait is as easy as that. Be sure to look through the schema definition for Traits and the XML definitions for all the existing traits to get ideas for new traits for your leaders.
 
-![](civ5_imgs/page43.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page43.jpg)
 
 #### How to: Add A Unit
 
@@ -1187,7 +1187,7 @@ This document covers the technical aspects of modding, but it's worth briefly me
 
 The Gaelic Warrior is the same cost and strength of a normal warrior but he ignores terrain costs. Moving through forests, hills, jungles or across rivers happens exactly like open plains. This makes the Gaelic Warrior very quick raiders, especially with their trait ability of being able to attack twice a turn. This also helps with their forested starts.
 
-![](civ5_imgs/page43-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page43-2.jpg)
 
 We need to make four changes to add a new unique unit to the game. First we need to add a new file CIV5Units.xml to our mod. I added it in the XML/Units/ folder. That file needs to contain the following unit definition.
 
@@ -1451,7 +1451,7 @@ The only change to the above is highlighted in blue. The fScale of the unit was 
 
 One of the big advantages of switching from the larger formations to a single larger units is it leaves us with some unused unit art models. Before the barbarian unit formation was made up of three different unit models, Alpha, Bravo and Charlie. In our new barbarian formation we are using the Bravo model. So we have the Alpha model (which sports a cool deerskin antler headdress which is perfect for our Gaelic Warrior unit) available for use.
 
-![](civ5_imgs/page48.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page48.jpg)
 
 In the prior section, when we created our Gaelic Warrior we used the art definition of ART_DEF_UNIT_GAELIC_WARRIOR, now we need to add that definition to the UnitArtInfo.
 
@@ -1475,7 +1475,7 @@ We don't need to change the UnitMemberArtInfo since that definition hasn't chang
 
 Buildings are easy to add to the game. In this example we will add a palisade as an early defensive building. The palisade won't require any techs, so it's available from the first turn, and can't be built in any era except the Ancient Era (during later eras player should be using walls, castles and other powerful defensive buildings).
 
-![](civ5_imgs/page49.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page49.jpg)
 
 To do this we only need to update three tables. The first is Buildings table from CIV5Buildings.xml. The following adds the Palisade building to the game:
 
@@ -1652,7 +1652,7 @@ We also need a few text strings to support this. We will need to add the new TXT
 
 Notice that the Granary string is a new string, as we added for other assets. But the Hospital string is an update operation, which we need to change the base text string to the new one.
 
-![](civ5_imgs/page52.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page52.jpg)
 
 The process covered in this section is as valid for leaders, units and other assets as it is for buildings. The `<Update>` element is an easy way for modders to change existing base game assets in a modular way.
 
@@ -1662,7 +1662,7 @@ Removing a resource is a good example of removing any referenced asset from Civ5
 
 If we want to remove horses from the game (and it wasn't for these references) the following mod would work:
 
-![](civ5_imgs/page53.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page53.jpg)
 
 But when this mod is loaded the game crashes and we get the following errors in the Database.log file:
 
@@ -1697,11 +1697,11 @@ The problem is the existing references to non-existing Horses. Although the Data
 
 To do that I start in the "<Civ5 install dir>\Assets\Gameplay\XML" directory and do a search for RESOURCE_HORSE and select to have my search include file contents. Doing so gives me the following:
 
-![](civ5_imgs/page54.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page54.jpg)
 
 We don't need to worry about the text files. The text files are only string decodes, they don't reference anything. The fact that RESOURCE_HORSE exists in them is only part of a longer text string. That leaves us with: CIV5Units.xml, CIV5Buildings.xml, CIV5Resources.xml, CIV5Improvements.xml and Civ5Traits.xml.
 
-![](civ5_imgs/page54-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page54-2.jpg)
 
 My next step is to create xml files for each of the files I have to supply updates for. As stated in earlier sections, we could have all these changes in a single file and the folder and file names don't matter. I prefer to maintain Civ5's structure and filenames because it is easier for me to remember, but a single XML file called RemoveHorses.xml is just as valid.
 
@@ -1709,7 +1709,7 @@ Once we have the blank files we have to look through the original version to see
 
 A search of Civ5Buildings.xml shows two references to RESOURCE_HORSE. It is in the Building_LocalResourceAnds table for Stables, and in the Building_LocalResourceOrs table for the Circus. Both of these references will need to be removed by our mod before it will be able to load.
 
-![](civ5_imgs/page55.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page55.jpg)
 
 The following xml for our Mod's Civ5Buildings.xml will remove both of the references.
 
@@ -1787,11 +1787,11 @@ Once the above changes are made we will have a mod that removes horses, and all 
 
 In Civilization V Units have a Unit Icon floating above them. We are going to add the ability to disable that unit icon.
 
-![](civ5_imgs/page56.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page56.jpg)
 
 First we have to find what Lua file controls the unit icon. There is no easy reference for this, it takes a bit of searching. Fortunately Firaxis has used fairly explanatory names, the unit icon is controlled by the UnitFlagManager.lua and UnitFlagManager.xml files. These are both in the `<Civilization V>\assets\UI\InGame` directory.
 
-![](civ5_imgs/page56-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page56-2.jpg)
 
 First we need to add two new files to our project. Unlike XML files it is important that we maintain the same names for Lua files so rename the new files to UnitFlagManager.lua and UnitFlagManager.xml and delete the contents of both. It doesn't matter what folder these files are placed in, but to keep things well organized I created a Lua folder and added both files beneath it.
 
@@ -1906,11 +1906,11 @@ The above is a simple text string replacement. Whenever the game is set to Engli
 
 Note in the above that the change is still commented, but that commenting syntax is different in XML. A comment starts with "`<!--`" and ends with a "`-->`". The important setting in the added line are IsChecked="1", which means that the checkbox defaults to being checked. The ID of the checkbox is "HideUnitIcon" and the string that is displayed with it is "TXT_KEY_MAP_OPTIONS_HIDE_UNIT_ICON".
 
-![](civ5_imgs/page60.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page60.jpg)
 
 9. We have disabled unit icons by default and added a menu option to allow players to enable/disable unit icons. But the menu option doesn't do anything yet. When a player clicks the Hide Unit Icons checkbox it should toggle the bHideUnitIcon variable we created in the UntiFlagManager.lua file.
 
-![](civ5_imgs/page60-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page60-2.jpg)
 
 Lua scripts can't directly call functions in other scripts. If we want one Lua script to call a function in another we have to use LuaEvents. At the start of UnitFlagManager.lua we need to create a new LuaEvent as follows:
 
@@ -1953,7 +1953,7 @@ In the beginning it may take a few hours to do something like the above (it took
 
 There is a way to create modular Lua changes through InGameUIAddin. As of this writing this functionality is limited, it can add new UI components, but it can't remove or modify existing UI components. To remove or modify existing UI components you will need to replace the Lua and XML files as we did in the "How to: Disable Unit Icons with Lua" section.
 
-![](civ5_imgs/page61.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page61.jpg)
 
 In this example we will add a clock to the interface. We start by adding a Clock.lua and Clock.xml file to the project. These are not replacement files, so the names don't matter. As with all Lua UI changes we need a paired XML and Lua file. The XML file provides the structure and settings, the Lua file provides the code.
 
@@ -1980,11 +1980,11 @@ ContextPtr:SetUpdate runs on each screen update. The above function adds this fu
 
 Our next step is that we need to have our UI changed loaded when the mod loads, similar to how XML needs an OnModActivated and UpdateDatabase function on the actions tab for the Mod properties. For InGameUIAddin changes we have to go to Content tab of Mod Properties and specify that this is an InGameUIAddin change, and the Lua file we want activated (the matching XML file doesn't need to be specified).
 
-![](civ5_imgs/page63.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page63.jpg)
 
 In the following screenshot we can see the clock we added (the red highlight is added just to make it easier to find in the screen shot, it was not added by the mod).
 
-![](civ5_imgs/page63-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page63-2.jpg)
 
 #### How to: Add a new screen with Lua
 
@@ -2000,7 +2000,7 @@ For this mod to work we need to replace the following files:
 - **InGame.xml** - This is the main place where Lua files are registered.
 - **NotificationLogPopup.lua** - This controls the Notification popup menu, we are going to piggy back on this event to add out new one.
 
-![](civ5_imgs/page64.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page64.jpg)
 
 And we will add two new files to control the new screen:
 
@@ -2042,7 +2042,7 @@ g_MultiPullInfo[7] = { text="TXT_KEY_MOD_LIST", call=function() Events.SerialEve
 
 The above adds another option to the multipull menu. If that option is selected it passes the BUTTONPOPUP_NOTIFICATION_LOG and 999 in the Data1 field. Later we will cover how to capture that event and trigger the popup menu on it.
 
-!()[civ5_imgs/page65.jpg]
+!()[https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page65.jpg]
 
 The above works fine for adding a new menu option to the Additional Options menu. But we will want to adjust the size of the dropdown dialog to make room for the new menu option. XML controls the size and format of the UI, so we need to change the DiploCorner.xml to adjust the size.
 
@@ -2265,22 +2265,22 @@ The code is fairly simply. I looked through the ModBroser Lua files to find the 
 
 The only additional function is the code to Control the close button. A very simple example of adding a new screen to the game.
 
-![](civ5_imgs/page70.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page70.jpg)
 
 
 ### WorldBuilder
 
-![](civ5_imgs/page70-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page70-2.jpg)
 
 Worldbuilder is a map editor and scenario creator for Civilization V. With it maps can be created quickly, and complex scenarios with starting teams can be developed. This section will go through the options in Worldbuilder so that modders can quickly start creating their scenarios.
 
 Across the top of the file bar there is a description option that allows you to enter your map name and a brief description for the players.
 
-![](civ5_imgs/page71.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page71.jpg)
 
 Next is the Team editor. It allows the scenario creator to assign the available civilizations for this scenario as well as their starting techs, policies, diplomacy, gold, etc. Before cities or non-barbarian units can be placed on the map those teams need to be assigned in team editor.
 
-![](civ5_imgs/page71-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page71-2.jpg)
 
 The map editor in WorldBuilder is fairly straight forward. The Map Editor Tools box contains all the tools needed to create an interesting map on the following tabs.
 
@@ -2299,25 +2299,25 @@ Once your map is complete, select Save from the file menu to save it. It can alw
 
 If you like the map you are playing on, or believe it may make a good base for your scenario you can save it directly from the game.
 
-![](civ5_imgs/page72.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page72.jpg)
 
 To do so go to the save game menu and there is a button for "Save Map".
 
 That will open the Save Map window where a name can be entered. Click save to save the map. The map will be saved in the "`..\<My Games>\Sid Meier's Civilization V\Maps\`" directory (the same directory that WorldBuilder saves its files in).
 
-![](civ5_imgs/page72-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page72-2.jpg)
 
 #### Adding the Map to your Mod
 
 Copy the map file into your mod in ModBuddy to add it to your mod. The name and location of the map doesn't matter. I recommend creating a "Map" directory off the root of your project to place map's in, but it isn't required.
 
-![](civ5_imgs/page73.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page73.jpg)
 
 With the mod loaded your map can be selected from the setup menu. It appears with the normal game maps. In this screenshot Ireland is a map provided by the mod.
 
 If you created custom players in the team editor then you will have a "Load Scenario" option on the setup screen. If this is unchecked your map will be loaded without any custom players, units, cities, etc. Just the map will be used. If "Load Scenario" is selected then the only civilizations/leaders from the map can be loaded.
 
-![](civ5_imgs/page73-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page73-2.jpg)
 
 ### Publishing your Mod
 
@@ -2329,23 +2329,23 @@ The first way is that the files can be distributed outside of the game. The Mod 
 
 The second way is through ModBuddy with the "Online Services" option under the Tools menu. This uploads your mod to the mod database so that others will see it in the mod browser.
 
-![](civ5_imgs/page74.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page74.jpg)
 
 To upload your mod go through the following steps after selecting Online Services:
 
-![](civ5_imgs/page74-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page74-2.jpg)
 
 1. Login to Gamespy (if required).
 
 2. Select Upload from the Online Services screen. Notice that this screen will also show you the status of mods you have already uploaded, including prior versions.
 
-![](civ5_imgs/page74-3.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page74-3.jpg)
 
 3. Click the ... button on the Select Mod Package screen to browse for the mod to upload.
 
 4. Select the mod package. It defaults to ../My Documents/Firaxis ModBuddy/<ModName>/Packages directory. If you have multiple versions of the mod they will all appear here. Select the version you want to upload (typically the most recent version).
 
-![](civ5_imgs/page74-4.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page74-4.jpg)
 
 5. Wait while the Mod uploads.
 

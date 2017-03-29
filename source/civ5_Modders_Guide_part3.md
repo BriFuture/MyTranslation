@@ -43,7 +43,6 @@ Jon Shafer
 
     As a designer a lot of times you just have to go with your gut. What "too much" or "too little" means varies from person to person. I think most designers tend to lean in the direction of "what would I enjoy playing with." For example, in Civ 5 Paratroopers are in the game to start, whereas that wasn't the case in Civ 4. Why? Really, just because I thought they were cool. It's a way to spice up combat in the modern era. Once you've added or changed anything though, it's vital to play with what you've done to make sure it works. So many of the ideas I've thought were cool on paper turned out to be duds in the game. As experienced designers like to say, design is more about making something work than having cool ideas.
 
-
 Sevo
 
 -------
@@ -141,7 +140,6 @@ Rhye
 I think that this is a concern. That makes the difference between a mod for personal use and for sharing. For instance, if I just want to boost some units stats, I will not post it. Usually I'd eventually find out another mod better than mine, that does the boost I wanted, plus something else.
 
 I'll share it if I have a unique idea instead, something that hasn't been done before by anybody.
-
 
 #### The Danger of Complexity
 

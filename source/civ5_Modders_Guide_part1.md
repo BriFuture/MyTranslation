@@ -4,6 +4,7 @@ THE MODDERS GUIDE TO SID MEIER'S CIVILIZATION V - part1
 ## Core Concepts
 
 ### What is Modding?
+
 Modding is a slang expression for modifying hardware or software to do something different than the designer intended. Firaxis developed Civilization V (and earlier versions) with modders in mind. A mod could be as simple as tweaking the costs of some units and buildings, changing the AI so that it plays differently or adding a new civilizaiton to the game. Or it could be as complex as a total conversion mod that creates a new game on the Civilization engine.
 
 This document was written to help modders get a jump start on modding Civilization V by helping to communicate what's possible, learn the technical issues and get modders as quickly as possible from coming up with a mod idea, to publishing their own mod. Although this document covers a wide range of mod concepts, it doesn't cover evething that can be done with Civ5. In particular source code mods and 3d art changes aren't covered in this document.
@@ -23,6 +24,7 @@ As open and powerful as this engine was, there were significant limitations.
 Civilization V improves on the modability offered in Civilization IV, and resolves all three of these issues. Civilization V features an in game mod menu (Mod Browser) which allows users to find, download and install mods they want to try. It is now easy to produce mods that players can run together with other mods, allowing players to choose exactly what mod or groups of mods they want to run for their game. And python has been replaced with Lua, which integrates better with the C++ core and has less of a performance impact than python.
 
 ### Modular Design
+
 Civ4 modders will be accustomed to replacing files to make changes. If a new Civ4Civilizations.xml file is added to the mod the base Civ4Civilizaiotns.xml won't be used. That is not the case with Civilization V. Instead of replacing files all mods automatically inherit the base objects, and modders must delete those objects if they aren't be used in this mod (this guide will cover how to do that later). A modder creating a Civil War mod can create a Union and Confederacy civilizaiton, but will also need to explicitly delete the base civiliztion's so that they aren't available (otherwise, France, Russia etc will be available civilizations in the Civil War mod).
 
 The advantage of this is that it makes mods modular. The game assumes that all assets are being used unless a mod specifically tells it not to. That way one mod may add a Canadian civilization, one mod may remove the German civilization and replace it with a new one, and another mod may add an Atlantis civilization. These mods can all be loaded together without any special integration by a modder. With enough mods available every players preferred mix of mods can be effectively unique. 
@@ -65,7 +67,7 @@ Don't be confused if all of the elements don't make sense yet. If it is your fir
 
 Elements can contain other elements. In the above example the Row element (that has the start tag of `<Row>` and the end tag of `</Row>`) contains all the elements for a Settler. Here is a more complex example:
 
-![page5.](civ5_imgs/page5.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page5.jpg)
 
 In the above the GameData element is the entirety of the blue region. The Specialists element is the entirety of the red region. Note that there are two Row elements within the Specialists element for two different specialists, much as the Row element contains many different elements for the attributes of those specialists. The first Row element is the green region and it is the full definition for the Artist specialist, and the purple region is a single attribute of the Artist specialist.
 
@@ -139,7 +141,7 @@ If you want to add one piece at a time and make sure it works you may want to us
 
 The XML file structure is contained in `<install directory>\assets\Gameplay\XML\` directory. Unlike Civilization IV, this exact file structure isn't critical since we aren't replacing files. But it is important to know where the files exist so modders can look up the current definitions. In general schema is defined at the beginning if the file for that type of asset, so it's also a good place to look for available attributes.
 
-![](civ5_imgs/page7.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page7.jpg)
 
 **GlobalDefines.xml** - Contains the default definitions for a wide range of game settings such as the starting year, initial city population and max buildings per city (defaults to unlimited). Hundreds of game rules changes can be made simply by modifying the values in this file.
 
@@ -238,7 +240,7 @@ As an example all civilizations start with a free BUILDINGCLASS_PALACE. If you c
 
 XML is just an intermediate domain specific language that is translated into SQL and then executed on the database. Typically, after you've run the game once and the XML files have not changed, you will simply load from the .db files directly. This improves performance. Firaxis kept the XML format for familiarity, it isn't directly used by the game.
 
-![](civ5_imgs/page11.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page11.jpg)
 
 Effectively the XML files are translated into SQL queries and run against the database. Direct SQL files can also be run. SQL files have their pros and cons. The downside to SQL is that the modder must be familiar with the language whereas the upside is that they can write very complex transforms that cannot be expressed in XML.
 
@@ -248,7 +250,7 @@ The easiest way to view the game database is to install Firefox with the SQLite 
 
 Once it is installed, you can open SQLite Manager by opening Firefox and going to Tools->SQLite Manager. At the top menu in the application, go to Database->Connect Database. Navigate to `<My Documents>/My Games/Sid Meier's Civilization V/cache/`. Now, making sure that the file type drop down is set to "All Files", select CIV5CoreDatabase.db. Select OK and you can now view the database contents.
 
-![](civ5_imgs/page12.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page12.jpg)
 
 The files in the cache folder are subject to getting deleted and replaced while the game is running so if you wish to make data changes, do so in the XML and not directly in this file.
 

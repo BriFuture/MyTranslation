@@ -54,7 +54,7 @@ by Derek "Kael" Paxton version 1.00
     - 做出你想玩的游戏
     - 避免设计缺陷
         * 多的危险
-        * 特点的危险
+        * 特色的危险
         * 模式的危险
         * 复杂性的危险
     - 制作模组的过程
@@ -68,10 +68,12 @@ by Derek "Kael" Paxton version 1.00
 ---------------
 
 > 注：
-> * Firaxis 是一家美国游戏开发公司，由 Sid Meier 创立。
-> * 《文明 5》是 Firaxs 开发的一款策略类游戏。
+> * Firaxis 是一家美国游戏开发公司，由 Sid Meier 创立。 -- 来自 Wikipedia
+> * 《文明 5》是由Firaxis Games负责开发，由2K Games出品的一款策略游戏。  -- 百度百科
 > * 由于该文档篇幅较长，翻译时，将其分为 1 个索引和 7 个部分。
-> * 另外，该教程已经有点过时了（在《文明 5》的 BNW 版本中，按照其中一些步骤所写的模组无法正常运行，将会在每一部分的结尾做出说明，因此运行自制的模组前请确保看完了那一部分的内容）。
+> * 另外，该教程已经有点过时了（在《文明 5》的 BNW 版本中，按照该教程中的一些步骤制作的模组无法正常运行，将会在每一部分的结尾做出说明，因此运行自制的模组前请确保看完了相应部分的内容）。
+> * 本文的翻译已经在《文明》[论坛中](https://forums.civfanatics.com/categories/civilization-v.385/)联系过 Kael 本人，得到了 Kael 的[肯定和支持](https://github.com/GitFuture/MyTranslation/tree/master/translated/civ5_imgs/civ5moddersguide_authorized.png)。
+> * 感谢“塞爱维&天邈”汉化团队做的汉化包，在翻译本教程中的一些专有名词时，参考了他们的汉化内容。
 
 -------------
 

@@ -1,6 +1,4 @@
-
-
-#### 如何改变艺术家的定义
+#### How to: Change The Unit Art Defines
 
 This document won't cover creating art assets for Civ5. Firaxis has an SDK tool called Nexus for that, but I am the wrong guy to cover it.
 
@@ -154,7 +152,7 @@ The only change to the above is highlighted in blue. The fScale of the unit was 
 
 One of the big advantages of switching from the larger formations to a single larger units is it leaves us with some unused unit art models. Before the barbarian unit formation was made up of three different unit models, Alpha, Bravo and Charlie. In our new barbarian formation we are using the Bravo model. So we have the Alpha model (which sports a cool deerskin antler headdress which is perfect for our Gaelic Warrior unit) available for use.
 
-![](civ5_imgs/page48.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page48.jpg)
 
 In the prior section, when we created our Gaelic Warrior we used the art definition of ART_DEF_UNIT_GAELIC_WARRIOR, now we need to add that definition to the UnitArtInfo.
 
@@ -174,11 +172,11 @@ In the prior section, when we created our Gaelic Warrior we used the art definit
 
 We don't need to change the UnitMemberArtInfo since that definition hasn't changed. Instead this tells the game to use the ART_DEF_UNIT_MEMBER_BARBARIAN_EURO_ALPHA model as a single unit formation when the ART_DEF_UNIT_GAELIC_WARRIOR definition is set.
 
-#### 如何添加建筑
+#### How to: Add A Building
 
 Buildings are easy to add to the game. In this example we will add a palisade as an early defensive building. The palisade won't require any techs, so it's available from the first turn, and can't be built in any era except the Ancient Era (during later eras player should be using walls, castles and other powerful defensive buildings).
 
-![](civ5_imgs/page49.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page49.jpg)
 
 To do this we only need to update three tables. The first is Buildings table from CIV5Buildings.xml. The following adds the Palisade building to the game:
 
@@ -245,7 +243,7 @@ And finally we need the text strings to support the building we added. There are
 
 That's it, a complete mod that adds a new building to the game, that is modular (can be used with other mods without compatibility issues) and can be created an published within 5-10 minutes.
 
-#### 如何修改建筑
+#### How to: Modify a Building
 
 Let's assume we want to change the way that some buildings work in the game. Currently a Granary adds food to the city it is in and Hospital's allow a city to carry over 50% of its food after a population increase.
 
@@ -355,17 +353,17 @@ We also need a few text strings to support this. We will need to add the new TXT
 
 Notice that the Granary string is a new string, as we added for other assets. But the Hospital string is an update operation, which we need to change the base text string to the new one.
 
-![](civ5_imgs/page52.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page52.jpg)
 
 The process covered in this section is as valid for leaders, units and other assets as it is for buildings. The `<Update>` element is an easy way for modders to change existing base game assets in a modular way.
 
-#### 如何移除资源
+#### How to: Remove a Resource
 
 Removing a resource is a good example of removing any referenced asset from Civ5. Resources are referenced by units, buildings, improvements, and other sources. So simply deleting the asset will cause errors or the game to crash.
 
 If we want to remove horses from the game (and it wasn't for these references) the following mod would work:
 
-![](civ5_imgs/page53.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page53.jpg)
 
 But when this mod is loaded the game crashes and we get the following errors in the Database.log file:
 
@@ -400,11 +398,11 @@ The problem is the existing references to non-existing Horses. Although the Data
 
 To do that I start in the "`<Civ5 install dir>\Assets\Gameplay\XML`" directory and do a search for RESOURCE_HORSE and select to have my search include file contents. Doing so gives me the following:
 
-![](civ5_imgs/page54.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page54.jpg)
 
 We don't need to worry about the text files. The text files are only string decodes, they don't reference anything. The fact that RESOURCE_HORSE exists in them is only part of a longer text string. That leaves us with: CIV5Units.xml, CIV5Buildings.xml, CIV5Resources.xml, CIV5Improvements.xml and Civ5Traits.xml.
 
-![](civ5_imgs/page54-2.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page54-2.jpg)
 
 My next step is to create xml files for each of the files I have to supply updates for. As stated in earlier sections, we could have all these changes in a single file and the folder and file names don't matter. I prefer to maintain Civ5's structure and filenames because it is easier for me to remember, but a single XML file called RemoveHorses.xml is just as valid.
 
@@ -412,7 +410,7 @@ Once we have the blank files we have to look through the original version to see
 
 A search of Civ5Buildings.xml shows two references to RESOURCE_HORSE. It is in the Building_LocalResourceAnds table for Stables, and in the Building_LocalResourceOrs table for the Circus. Both of these references will need to be removed by our mod before it will be able to load.
 
-![](civ5_imgs/page55.jpg)
+![](https://github.com/GitFuture/MyTranslation/blob/master/translated/civ5_imgs/page55.jpg)
 
 The following xml for our Mod's Civ5Buildings.xml will remove both of the references.
 
